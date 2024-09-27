@@ -47,5 +47,41 @@ Flask can be use for smaller microservices or lightweight APIs, but for a centra
 
 ## Frontend
 
+1.Set up project environment 
+- Language: HTML, CSS, and Java.
+- Separate CSS files for web (style.css) and mobile (mobile.css) to manage specific styles.
+- Clean project structure for future development.
+  
+2. Website Layout Design (Desktop First Approach)
+- Create a general structure for the webpage (header, navigation, main content area, footer).
+- Apply grid or flexbox for responsive layout.
+- Ensure navigation is styled and easy to use.
+  
+3. Mobile Layout Design (Mobile First Approach)
+-Use media queries to design layouts for different screen sizes (320px, 480px, etc.).
+-Design a mobile-friendly navigation menu (hamburger or collapsible).
+-Optimize touch areas for mobile interactions (e.g., buttons and links also various screen sizes)
+
+4. Typography and Colour Scheme (colour palettes for both web and mobile) Choose font families, sizes, and line spacing suitable for both platforms.
+- Define a colour palette for background, text, buttons, and links.
+- Ensure that the colours meet accessibility standards (contrast, legibility).
+
+5.Performance Optimization (code)
+- Minify CSS for both web and mobile.
+- Use browser-specific optimizations (I will use -webkit-, -moz- prefixes).
+- Optimize CSS load times by using asynchronous loading where possible.
+
+6. Cross-Browser Testing and Debugging (Ensure cross-browser compatibility)
+- Test your design on different browsers (Chrome, Firefox, Safari, Edge).
+- Use developer tools to debug layout issues.
+ - Fix any inconsistencies in design across browsers.
+
+7. Final QA and Adjustments
+- Conduct a final review of the design across all devices. (ask group, lectures)
+- Fix any remaining visual or performance issues.
+- Optimize the overall user experience by gathering feedback.
+
+
+
 
 ## Ai
