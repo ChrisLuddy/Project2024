@@ -1,5 +1,13 @@
 # Project2024
 ACT (Agentic Corporate Trader)
+# Project Readme File
+
+
+## Table of contents 
+- [Technologies]
+- [Backend]
+- [Frontend]
+- [Ai]
 
 ## Technologies
 
@@ -34,3 +42,10 @@ Django has a good secure, it is very important for a financial applications.
 Django’ssupport for asynchronous requests, it is very important for work with large amounts of data and market information.
 
 Flask can be use for smaller microservices or lightweight APIs, but for a centralized backend with complex features and high security needs, Django is the optimal choice.
+
+
+
+## Frontend
+
+
+## Ai
