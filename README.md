@@ -4,10 +4,10 @@ ACT (Agentic Corporate Trader)
 
 
 ## Table of contents 
-- [Technologies]
-- [Backend]
-- [Frontend]
-- [Ai]
+- [Technologies](#Technologies)
+- [Backend](#Backend)
+- [Frontend](#Frontend)
+- [Ai](#Ai)
 
 ## Technologies
 
