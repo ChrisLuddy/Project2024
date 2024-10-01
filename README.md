@@ -91,6 +91,29 @@ We will make hosting our backend by DigitalOcean Cloud with helping Student GitH
 
 
 ## Ai
+### crewAI - Framework for creating and managing AI agents
+
+crewAI will be used to create and manage AI agents that work together to accomplish complex tasks.
+
+Key Features:
+- Agent Creation: Define specialized AI agents for different roles within the trading system
+- Task Management: Coordinate tasks between agents for efficient workflow
+- Communication: Enable inter-agent communication for collaborative problem-solving
+- Integration: Seamlessly integrate with other AI tools and APIs
+
+### Groq API - For fast language model inference
+
+Groq API is utilized for fast inference in time-sensitive trading operations.
+
+Implementation:
+- Real-time Analysis: Process market data and news in real-time
+- Quick Decision Making: Generate rapid insights for trading strategies
+- Low-latency Responses: Ensure timely execution of trades
+
+### OpenAI API - For advanced language model capabilities
+
+- OpenAI API provides advanced language model capabilities for complex analysis and decision-making at fast inference.
+- Provides entrypoint for ollama driven local models for integration with langchain & crewAI.
 
 
 ## Product Backlog
