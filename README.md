@@ -87,7 +87,7 @@ Flask can be use for smaller microservices or lightweight APIs, but for a centra
 ## Ai
 ### crewAI - Framework for creating and managing AI agents
 
-crewAI is will be used to create and manage AI agents that work together to accomplish complex tasks.
+crewAI will be used to create and manage AI agents that work together to accomplish complex tasks.
 
 Key Features:
 - Agent Creation: Define specialized AI agents for different roles within the trading system
