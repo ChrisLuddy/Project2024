@@ -85,3 +85,44 @@ Flask can be use for smaller microservices or lightweight APIs, but for a centra
 
 
 ## Ai
+### crewAI - Framework for creating and managing AI agents
+
+crewAI is will be used to create and manage AI agents that work together to accomplish complex tasks.
+
+Key Features:
+- Agent Creation: Define specialized AI agents for different roles within the trading system
+- Task Management: Coordinate tasks between agents for efficient workflow
+- Communication: Enable inter-agent communication for collaborative problem-solving
+- Integration: Seamlessly integrate with other AI tools and APIs
+
+### Groq API - For fast language model inference
+
+Groq API is utilized for fast inference in time-sensitive trading operations.
+
+Implementation:
+- Real-time Analysis: Process market data and news in real-time
+- Quick Decision Making: Generate rapid insights for trading strategies
+- Low-latency Responses: Ensure timely execution of trades
+
+### OpenAI API - For advanced language model capabilities
+
+- OpenAI API provides advanced language model capabilities for complex analysis and decision-making at fast inference.
+- Provides entrypoint for ollama driven local models for integration with langchain & crewAI.
+
+
+### LangChain - For building applications with large language models
+
+LangChain is used to build applications with large language models, enhancing the project's AI capabilities.
+
+Components:
+- Prompt Templates: Create dynamic prompts for specific trading scenarios
+- Memory: Implement context retention for ongoing market analysis
+- Chains: Build sequences of operations for complex trading logic
+- Tools: Integrate external data sources and APIs
+
+### Web Scraping Frameworks (TBC) - For data collection and analysis
+
+Use Cases:
+- Market Sentiment Analysis: Analyze news and social media for market sentiment
+- Strategy Formulation: Generate and refine trading strategies
+- Risk Assessment: Evaluate potential risks in trading scenarios
