@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <!-- Meta tag specifying the character encoding for the document -->
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <!-- Meta tag for responsive design, sets the viewport to ensure proper scaling on various devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title of the webpage displayed in the browser tab -->
-    <title>ACT Web Application - Login</title> 
+    <title>ACT Web Application - Login</title>
     <!-- Link to the external CSS stylesheet for styling the login page -->
-    <link rel="stylesheet" href="ACT-Web-styles.css"> 
+    <link rel="stylesheet" href="ACT-Web-styles.css">
 </head>
 
 <body>
@@ -20,15 +20,15 @@
             <!-- Unordered list of navigation links -->
             <ul id="nav-links">
                 <!-- Link to the homepage -->
-                <li><a href="ACT-Homepage.html">Home</a></li> 
+                <li><a href="ACT-Homepage.html">Home</a></li>
                 <!-- Link to the login page -->
-                <li><a href="ACT-Login.html">Login</a></li> 
+                <li><a href="ACT-Login.html">Login</a></li>
                 <!-- Link to the registration page -->
-                <li><a href="ACT-Register.html">Register</a></li> 
+                <li><a href="ACT-Register.html">Register</a></li>
                 <!-- Link to the support page -->
-                <li><a href="ACT-Support.html">Support</a></li> 
+                <li><a href="ACT-Support.html">Support</a></li>
                 <!-- Link to the Fund Manager Welcome page, initially hidden -->
-                <li style="display: none;"><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li> 
+                <li style="display: none;"><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>
             </ul>
         </nav>
     </header>
@@ -37,30 +37,33 @@
     <section>
         <!-- Secondary heading for the login form -->
         <h2>Login</h2>
+        <img src="images/ACT-Login.png" alt="ACT Homepage Image" style="width: 100%; max-width: 600px; height: auto;">
+        <!-- Description for fund managers -->
+        <p>Fund managers can log in here to access their clients' records and manage client portfolios with ease.</p>
         <!-- Form element for user login -->
-        <form action="/login" method="POST"> 
+        <form action="/login" method="POST">
             <!-- Label for the email input field -->
             <label for="email">Email:</label>
             <!-- Input field for user email, required for form submission -->
-            <input type="email" id="email" name="email" required> 
+            <input type="email" id="email" name="email" required>
 
             <!-- Label for the password input field -->
             <label for="password">Password:</label>
             <!-- Input field for user password, required for form submission -->
-            <input type="password" id="password" name="password" required> 
+            <input type="password" id="password" name="password" required>
 
             <!-- Submit button for the login form -->
-            <button type="submit">Login</button> 
+            <button type="submit">Login</button>
         </form>
     </section>
 
     <!-- Footer section containing copyright information -->
     <footer>
         <!-- Copyright notice -->
-        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> 
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
     <!-- Link to the external JavaScript file for additional functionality -->
-    <script src="ACT-Web.js"></script> 
+    <script src="ACT-Web.js"></script>
 </body>
 </html>
