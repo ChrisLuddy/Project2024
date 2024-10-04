@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tag specifying the character encoding for the document -->
+    <meta charset="UTF-8"> 
+    <!-- Meta tag for responsive design, sets the viewport to ensure proper scaling on various devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Support</title> 
+    <!-- Link to the external CSS stylesheet for styling the support page -->
+    <link rel="stylesheet" href="ACT-Web-styles.css"> 
+</head>
 
+<body>
+    <!-- Header section containing navigation links -->
+    <header>
+        <nav>
+            <!-- Logo for the application displayed in the navigation bar -->
+            <div class="logo">ACT Web Application</div>
+            <!-- Unordered list of navigation links -->
+            <ul id="nav-links">
+                <!-- Link to the homepage -->
+                <li><a href="ACT-Homepage.html">Home</a></li> 
+                <!-- Link to the login page -->
+                <li><a href="ACT-Login.html">Login</a></li> 
+                <!-- Link to the registration page -->
+                <li><a href="ACT-Register.html">Register</a></li> 
+                <!-- Link to the support page (current page) -->
+                <li><a href="ACT-Support.html">Support</a></li> 
+                <!-- Link to the Fund Manager Welcome page, initially hidden -->
+                <li style="display: none;"><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main section for contacting support -->
+    <section id="support">
+        <!-- Secondary heading for the contact support form -->
+        <h2>Contact Support</h2>
+        <img src="images/ACT-Support.png" alt="ACT Homepage Image" style="width: 100%; max-width: 600px; height: auto;">
+        <!-- Form element for users to send a support message, action points to the contact support endpoint -->
+        <form action="/contact-support" method="POST"> 
+            <!-- Label for the email input field -->
+            <label for="email">Email:</label>
+            <!-- Input field for user email, required for form submission -->
+            <input type="email" id="email" name="email" required> 
+
+            <!-- Label for the message input field -->
+            <label for="message">Message:</label>
+            <!-- Textarea for user to write their message, required for form submission -->
+            <textarea id="message" name="message" required></textarea> 
+
+            <!-- Submit button for sending the support message -->
+            <button type="submit">Send</button> 
+        </form>
+    </section>
+
+    <!-- Footer section containing copyright information -->
+    <footer>
+        <!-- Copyright notice -->
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> 
+    </footer>
+
+    <!-- Link to the external JavaScript file for additional functionality -->
+    <script src="ACT-Web.js"></script> 
+</body>
+</html>
