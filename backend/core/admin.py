@@ -2,9 +2,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
 
-from django.contrib.auth.models import User as DefaultUser
-admin.site.unregister(DefaultUser)
-
 
 class CustomUserAdmin(UserAdmin):
     # Fields that will be displayed when creating a new user
