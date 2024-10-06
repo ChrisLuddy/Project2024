@@ -43,9 +43,12 @@ Django’ssupport for asynchronous requests, it is very important for work with 
 
 Flask can be use for smaller microservices or lightweight APIs, but for a centralized backend with complex features and high security needs, Django is the optimal choice.
 
-#### Deploy project
+#### Database Configuration
 
-We will make hosting our backend by DigitalOcean Cloud with helping Student GitHub Pack, and use Firebase by Google Cloud for Studends.
+In this project, we are using a combination of **SQLite** and **Firebase Firestore** for data management. 
+
+- **SQLite**: Used for Django's built-in system data (e.g., user authentication, admin panel, sessions other system-level data).
+- **Firebase Firestore**: Used for storing business logic data (e.g., assets, trades, user portfolios).
 
 
 ## Frontend
