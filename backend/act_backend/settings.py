@@ -9,15 +9,21 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
+import firebase_admin
+from firebase_admin import credentials
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# Path to Firebase credentials (located in the 'config' folder)
+FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', 'act-corporate-trader-firebase-adminsdk-uwhis-21e99a6344.json')
+
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
+firebase_admin.initialize_app(cred)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-2kbf%h^e#@=ppjc@&$p#$5me@gy*dt!*)oa^360fza+6rwro^f'
