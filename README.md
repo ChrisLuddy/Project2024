@@ -50,6 +50,98 @@ In this project, we are using a combination of **SQLite** and **Firebase Firesto
 - **SQLite**: Used for Django's built-in system data (e.g., user authentication, admin panel, sessions other system-level data).
 - **Firebase Firestore**: Used for storing business logic data (e.g., assets, trades, user portfolios).
 
+#### Backend Installation Guide
+
+To set up the backend of the ACT (Agentic Corporate Trader) project on your local machine, follow these steps:
+1. ***Clone the Repository***
+    ```bash
+    git clone https://github.com/your-repo/Project2024.git
+    cd Project2024/backend
+    ```
+2. ***Set Up Virtual Environment***
+    ```bash
+    # For Windows
+    python -m venv venv
+
+    # For Mac/Linux
+    python3 -m venv venv
+    ```
+3. ***Activate the virtual environment:***
+    ```bash
+    # For Windows
+    venv\Scripts\activate
+
+    # For Mac/Linux
+    source venv/bin/activate
+    ```
+4. ***Install Dependencies***
+    ```bash
+    pip install -r requirements.txt
+    ```
+5. ***Firebase Setup***
+    
+    The project uses Firebase as a database for specific assets and trade-related data. To integrate Firebase:
+
+    Go to the Firebase Console and download the Firebase Admin SDK credentials JSON file.
+    Place the downloaded JSON file in the config/ directory in the project root.
+    Ensure the path to the Firebase credentials file is correctly set in the settings.py file.
+    
+    Example path in settings.py:
+    ```python
+    FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', 'your-firebase-key.json')
+    ```
+6. ***Database Setup***
+    For local development, the project uses SQLite. If you are starting fresh or have unapplied migrations, run the following commands to apply migrations:
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+7. ***Create a Superuser***
+    To access the Django admin interface, you need to create a superuser:
+    ```bash
+    python manage.py createsuperuser
+    ```
+8. ***Running the Development Server***
+    ```bash
+    python manage.py runserver
+    ```
+    The backend will be available at http://127.0.0.1:8000/
+9. ***API Authentication***
+
+    The project uses JWT (JSON Web Tokens) for authentication. Before using the API, you need to add users with the roles **Fund Administrator** and **Fund Manager** through the Django admin interface:
+
+    1. Go to the admin panel at `http://127.0.0.1:8000/admin/`.
+    2. Log in using your superuser credentials.
+    3. Navigate to **CORE > Users** and add new users. You can assign them the roles **Fund Administrator** or **Fund Manager** as needed.
+    4. **Ensure** that the **is_staff** and **is_active** flags are checked for the users you create. This allows them to log in and interact with the system.
+    5. After creating the users, you can authenticate them via the API.
+
+    To obtain JWT tokens, send a POST request to:
+    ```bash
+    POST /api/token/
+    ```
+
+    With **Fund Administrator** or **Fund Manager** credentials in the request body:
+    ```json
+    {
+        "username": "username",
+        "password": "password"
+    }
+    ```
+
+    This will return access and refresh tokens, which are used to authenticate API requests. For example:
+    ```json
+    POST /api/token/
+    HTTP 200 OK
+    Allow: POST, OPTIONS
+    Content-Type: application/json
+    Vary: Accept
+
+    {
+        "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...hEdGfvcfWZk6mZa0ftLU3AOPyFDZHI",
+        "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC...-Rl2Tc57Kkp_MzuH0jxg0APRrDr9o9s"
+    }
+    ```
 
 ## Frontend
 
