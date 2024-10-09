@@ -4,14 +4,92 @@ ACT (Agentic Corporate Trader)
 
 
 ## Table of contents 
+- [Features of the website](#Features)
 - [Backend](#Backend)
+- [DatabaseConfiguration](#Database-Configuration)
+- [Backend Installation Guide](#Backend-Installation-Guide)
 - [Frontend](#Frontend)
 - [Ai](#Ai)
 - [Product Backlog](#product-backlog)
 
-### Backend
+### Features
+Features for the website:
+1. User Authentication and Access Control
+•	User Login/Logout
+•	Role-based Access Control
+•	Session Management
+•	Forgot Password/Reset Password
+2. Dashboard Overview
+•	Client Overview (total clients, account statuses)
+•	Market Overview (current stock/market prices/news Section)
+•	Recent Activities Log
+•	Graphical Analysis (performance graphs)
+3. Client Management
+•	Client Profiles (personal info, portfolio details)
+•	Client Search and Filter
+•	Client Communication (email or chat integration)
+•	Client Segmentation (by risk profile, investment goals)
+4. Portfolio Management
+•	View and Manage Portfolios
+•	Investment Strategy Settings
+•	Trade Execution (buy/sell functionality)
+•	Portfolio Performance Tracking
+•	Asset Allocation Management
+•	Risk Management Tools (risk exposure analysis)
+5. Market and Price Alerts
+•	Set Price/Performance Alerts
+•	Real-time Alert Notifications
+•	Watchlist Management
+6. Trading and Transaction Management
+•	Place Trades (stocks, crypto currencies)
+•	Order History
+•	Transaction Fees Tracking
+•	Support for Different Order Types (market, limit, stop-loss)
+•	Trade Execution Report
+7. Reporting and Analytics
+•	Generate Reports (portfolio performance, risk analysis)
+•	Customizable Reports
+•	Performance Benchmarks (S&P 500, Bitcoin etc.)
+•	Export Options (PDF, CSV, Excel)
+•	Data Visualization (charts, graphs)
+8. Financial Tools and Calculators
+•	Investment Calculators (portfolio growth, interest)
+•	Risk Assessment Tools
+•	Tax Calculation Tools
+9. Security Features
+•	Security (SSL/TLS Encryption)
+•	Multi-factor Authentication (MFA)
+•	Audit Logs
+10. User Interface (UI) and User Experience (UX)
+•	Responsive Design (mobile-friendly)
+•	Intuitive Layout
+•	Customizable Dashboard (Dark mode optional?)
+•	Loading States and Feedback
+•	Colour visuals 
+11. Integration with External APIs
+•	Market Data Integration (real-time stock prices)
+•	Banking Integration (deposits/withdrawals)
+•	CRM System Integration
+12. Support and Help Section
+•	Support Page (troubleshooting, help requests)
+•	FAQ Section
+•	User Guide (Guide for Navigation or a help page)
+13. Notifications System
+•	In-app Notifications
+•	Email Notifications
+14. Progressive Web App (PWA)
+•	Progressive Web App (PWA) Support
+15. Admin Panel (For Website Management)
+•	User Management (accounts, permissions)
+•	Content Management (static page updates)
+16. Verification and Regulatory Tools
+•	Customer Verification
+•	Trade Compliance with Local Regulations
+17. Backup and Disaster Recovery
+•	Regular Data Backup
+•	Disaster Recovery Plan (Database Backup files)
 
-#### Requirements
+### Requirements
 
 1. Django – The main framework for the backend.
 2. Django REST Framework – For building REST APIs.
@@ -43,14 +121,14 @@ Django’ssupport for asynchronous requests, it is very important for work with 
 
 Flask can be use for smaller microservices or lightweight APIs, but for a centralized backend with complex features and high security needs, Django is the optimal choice.
 
-#### Database Configuration
+### Database-Configuration
 
 In this project, we are using a combination of **SQLite** and **Firebase Firestore** for data management. 
 
 - **SQLite**: Used for Django's built-in system data (e.g., user authentication, admin panel, sessions other system-level data).
 - **Firebase Firestore**: Used for storing business logic data (e.g., assets, trades, user portfolios).
 
-#### Backend Installation Guide
+### Backend-Installation-Guide
 
 To set up the backend of the ACT (Agentic Corporate Trader) project on your local machine, follow these steps:
 1. ***Clone the Repository***
@@ -143,7 +221,7 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
     }
     ```
 
-## Frontend
+### Frontend
 
 1.Set up project environment 
 - Language: HTML, CSS, and Java.
@@ -182,7 +260,7 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
 
 
 
-## Ai
+### Ai
 ### crewAI - Framework for creating and managing AI agents
 
 crewAI will be used to create and manage AI agents that work together to accomplish complex tasks.
@@ -208,7 +286,7 @@ Implementation:
 - Provides entrypoint for ollama driven local models for integration with langchain & crewAI.
 
 
-## Product Backlog
+### Product Backlog
 **Please teams, improve this content, it's only sceleton.**
 
 Here's a product backlog by sprint breakdown for the "ACT (Agentic Corporate Trader)" project, aligned with the parallel development of frontend, backend, and AI.
@@ -233,8 +311,6 @@ Here's a product backlog by sprint breakdown for the "ACT (Agentic Corporate Tra
 | 10     | Mobile Layout Design: Design mobile-first approach   | Frontend Developers (2) | High        | 5 hours               | Responsive design for mobile                              |
 | 12     | AI Integration (Phase 2): Develop stock recommendations logic | AI Developer    | High        | 8 hours               | Connect models to analyze stocks/crypto and make recommendations |
 | 14     | Cross-Browser Testing: Test on different browsers    | Frontend Developers (2) | Medium      | 3 hours               | Ensure compatibility across browsers                      |
-
-### Sprint 3: Finalize Features and Testing
 
 ### Sprint 3: Finalize Features and Testing
 
