@@ -5,7 +5,6 @@ ACT (Agentic Corporate Trader)
 
 ## Table of contents 
 - [Features of the website](#Features)
-- [Backend](#Backend)
 - [DatabaseConfiguration](#Database-Configuration)
 - [Backend Installation Guide](#Backend-Installation-Guide)
 - [Frontend](#Frontend)
