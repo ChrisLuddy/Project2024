@@ -14,6 +14,10 @@ import firebase_admin
 from firebase_admin import credentials
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+
+# Загрузка переменных из .env файла
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -147,3 +151,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+YAHOO_FINANCE_API_KEY = os.getenv('RAPIDAPI_KEY')
+YAHOO_FINANCE_API_HOST = os.getenv('RAPIDAPI_HOST')
+ALPHA_VANTAGE_API_KEY = os.getenv('ALPHA_VANTAGE_API_KEY')
