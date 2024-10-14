@@ -4,14 +4,91 @@ ACT (Agentic Corporate Trader)
 
 
 ## Table of contents 
-- [Backend](#Backend)
+- [Features of the website](#Features)
+- [DatabaseConfiguration](#Database-Configuration)
+- [Backend Installation Guide](#Backend-Installation-Guide)
 - [Frontend](#Frontend)
 - [Ai](#Ai)
 - [Product Backlog](#product-backlog)
 
-### Backend
+### Features
+Features for the website:
+1. User Authentication and Access Control
+•	User Login/Logout
+•	Role-based Access Control
+•	Session Management
+•	Forgot Password/Reset Password
+2. Dashboard Overview
+•	Client Overview (total clients, account statuses)
+•	Market Overview (current stock/market prices/news Section)
+•	Recent Activities Log
+•	Graphical Analysis (performance graphs)
+3. Client Management
+•	Client Profiles (personal info, portfolio details)
+•	Client Search and Filter
+•	Client Communication (email or chat integration)
+•	Client Segmentation (by risk profile, investment goals)
+4. Portfolio Management
+•	View and Manage Portfolios
+•	Investment Strategy Settings
+•	Trade Execution (buy/sell functionality)
+•	Portfolio Performance Tracking
+•	Asset Allocation Management
+•	Risk Management Tools (risk exposure analysis)
+5. Market and Price Alerts
+•	Set Price/Performance Alerts
+•	Real-time Alert Notifications
+•	Watchlist Management
+6. Trading and Transaction Management
+•	Place Trades (stocks, crypto currencies)
+•	Order History
+•	Transaction Fees Tracking
+•	Support for Different Order Types (market, limit, stop-loss)
+•	Trade Execution Report
+7. Reporting and Analytics
+•	Generate Reports (portfolio performance, risk analysis)
+•	Customizable Reports
+•	Performance Benchmarks (S&P 500, Bitcoin etc.)
+•	Export Options (PDF, CSV, Excel)
+•	Data Visualization (charts, graphs)
+8. Financial Tools and Calculators
+•	Investment Calculators (portfolio growth, interest)
+•	Risk Assessment Tools
+•	Tax Calculation Tools
+9. Security Features
+•	Security (SSL/TLS Encryption)
+•	Multi-factor Authentication (MFA)
+•	Audit Logs
+10. User Interface (UI) and User Experience (UX)
+•	Responsive Design (mobile-friendly)
+•	Intuitive Layout
+•	Customizable Dashboard (Dark mode optional?)
+•	Loading States and Feedback
+•	Colour visuals 
+11. Integration with External APIs
+•	Market Data Integration (real-time stock prices)
+•	Banking Integration (deposits/withdrawals)
+•	CRM System Integration
+12. Support and Help Section
+•	Support Page (troubleshooting, help requests)
+•	FAQ Section
+•	User Guide (Guide for Navigation or a help page)
+13. Notifications System
+•	In-app Notifications
+•	Email Notifications
+14. Progressive Web App (PWA)
+•	Progressive Web App (PWA) Support
+15. Admin Panel (For Website Management)
+•	User Management (accounts, permissions)
+•	Content Management (static page updates)
+16. Verification and Regulatory Tools
+•	Customer Verification
+•	Trade Compliance with Local Regulations
+17. Backup and Disaster Recovery
+•	Regular Data Backup
+•	Disaster Recovery Plan (Database Backup files)
 
-#### Requirements
+### Requirements
 
 1. Django – The main framework for the backend.
 2. Django REST Framework – For building REST APIs.
@@ -43,14 +120,14 @@ Django’ssupport for asynchronous requests, it is very important for work with 
 
 Flask can be use for smaller microservices or lightweight APIs, but for a centralized backend with complex features and high security needs, Django is the optimal choice.
 
-#### Database Configuration
+### Database-Configuration
 
 In this project, we are using a combination of **SQLite** and **Firebase Firestore** for data management. 
 
 - **SQLite**: Used for Django's built-in system data (e.g., user authentication, admin panel, sessions other system-level data).
 - **Firebase Firestore**: Used for storing business logic data (e.g., assets, trades, user portfolios).
 
-#### Backend Installation Guide
+### Backend-Installation-Guide
 
 To set up the backend of the ACT (Agentic Corporate Trader) project on your local machine, follow these steps:
 1. ***Clone the Repository***
@@ -263,6 +340,126 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 }
 ```
 
+#### External APIs Integration
+
+In this project, we have integrated two external financial APIs: Yahoo Finance and Alpha Vantage. These APIs allow the application to retrieve real-time and historical market data for stocks and other financial instruments.
+
+1. ***Yahoo Finance API***
+
+The Yahoo Finance API provides real-time stock prices, market data, and other financial insights. We use this API to get information such as the current price of stocks, market sentiment, and trading volumes.
+
+**URL:** `/api/yahoo-finance/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `ticker`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
+- `type`: The type of asset (e.g., `STOCKS`).
+
+```bash
+curl -X GET 'http://127.0.0.1:8000/api/yahoo-finance/?ticker=AAPL&type=STOCKS'
+```
+
+**Example Response:**
+
+```json
+{
+    "meta": {
+        "version": "v1.0",
+        "status": 200,
+        "copywrite": "https://apicalls.io"
+    },
+    "body": {
+        "symbol": "AAPL",
+        "companyName": "Apple Inc. Common Stock",
+        "stockType": "Common Stock",
+        "exchange": "NASDAQ-GS",
+        "primaryData": {
+            "lastSalePrice": "$227.55",
+            "netChange": "-1.49",
+            "percentageChange": "-0.65%",
+            "deltaIndicator": "down",
+            "lastTradeTimestamp": "Oct 13, 2024",
+            "isRealTime": true,
+            "bidPrice": "N/A",
+            "askPrice": "N/A",
+            "bidSize": "N/A",
+            "askSize": "N/A",
+            "volume": "31,759,188",
+            "currency": null
+        },
+        "secondaryData": null,
+        "marketStatus": "Closed",
+        "assetClass": "STOCKS",
+        "keyStats": {
+            "fiftyTwoWeekHighLow": {
+                "label": "52 Week Range:",
+                "value": "164.08 - 237.23"
+            },
+            "dayrange": {
+                "label": "High/Low:",
+                "value": "NA"
+            }
+        }
+    }
+}
+```
+
+2. ***Alpha Vantage API***
+
+The Alpha Vantage API provides historical and real-time stock data, including daily time series, which shows the open, high, low, close prices, and volume for each day. This is particularly useful for performing technical analysis or retrieving historical trends of a stock.
+
+**URL:** `/api/alpha-vantage/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `symbol`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
+- `function`: The type of time series data (e.g., TIME_SERIES_DAILY).
+- `outputsize`: Data size, either compact (latest 100 data points) or full (all available data).
+
+```bash
+curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
+```
+
+**Example Response:**
+
+```json
+{
+    "Meta Data": {
+        "1. Information": "Daily Prices (open, high, low, close) and Volumes",
+        "2. Symbol": "IBM",
+        "3. Last Refreshed": "2024-10-11",
+        "4. Output Size": "Compact",
+        "5. Time Zone": "US/Eastern"
+    },
+    "Time Series (Daily)": {
+        "2024-10-11": {
+            "1. open": "233.2500",
+            "2. high": "233.4400",
+            "3. low": "230.4600",
+            "4. close": "233.2600",
+            "5. volume": "3469322"
+        },
+        "2024-10-10": {
+            "1. open": "235.1000",
+            "2. high": "235.8300",
+            "3. low": "231.8100",
+            "4. close": "233.0200",
+            "5. volume": "3142031"
+        },
+        ...
+        "2024-05-21": {
+            "1. open": "169.9400",
+            "2. high": "174.9700",
+            "3. low": "169.9400",
+            "4. close": "173.4700",
+            "5. volume": "6459800"
+        }
+    }
+}
+```
+
 ## Frontend
 
 1.Set up project environment 
@@ -302,7 +499,7 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 
 
 
-## Ai
+### Ai
 ### crewAI - Framework for creating and managing AI agents
 
 crewAI will be used to create and manage AI agents that work together to accomplish complex tasks.
@@ -328,7 +525,7 @@ Implementation:
 - Provides entrypoint for ollama driven local models for integration with langchain & crewAI.
 
 
-## Product Backlog
+### Product Backlog
 **Please teams, improve this content, it's only sceleton.**
 
 Here's a product backlog by sprint breakdown for the "ACT (Agentic Corporate Trader)" project, aligned with the parallel development of frontend, backend, and AI.
@@ -353,8 +550,6 @@ Here's a product backlog by sprint breakdown for the "ACT (Agentic Corporate Tra
 | 10     | Mobile Layout Design: Design mobile-first approach   | Frontend Developers (2) | High        | 5 hours               | Responsive design for mobile                              |
 | 12     | AI Integration (Phase 2): Develop stock recommendations logic | AI Developer    | High        | 8 hours               | Connect models to analyze stocks/crypto and make recommendations |
 | 14     | Cross-Browser Testing: Test on different browsers    | Frontend Developers (2) | Medium      | 3 hours               | Ensure compatibility across browsers                      |
-
-### Sprint 3: Finalize Features and Testing
 
 ### Sprint 3: Finalize Features and Testing
 
