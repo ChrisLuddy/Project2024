@@ -1,0 +1,202 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    background-color: #0073e6;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+/* Navigation Styling */
+nav {
+    background-color: #005bb5;
+    overflow: hidden;
+    display: flex; /* Ensures items are in a row */
+    justify-content: center; /* Centers the navigation items */
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+nav a:hover {
+    background-color: #004494;
+    color: #fff;
+}
+
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #005bb5;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+nav ul li a:hover {
+    background-color: #004494;
+}
+
+
+/* Main Content Styling */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+section {
+    padding: 20px;
+    text-align: center; /* Centering text in section */
+    max-width: 800px; /* Limit max width for better readability */
+    margin: 0 auto; /* Center the section */
+}
+
+section h2 {
+    color: #0073e6;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+
+
+section p {
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+section img {
+    margin-bottom: 1.5rem;
+    width: 50%;
+    max-width: 100%;
+    border-radius: 3px;
+}
+
+
+/* Form Styling */
+form {
+    max-width: 500px; /* Centering the form */
+    margin: 0 auto; /* Centering the form */
+    background-color: #fff; /* Form background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the form */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form label {
+    text-align: left;
+    color: #333;
+    font-weight: bold;
+}
+
+form input, form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+form button {
+    background-color: #0073e6;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #005bb5;
+}
+
+main h1 {
+    color: #0073e6;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+main p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #0073e6;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Button Styling */
+button, .btn {
+    background-color: #005bb5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover, .btn:hover {
+    background-color: #004494;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav a {
+        float: none;
+        width: 100%;
+        text-align: left;
+    }
+}
