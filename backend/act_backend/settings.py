@@ -25,14 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Path to Firebase credentials (located in the 'config' folder)
-FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', 'act-corporate-trader-firebase-adminsdk-uwhis-21e99a6344.json')
+FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', os.getenv('FIREBASE_CREDENTIALS_FILE'))
 
 # Initialize Firebase Admin SDK
 cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
 firebase_admin.initialize_app(cred)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2kbf%h^e#@=ppjc@&$p#$5me@gy*dt!*)oa^360fza+6rwro^f'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
