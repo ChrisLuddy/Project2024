@@ -128,8 +128,49 @@ In this project, we are using a combination of **SQLite** and **Firebase Firesto
 - **SQLite**: Used for Django's built-in system data (e.g., user authentication, admin panel, sessions other system-level data).
 - **Firebase Firestore**: Used for storing business logic data (e.g., assets, trades, user portfolios).
 
-### Backend-Installation-Guide
+### Backend
 
+#### Development Server on the DigitalOcean host
+
+The project is currently running on a development server accessible via the following address:
+
+```bash
+http://161.35.38.50:8000
+```
+
+You can access both the API and the Django Admin interface using this URL.
+
+- **Django Admin**: To access the admin panel, navigate to `/admin/` on the server URL (e.g., `http://161.35.38.50:8000/admin/`).
+
+- **API Endpoints**: The API can be accessed by using the following paths:
+
+  - **User Registration**: 
+    ```bash
+    POST http://161.35.38.50:8000/api/register/
+    ```
+
+  - **JWT Authentication**:
+    ```bash
+    POST http://161.35.38.50:8000/api/token/
+    ```
+
+  - **JWT Token Refresh**:
+    ```bash
+    POST http://161.35.38.50:8000/api/token/refresh/
+    ```
+
+  - **Yahoo Finance API**:
+    ```bash
+    GET http://161.35.38.50:8000/api/yahoo-finance/
+    ```
+
+  - **Alpha Vantage API**:
+    ```bash
+    GET http://161.35.38.50:8000/api/alpha-vantage/
+    ```
+
+
+#### Backend-Installation-Guide for local machine 
 To set up the backend of the ACT (Agentic Corporate Trader) project on your local machine, follow these steps:
 1. ***Clone the Repository***
     ```bash
@@ -184,10 +225,13 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
     python manage.py runserver
     ```
     The backend will be available at http://127.0.0.1:8000/
-9. ***Creating Fund Administrator or Fund Manager from admin panel***
+
+### Work in admin panel
+
+1) ***Creating Fund Administrator or Fund Manager from admin panel***
     You can to add users with the roles **Fund Administrator** and **Fund Manager** through the Django admin interface:
 
-    1. Go to the admin panel at `http://127.0.0.1:8000/admin/`.
+    1. Go to the admin panel at `{{url}}/admin/`.
     2. Log in using your superuser credentials.
     3. Navigate to **CORE > Users** and add new users. You can assign them the roles **Fund Administrator** or **Fund Manager** as needed.
     4. **Ensure** that the **is_staff** and **is_active** flags are checked for the users you create. This allows them to log in and interact with the system.
