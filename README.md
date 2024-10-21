@@ -184,9 +184,8 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
     python manage.py runserver
     ```
     The backend will be available at http://127.0.0.1:8000/
-9. ***API Authentication***
-
-    The project uses JWT (JSON Web Tokens) for authentication. Before using the API, you need to add users with the roles **Fund Administrator** and **Fund Manager** through the Django admin interface:
+9. ***Creating Fund Administrator or Fund Manager from admin panel***
+    You can to add users with the roles **Fund Administrator** and **Fund Manager** through the Django admin interface:
 
     1. Go to the admin panel at `http://127.0.0.1:8000/admin/`.
     2. Log in using your superuser credentials.
@@ -194,32 +193,92 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
     4. **Ensure** that the **is_staff** and **is_active** flags are checked for the users you create. This allows them to log in and interact with the system.
     5. After creating the users, you can authenticate them via the API.
 
-    To obtain JWT tokens, send a POST request to:
-    ```bash
-    POST /api/token/
-    ```
+### API
 
-    With **Fund Administrator** or **Fund Manager** credentials in the request body:
-    ```json
-    {
-        "username": "username",
-        "password": "password"
-    }
-    ```
+#### ***User Registration Endpoint***
+This endpoint allows for the registration of new users with specific roles, such as Fund Administrator or Fund Manager.
 
-    This will return access and refresh tokens, which are used to authenticate API requests. For example:
-    ```json
-    POST /api/token/
-    HTTP 200 OK
-    Allow: POST, OPTIONS
-    Content-Type: application/json
-    Vary: Accept
+To register a new user, send a POST request to:
+```bash
+POST /api/register/
+```
 
-    {
-        "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...hEdGfvcfWZk6mZa0ftLU3AOPyFDZHI",
-        "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC...-Rl2Tc57Kkp_MzuH0jxg0APRrDr9o9s"
-    }
-    ```
+With the following fields in the request body:
+```json
+{
+    "username": "admin_user",
+    "password": "securepassword123",
+    "role": "fund_admin"
+}
+```
+
+For example:
+```json
+POST /api/register/
+HTTP 201 Created
+Allow: POST, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "username": "admin_user",
+    "password": "securepassword123",
+    "role": "fund_admin"
+}
+```
+
+Example Responses: 
+
+1) Status: 201 Created
+
+```json
+{
+    "id": 1,
+    "username": "admin_user",
+    "role": "fund_admin",
+    "message": "User registered successfully!"
+}
+```
+
+2) Status: 400 Bad Request
+```json
+{
+  "error": "User already exists or invalid data"
+}
+```
+
+#### ***API Authentication***
+
+The project uses JWT (JSON Web Tokens) for authentication. 
+
+To obtain JWT tokens, send a POST request to:
+```bash
+POST /api/token/
+```
+
+With **Fund Administrator** or **Fund Manager** credentials in the request body:
+```json
+{
+    "username": "username",
+    "password": "password"
+}
+```
+
+This will return access and refresh tokens, which are used to authenticate API requests. 
+
+For example:
+```json
+POST /api/token/
+HTTP 200 OK
+Allow: POST, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...hEdGfvcfWZk6mZa0ftLU3AOPyFDZHI",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC...-Rl2Tc57Kkp_MzuH0jxg0APRrDr9o9s"
+}
+```
 
 
 ### External APIs Integration
