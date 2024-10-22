@@ -6,7 +6,9 @@ ACT (Agentic Corporate Trader)
 ## Table of contents 
 - [Features of the website](#features)
 - [Database Configuration](#database-configuration)
-- [Backend Installation Guide](#backend-installation-guide)
+- [Data Model Overview](#data-model-overview)
+- [Database Diagram](#database-diagram)
+- [Backend](#backend)
 - [External APIs Integration](#external-apis-integration)
 - [Frontend](#frontend)
 - [Ai](#ai)
@@ -127,6 +129,261 @@ In this project, we are using a combination of **SQLite** and **Firebase Firesto
 
 - **SQLite**: Used for Django's built-in system data (e.g., user authentication, admin panel, sessions other system-level data).
 - **Firebase Firestore**: Used for storing business logic data (e.g., assets, trades, user portfolios).
+
+
+## Data Model Overview
+
+The system is designed to manage funds and portfolios, allowing Fund Administrators and Fund Managers to create and manage orders for purchasing or selling technology stocks and crypto assets. These orders are processed and managed by the system, with real-time financial data (such as asset prices, trading volume, and financial news) fetched from external APIs.
+
+### 1. **User**
+The `User` entity represents the primary actors in the system. There are three roles:
+- **System Administrator**: manages the system and users.
+- **Fund Administrator**: manages only their own assets (funds and portfolios).
+- **Fund Manager**: manages assets for multiple client companies.
+
+#### Fields:
+- `id`: Unique identifier for the user.
+- `username`: The username for login.
+- `password`: Encrypted password for the user.
+- `role`: The role of the user (`system_admin`, `fund_admin`, `fund_manager`).
+
+#### Relationships:
+- A **Fund Administrator** manages multiple `Funds` and `Portfolios`.
+- A **Fund Manager** manages multiple `Clients`, each with their own `Funds` and `Portfolios`.
+
+### 2. **Client**
+The `Client` entity represents a company or organization whose assets are managed by a **Fund Manager**. Each client record contains information about the client and their assets.
+
+#### Fields:
+- `id`: Unique identifier for the client.
+- `name`: The name of the company or organization.
+- `fund_manager_id`: The ID of the `User` who acts as the **Fund Manager**.
+
+#### Relationships:
+- A `Client` has multiple `Funds`.
+
+### 3. **Fund**
+The `Fund` entity represents a pool of financial assets managed by a user. Depending on the user’s role, a fund may belong to either a **Fund Administrator** or a **Client**, managed by a **Fund Manager**.
+
+#### Fields:
+- `id`: Unique identifier for the fund.
+- `name`: The name of the fund.
+- `user_id`: The ID of the `User` (if the fund is managed by a **Fund Administrator**).
+- `client_id`: The ID of the `Client` (if the fund is managed by a **Fund Manager**).
+
+#### Relationships:
+- A `Fund` contains multiple `Portfolios`.
+
+### 4. **Portfolio**
+The `Portfolio` entity represents a collection of financial assets (stocks and cryptocurrencies) owned by a user or client.
+
+#### Fields:
+- `id`: Unique identifier for the portfolio.
+- `name`: The name of the portfolio.
+- `fund_id`: The ID of the `Fund` associated with the portfolio.
+
+#### Relationships:
+- A `Portfolio` contains multiple `Assets`.
+- A `Portfolio` has multiple `Orders`.
+
+### 5. **Asset**
+The `Asset` entity represents individual financial assets (stocks or crypto assets) within a portfolio. It tracks real-time financial data (such as price and volume) through external APIs like Yahoo Finance and Alpha Vantage.
+
+#### Fields:
+- `id`: Unique identifier for the asset.
+- `symbol`: Ticker symbol of the asset (e.g., `AAPL` for Apple).
+- `price`: Current market price of the asset, fetched from external APIs.
+- `volume`: The total market trading volume for the asset, fetched from external APIs (not related to the user's specific holdings).
+- `amount`: The quantity of the asset held in the portfolio by the user.
+- `last_updated`: Date and time of the last price and volume update.
+- `portfolio_id`: The ID of the portfolio containing the asset.
+
+#### Relationships:
+- An `Asset` belongs to one `Portfolio`.
+
+### 6. **Order**
+The `Order` entity represents financial actions (buying or selling) within a portfolio.
+
+#### Fields:
+- `id`: Unique identifier for the order.
+- `amount`: The quantity of the asset being traded.
+- `order_type`: The type of order, either:
+  - `buy`: A purchase of an asset.
+  - `sell`: A sale of an asset.
+- `portfolio_id`: The ID of the portfolio associated with the order.
+
+#### Relationships:
+- An `Order` is linked to one `Portfolio`.
+- An `Order` may be rated by one `Trade_Rating`.
+
+### 7. **Trade_Rating**
+The `Trade_Rating` entity represents a user’s evaluation or rating of a specific order, used to assess the performance of the trade.
+
+#### Fields:
+- `id`: Unique identifier for the rating.
+- `rating`: The score or evaluation of the order.
+- `order_id`: The ID of the associated order.
+
+#### Relationships:
+- A `Trade_Rating` is linked to one `Order`.
+
+### 8. **AI_Forecast**
+The `AI_Forecast` entity stores predictions or forecasts generated by the system’s AI model. These forecasts help users make informed decisions about their investments.
+
+#### Fields:
+- `id`: Unique identifier for the forecast.
+- `forecast`: The AI-generated prediction or advice.
+- `user_id`: The ID of the `User` who generated the forecast.
+
+#### Relationships:
+- An `AI_Forecast` is generated by one `User`.
+
+### 9. **Support_Request**
+The `Support_Request` entity allows users to submit inquiries or issues requiring assistance. This can be related to technical or account-related problems.
+
+#### Fields:
+- `id`: Unique identifier for the support request.
+- `request`: The content of the support request.
+- `user_id`: The ID of the `User` who submitted the request.
+
+#### Relationships:
+- A `Support_Request` is submitted by one `User`.
+
+### Integration with External APIs
+- **Yahoo Finance API** and **Alpha Vantage API** are integrated to fetch real-time data such as stock prices, trading volume, and financial news. The system regularly updates this data to ensure accurate information is available to users.
+- **Stock Prices and Volume**: The `Asset` entity uses real-time price data from external APIs to keep portfolios up to date. Each order records the volume of traded assets.
+- **Financial News**: The system can display relevant financial news related to assets using Yahoo Finance, allowing users to stay informed about events that may impact their investments.
+
+---
+
+### Integration with External APIs:
+
+- **Yahoo Finance API** and **Alpha Vantage API** are used to fetch real-time data for investments, including stock prices, trading volume, and **financial news**. These APIs keep the system updated with real-world data that allows Fund Managers and Administrators to make well-informed decisions.
+  
+- **Financial News**: By integrating with the Yahoo Finance API, the system can display relevant financial news related to a user’s investments, helping them stay informed of market events that could impact their assets.
+
+--- 
+
+### Database Diagram
+
+The ACT system's database structure represents the relationships between key entities such as Users, Clients, Funds, Portfolios, and financial Assets. Below is a summary of the database structure, which includes managing orders, tracking assets, work with AI, and integrating with external APIs for real-time financial data.
+
+### Key Entities:
+
+- **User**: Represents system actors, including Fund Administrators, Fund Managers, and System Administrators.
+- **Client**: A company or organization whose assets are managed by a Fund Manager.
+- **Fund**: A collection of assets managed by a User (either a Fund Administrator or Client managed by a Fund Manager).
+- **Portfolio**: A collection of assets within a fund, managed by a User or Client.
+- **Asset**: Financial assets (stocks or crypto) tracked within a portfolio, with real-time data fetched from external APIs.
+- **Order**: Represents buy or sell transactions within a portfolio.
+- **Trade Rating**: User's evaluation of an order's performance.
+- **AI Forecast**: Predictive financial insights generated by the AI engine.
+- **Support Request**: A user's inquiry for technical or account-related issues requiring assistance.
+
+### Relationships:
+
+- A **User** manages multiple **Funds** and **Portfolios**.
+- A **Fund** contains multiple **Portfolios**.
+- A **Portfolio** contains multiple **Assets** and **Orders**.
+- Each **Order** may be rated by one **Trade Rating**.
+- **AI Forecasts** are generated by **Users**.
+- **Support Requests** are submitted by **Users**.
+
+### Key Relationships Explained:
+
+- **User and Fund**: A user can manage multiple funds. For example, a **Fund Manager** could oversee various funds belonging to different clients.
+- **User and Portfolio**: Each **User** can own multiple portfolios, especially **Fund Administrators** who are handling their own investments.
+- **Client and Fund**: A **Client** can have multiple funds managed on their behalf by a **Fund Manager**.
+- **Portfolio and Asset**: Each portfolio contains several assets, representing individual stocks or crypto assets that the user has invested in.
+- **Order and Portfolio**: Users can create multiple orders (buy or sell) for assets within their portfolios.
+- **Order and Trade Rating**: Each order can be rated based on the performance of the trade.
+- **AI Forecast**: Generated by the AI engine to assist users in making informed investment decisions.
+- **Support Request**: Users can submit support requests if they require assistance with their portfolios or technical issues.
+
+![Database Diagram](/database-diagram.png)
+
+[Diagram Code in PlantUML](https://www.plantuml.com/plantuml/uml/):
+
+```txt
+@startuml
+class User {
+  +id: int
+  +username: string
+  +password: string
+  +role: string
+}
+
+class Client {
+  +id: int
+  +name: string
+  +fund_manager_id: int
+}
+
+class Fund {
+  +id: int
+  +name: string
+  +user_id: int
+  +client_id: int
+}
+
+class Portfolio {
+  +id: int
+  +name: string
+  +fund_id: int
+}
+
+class Asset {
+  +id: int
+  +symbol: string
+  +price: float
+  +volume: int
+  +amount: float
+  +last_updated: datetime
+  +portfolio_id: int
+}
+
+class Order {
+  +id: int
+  +amount: float
+  +order_type: string
+  +portfolio_id: int
+}
+
+class Trade_Rating {
+  +id: int
+  +rating: float
+  +order_id: int
+}
+
+class AI_Forecast {
+  +id: int
+  +forecast: string
+  +user_id: int
+}
+
+class Support_Request {
+  +id: int
+  +request: string
+  +user_id: int
+}
+
+' Relationships
+User "1" -- "many" Fund : manages
+User "1" -- "many" Portfolio : owns
+User "1" -- "many" AI_Forecast : generates
+User "1" -- "many" Support_Request : submits
+
+Client "1" -- "many" Fund : manages
+
+Fund "1" -- "many" Portfolio : contains
+Portfolio "1" -- "many" Asset : contains
+Portfolio "1" -- "many" Order : has
+
+Order "1" -- "1" Trade_Rating : rated by
+
+@enduml
+
+```
 
 ### Backend
 
