@@ -707,40 +707,76 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 
 ## Frontend
 
-1.Set up project environment 
-- Language: HTML, CSS, and Java.
-- Separate CSS files for web (style.css) and mobile (mobile.css) to manage specific styles.
-- Clean project structure for future development.
-  
-2. Website Layout Design (Desktop First Approach)
-- Create a general structure for the webpage (header, navigation, main content area, footer).
-- Apply grid or flexbox for responsive layout.
-- Ensure navigation is styled and easy to use.
-  
-3. Mobile Layout Design (Mobile First Approach)
--Use media queries to design layouts for different screen sizes (320px, 480px, etc.).
--Design a mobile-friendly navigation menu (hamburger or collapsible).
--Optimize touch areas for mobile interactions (e.g., buttons and links also various screen sizes)
+1. Set up project environment
 
-4. Typography and Colour Scheme (colour palettes for both web and mobile) Choose font families, sizes, and line spacing suitable for both platforms.
-- Define a colour palette for background, text, buttons, and links.
-- Ensure that the colours meet accessibility standards (contrast, legibility).
+   - Languages: HTML, CSS, and JavaScript.
+   - File Structure:
+     - Separate CSS files for web (style.css) and mobile (mobile.css) to manage specific styles for different platforms.
+     - JavaScript will be used for dynamic interactions and API integration.
+     - Maintain a clean and scalable project structure for future development, ensuring easy modification and feature expansion.
 
-5.Performance Optimization (code)
-- Minify CSS for both web and mobile.
-- Use browser-specific optimizations (I will use -webkit-, -moz- prefixes).
-- Optimize CSS load times by using asynchronous loading where possible.
+2. Website Layout Design (Desktop-First Approach)
 
-6. Cross-Browser Testing and Debugging (Ensure cross-browser compatibility)
-- Test your design on different browsers (Chrome, Firefox, Safari, Edge).
-- Use developer tools to debug layout issues.
- - Fix any inconsistencies in design across browsers.
+   - General Structure:
+     - Create a basic structure for the webpage that includes a header, navigation, main content area, and footer.
+     - Apply CSS Grid or Flexbox for a responsive and flexible layout.
+     - Ensure that the navigation bar is well-styled and intuitive, providing clear paths for users to access different parts of the application.
+   - Responsive Design:
+     - Initially focus on the desktop layout to ensure the design works well on larger screens.
+     - Implement a clean and minimalistic approach with proper spacing, alignment, and structure, making sure it's easy to scale down for mobile screens later.
+
+3. Mobile Layout Design (Mobile-First Approach)
+
+   - Media Queries:
+     - Use media queries to design layouts for various screen sizes (e.g., 320px, 480px, 768px). This ensures the site is optimized for both mobile and desktop devices.
+     - Focus on smaller screens first and build up, applying different breakpoints for fluid responsiveness.
+   - Mobile-Friendly Navigation:
+     - Create a hamburger menu or collapsible menu for mobile users. This ensures the navigation bar adapts smoothly to different screen sizes.
+     - Optimize interactive areas such as buttons, icons, and touchable links for mobile users. Ensure sufficient spacing for easy interaction, especially on touch devices.
+
+4. Typography and Colour Scheme
+
+   - Typography:
+     - Choose font families and sizes that work well across both web and mobile platforms, ensuring readability on all screen sizes.
+     - Adjust line spacing and text alignment based on screen size to maintain clean readability across devices.
+   - Colour Palette:
+     - Define a consistent colour scheme for background, text, buttons, and links. Create separate palettes for both web and mobile to ensure visual consistency across platforms.
+     - Ensure that colour choices comply with accessibility standards by testing the contrast ratio and legibility of text against backgrounds, particularly for users with visual impairments.
+
+5. Performance Optimization
+
+   - CSS Optimization:
+     - Minify CSS files for both web (style.css) and mobile (mobile.css) to reduce file size and improve page load times.
+     - Use browser-specific optimizations by applying vendor prefixes (e.g., -webkit-, -moz-, -o-) to ensure CSS properties work consistently across different browsers.
+   - Load Optimization:
+     - Implement asynchronous loading for CSS files where applicable to ensure that styles are loaded in a non-blocking manner, enhancing the user experience by reducing render-blocking issues.
+
+6. Cross-Browser Testing and Debugging
+
+   - Browser Testing:
+     - Test the website's layout and functionality across all major browsers, including Chrome, Firefox, Safari, and Edge, ensuring that the design and interactions work consistently.
+   - Debugging Tools:
+     - Use browser-specific developer tools (e.g., Chrome DevTools, Firefox Inspector) to troubleshoot any layout or JavaScript issues.
+     - Debug and fix any inconsistencies in the design, such as padding, margin, and alignment issues, across different browsers.
 
 7. Final QA and Adjustments
-- Conduct a final review of the design across all devices. (ask group, lectures)
-- Fix any remaining visual or performance issues.
-- Optimize the overall user experience by gathering feedback.
 
+   - Comprehensive Testing:
+     - Perform a final review of the design and functionality across all devices (desktop, mobile, tablet). Use feedback from the team, lecturers, or external testers to ensure the site performs well in various scenarios.
+   - Issue Resolution:
+     - Address any remaining visual or performance issues before final deployment.
+   - User Experience Optimization:
+     - Gather user feedback to improve the overall user experience, ensuring the interface is intuitive, fast, and responsive.
+
+8. Integration with Backend APIs
+
+   - Use JavaScript to integrate with the backend APIs (built using Django) for dynamic content rendering, such as user authentication, stock portfolio management, and real-time data fetching.
+   - Ensure seamless communication between the frontend and backend, including error handling for API calls, smooth data flow, and fast response times.
+
+9. AI Data Visualization Integration
+
+   - Plan for the integration of AI-powered stock price predictions into the frontend interface in later stages.
+   - Ensure the layout is flexible enough to accommodate charts, tables, or graphs that will visualize stock trends and market predictions based on the AI model developed in subsequent sprints.
 
 
 
