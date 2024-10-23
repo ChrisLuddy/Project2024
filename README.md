@@ -732,7 +732,7 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
      - Focus on smaller screens first and build up, applying different breakpoints for fluid responsiveness.
    - Mobile-Friendly Navigation:
      - Create a hamburger menu or collapsible menu for mobile users. This ensures the navigation bar adapts smoothly to different screen sizes.
-     - Optimize interactive areas such as buttons, icons, and touchable links for mobile users. Ensure sufficient spacing for easy interaction, especially on touch devices.
+     - Optimize interactive areas such as buttons, icons, and touchable links for mobile users. Ensure sufficient spacing for easy interaction, especially on touch devices..
 
 4. Typography and Colour Scheme
 
@@ -762,7 +762,7 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 7. Final QA and Adjustments
 
    - Comprehensive Testing:
-     - Perform a final review of the design and functionality across all devices (desktop, mobile, tablet). Use feedback from the team, lecturers, or external testers to ensure the site performs well in various scenarios.
+     - Perform a final review of the design and functionality across all devices (desktop, mobile, tablet). Use feedback from the team or lecturers to ensure the site performs well in various scenarios.
    - Issue Resolution:
      - Address any remaining visual or performance issues before final deployment.
    - User Experience Optimization:
@@ -776,7 +776,7 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 9. AI Data Visualization Integration
 
    - Plan for the integration of AI-powered stock price predictions into the frontend interface in later stages.
-   - Ensure the layout is flexible enough to accommodate charts, tables, or graphs that will visualize stock trends and market predictions based on the AI model developed in subsequent sprints.
+   - Ensure the layout is flexible enough to accommodate charts, tables, or graphs that will visualize stock trends and market predictions based on the AI model.
 
 
 
