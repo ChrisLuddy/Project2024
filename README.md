@@ -782,28 +782,167 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 ### CSS
 
 **- General Body Styling**
+
+```CSS
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+```
   
 .Font & Colors: Sets a basic font family of Arial, a common sans-serif font, for readability across devices. Background color (#ffffff) and text color (#333) are chosen for a high contrast, enhancing readability.
 .Margins & Padding: By setting these to 0, it removes any default spacing, allowing for more control over layout spacing.
 
 **- Header Styling**
+
+```CSS
+header {
+    background-color: #0073e6;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+```
   
 .Color & Text Styling: The header has a bold blue background (#0073e6) and white text to make it prominent. The large font size and bold styling indicate its importance as a key site element.
 .Centering Text: Text is centered for a balanced, visually pleasing look.
 
 **- Navigation Styling**
+
+```CSS
+nav {
+    background-color: #005bb5;
+    overflow: hidden;
+    display: flex; /* Ensures items are in a row */
+    justify-content: center; /* Centers the navigation items */
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+nav a:hover {
+    background-color: #004494;
+    color: #fff;
+}
+
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #005bb5;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+nav ul li a:hover {
+    background-color: #004494;
+}
+```
   
 .Responsive Flex Layout: The navigation bar is styled with flex to align items in a row, providing easy access to navigation links. Centering (justify-content: center) ensures that links are balanced and intuitively placed.
 .Link Colors & Hover Effects: Links are white on a dark blue background, ensuring readability. The hover effect slightly darkens the background (#004494), providing feedback to users when they interact with a link.
 .List Item Styling: nav ul li items are spaced out with margin-right, ensuring sufficient space between links for easy clickability on desktop screens. Last items have no right margin to align with the container’s edge.
 
 **- Main Content Styling**
+
+```CSS
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+main h1 {
+    color: #0073e6;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+main p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+```
   
 .Section Text Centering & Max Width: The main content section uses centered text and a max width (800px) to keep line lengths manageable for reading.
 .Headings and Text Colors: Blue (#0073e6) heading colors and light grey text (#666) help distinguish section titles and paragraphs, adding visual hierarchy.
 .Image Styling: Section images are set to 50% width, keeping them adaptable to different screen sizes. The rounded corners add a modern, friendly appearance.
 
 **- Form Styling**
+
+```CSS
+form {
+    max-width: 500px; /* Centering the form */
+    margin: 0 auto; /* Centering the form */
+    background-color: #fff; /* Form background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the form */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form label {
+    text-align: left;
+    color: #333;
+    font-weight: bold;
+}
+
+form input, form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+form button {
+    background-color: #0073e6;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #005bb5;
+}
+```
   
 .Centering & Box Shadow: The form is centered and has a box shadow for depth, visually separating it from the rest of the page.
 .Form Inputs: Text inputs and text areas are padded and have rounded borders, improving usability and aesthetics.
@@ -811,13 +950,55 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 
 **- Footer Styling**
 
+```CSS
+footer {
+    background-color: #0073e6;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+```
+
 .Fixed Positioning: The footer is styled to stay at the bottom of the page, with a consistent background color (#0073e6) and white text. It’s small enough to avoid obstructing content but provides easy access to footer information.
 
 **- Button Styling**
+```CSS
+button, .btn {
+    background-color: #005bb5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover, .btn:hover {
+    background-color: #004494;
+}
+```
   
 .Consistent Button Design: All buttons share a similar blue background and white text with rounded borders, giving them a cohesive look. The color change on hover provides feedback, improving interaction experience.
 
 **- Responsive Design**
+
+```CSS
+@media (max-width: 768px) {
+    nav a {
+        float: none;
+        width: 100%;
+        text-align: left;
+    }
+}
+```
 
 .Mobile Navigation: At widths below 768px, navigation links take up the full width and are aligned to the left for easier tapping on mobile screens. This approach maintains usability across devices.
 
