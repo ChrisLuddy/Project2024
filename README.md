@@ -11,6 +11,7 @@ ACT (Agentic Corporate Trader)
 - [Backend](#backend)
 - [External APIs Integration](#external-apis-integration)
 - [Frontend](#frontend)
+- [css](#css)
 - [Ai](#ai)
 - [Product Backlog](#product-backlog)
 
