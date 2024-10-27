@@ -779,6 +779,55 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
    - Ensure the layout is flexible enough to accommodate charts, tables, or graphs that will visualize stock trends and market predictions based on the AI model.
 
 
+### CSS
+
+**- General Body Styling**
+  
+.Font & Colors: Sets a basic font family of Arial, a common sans-serif font, for readability across devices. Background color (#ffffff) and text color (#333) are chosen for a high contrast, enhancing readability.
+.Margins & Padding: By setting these to 0, it removes any default spacing, allowing for more control over layout spacing.
+
+**- Header Styling**
+  
+.Color & Text Styling: The header has a bold blue background (#0073e6) and white text to make it prominent. The large font size and bold styling indicate its importance as a key site element.
+.Centering Text: Text is centered for a balanced, visually pleasing look.
+
+**- Navigation Styling**
+  
+.Responsive Flex Layout: The navigation bar is styled with flex to align items in a row, providing easy access to navigation links. Centering (justify-content: center) ensures that links are balanced and intuitively placed.
+.Link Colors & Hover Effects: Links are white on a dark blue background, ensuring readability. The hover effect slightly darkens the background (#004494), providing feedback to users when they interact with a link.
+.List Item Styling: nav ul li items are spaced out with margin-right, ensuring sufficient space between links for easy clickability on desktop screens. Last items have no right margin to align with the container’s edge.
+
+**- Main Content Styling**
+  
+.Section Text Centering & Max Width: The main content section uses centered text and a max width (800px) to keep line lengths manageable for reading.
+.Headings and Text Colors: Blue (#0073e6) heading colors and light grey text (#666) help distinguish section titles and paragraphs, adding visual hierarchy.
+.Image Styling: Section images are set to 50% width, keeping them adaptable to different screen sizes. The rounded corners add a modern, friendly appearance.
+
+**- Form Styling**
+  
+.Centering & Box Shadow: The form is centered and has a box shadow for depth, visually separating it from the rest of the page.
+.Form Inputs: Text inputs and text areas are padded and have rounded borders, improving usability and aesthetics.
+.Form Button: The button color (#0073e6) matches the overall theme. The hover effect on buttons gives a clear, interactive feel, enhancing user feedback.
+
+**- Footer Styling**
+
+.Fixed Positioning: The footer is styled to stay at the bottom of the page, with a consistent background color (#0073e6) and white text. It’s small enough to avoid obstructing content but provides easy access to footer information.
+
+**- Button Styling**
+  
+.Consistent Button Design: All buttons share a similar blue background and white text with rounded borders, giving them a cohesive look. The color change on hover provides feedback, improving interaction experience.
+
+**- Responsive Design**
+
+.Mobile Navigation: At widths below 768px, navigation links take up the full width and are aligned to the left for easier tapping on mobile screens. This approach maintains usability across devices.
+
+**- Overall User Friendliness**
+
+.Color and Spacing: Consistent colors across sections enhance brand cohesion. Spacing and padding make elements easily clickable and visually distinct.
+.Intuitive Interactivity: Hover effects and clearly defined buttons guide users in navigating the website.
+.Responsive Adjustments: Adaptable layouts ensure the design remains accessible and legible on both desktop and mobile, optimizing user experience across all screen sizes.
+
+This code enhances user-friendliness by creating a visually cohesive, responsive design that is easy to navigate and interact with, whether on desktop or mobile.
 
 ### Ai
 ### crewAI - Framework for creating and managing AI agents
