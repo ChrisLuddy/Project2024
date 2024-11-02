@@ -35,13 +35,14 @@ class AI_Crew:
         researcher = Agent(
             role="Researcher",
             goal="Research a particular stock and provide insightful information.",
+
             backstory="You are meticulous and dive deep into the stock market to gather detailed information.",
             llm=self._get_llm("Researcher")
         )
 
         accountant = Agent(
             role="Accountant",
-            goal="Calculate various accounting ratios based on provided financial data.",
+            goal="Calculate various accounting ratios based on provided financial data using CalculatorTool. Output the names of the variables seperately outside of tool input",
             tools=[CalculatorTool()],
             backstory="You love crunching numbers and deriving meaningful insights from financial statements.",
             llm=self._get_llm("Accountant")
@@ -49,7 +50,7 @@ class AI_Crew:
 
         recommender = Agent(
             role="Recommender",
-            goal="Analyze financial data and provide a buy, sell, or hold recommendation.",
+            goal="Analyze financial data and provide buy, sell, or hold recommendations.",
             backstory="You enjoy making tough decisions and providing clear investment advice.",
             llm=self._get_llm("Recommender")
         )

@@ -11,6 +11,7 @@ ACT (Agentic Corporate Trader)
 - [Backend](#backend)
 - [External APIs Integration](#external-apis-integration)
 - [Frontend](#frontend)
+- [css](#css)
 - [Ai](#ai)
 - [Product Backlog](#product-backlog)
 
@@ -707,42 +708,308 @@ curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
 
 ## Frontend
 
-1.Set up project environment 
-- Language: HTML, CSS, and Java.
-- Separate CSS files for web (style.css) and mobile (mobile.css) to manage specific styles.
-- Clean project structure for future development.
-  
-2. Website Layout Design (Desktop First Approach)
-- Create a general structure for the webpage (header, navigation, main content area, footer).
-- Apply grid or flexbox for responsive layout.
-- Ensure navigation is styled and easy to use.
-  
-3. Mobile Layout Design (Mobile First Approach)
--Use media queries to design layouts for different screen sizes (320px, 480px, etc.).
--Design a mobile-friendly navigation menu (hamburger or collapsible).
--Optimize touch areas for mobile interactions (e.g., buttons and links also various screen sizes)
+1. Set up project environment
 
-4. Typography and Colour Scheme (colour palettes for both web and mobile) Choose font families, sizes, and line spacing suitable for both platforms.
-- Define a colour palette for background, text, buttons, and links.
-- Ensure that the colours meet accessibility standards (contrast, legibility).
+   - Languages: HTML, CSS, and JavaScript.
+   - File Structure:
+     - Separate CSS files for web (style.css) and mobile (mobile.css) to manage specific styles for different platforms.
+     - JavaScript will be used for dynamic interactions and API integration.
+     - Maintain a clean and scalable project structure for future development, ensuring easy modification and feature expansion.
 
-5.Performance Optimization (code)
-- Minify CSS for both web and mobile.
-- Use browser-specific optimizations (I will use -webkit-, -moz- prefixes).
-- Optimize CSS load times by using asynchronous loading where possible.
+2. Website Layout Design (Desktop-First Approach)
 
-6. Cross-Browser Testing and Debugging (Ensure cross-browser compatibility)
-- Test your design on different browsers (Chrome, Firefox, Safari, Edge).
-- Use developer tools to debug layout issues.
- - Fix any inconsistencies in design across browsers.
+   - General Structure:
+     - Create a basic structure for the webpage that includes a header, navigation, main content area, and footer.
+     - Apply CSS Grid or Flexbox for a responsive and flexible layout.
+     - Ensure that the navigation bar is well-styled and intuitive, providing clear paths for users to access different parts of the application.
+   - Responsive Design:
+     - Initially focus on the desktop layout to ensure the design works well on larger screens.
+     - Implement a clean and minimalistic approach with proper spacing, alignment, and structure, making sure it's easy to scale down for mobile screens later.
+
+3. Mobile Layout Design (Mobile-First Approach)
+
+   - Media Queries:
+     - Use media queries to design layouts for various screen sizes (e.g., 320px, 480px, 768px). This ensures the site is optimized for both mobile and desktop devices.
+     - Focus on smaller screens first and build up, applying different breakpoints for fluid responsiveness.
+   - Mobile-Friendly Navigation:
+     - Create a hamburger menu or collapsible menu for mobile users. This ensures the navigation bar adapts smoothly to different screen sizes.
+     - Optimize interactive areas such as buttons, icons, and touchable links for mobile users. Ensure sufficient spacing for easy interaction, especially on touch devices..
+
+4. Typography and Colour Scheme
+
+   - Typography:
+     - Choose font families and sizes that work well across both web and mobile platforms, ensuring readability on all screen sizes.
+     - Adjust line spacing and text alignment based on screen size to maintain clean readability across devices.
+   - Colour Palette:
+     - Define a consistent colour scheme for background, text, buttons, and links. Create separate palettes for both web and mobile to ensure visual consistency across platforms.
+     - Ensure that colour choices comply with accessibility standards by testing the contrast ratio and legibility of text against backgrounds, particularly for users with visual impairments.
+
+5. Performance Optimization
+
+   - CSS Optimization:
+     - Minify CSS files for both web (style.css) and mobile (mobile.css) to reduce file size and improve page load times.
+     - Use browser-specific optimizations by applying vendor prefixes (e.g., -webkit-, -moz-, -o-) to ensure CSS properties work consistently across different browsers.
+   - Load Optimization:
+     - Implement asynchronous loading for CSS files where applicable to ensure that styles are loaded in a non-blocking manner, enhancing the user experience by reducing render-blocking issues.
+
+6. Cross-Browser Testing and Debugging
+
+   - Browser Testing:
+     - Test the website's layout and functionality across all major browsers, including Chrome, Firefox, Safari, and Edge, ensuring that the design and interactions work consistently.
+   - Debugging Tools:
+     - Use browser-specific developer tools (e.g., Chrome DevTools, Firefox Inspector) to troubleshoot any layout or JavaScript issues.
+     - Debug and fix any inconsistencies in the design, such as padding, margin, and alignment issues, across different browsers.
 
 7. Final QA and Adjustments
-- Conduct a final review of the design across all devices. (ask group, lectures)
-- Fix any remaining visual or performance issues.
-- Optimize the overall user experience by gathering feedback.
+
+   - Comprehensive Testing:
+     - Perform a final review of the design and functionality across all devices (desktop, mobile, tablet). Use feedback from the team or lecturers to ensure the site performs well in various scenarios.
+   - Issue Resolution:
+     - Address any remaining visual or performance issues before final deployment.
+   - User Experience Optimization:
+     - Gather user feedback to improve the overall user experience, ensuring the interface is intuitive, fast, and responsive.
+
+8. Integration with Backend APIs
+
+   - Use JavaScript to integrate with the backend APIs (built using Django) for dynamic content rendering, such as user authentication, stock portfolio management, and real-time data fetching.
+   - Ensure seamless communication between the frontend and backend, including error handling for API calls, smooth data flow, and fast response times.
+
+9. AI Data Visualization Integration
+
+   - Plan for the integration of AI-powered stock price predictions into the frontend interface in later stages.
+   - Ensure the layout is flexible enough to accommodate charts, tables, or graphs that will visualize stock trends and market predictions based on the AI model.
 
 
+### CSS
 
+**- General Body Styling**
+
+```CSS
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+```
+  
+.Font & Colors: Sets a basic font family of Arial, a common sans-serif font, for readability across devices. Background color (#ffffff) and text color (#333) are chosen for a high contrast, enhancing readability.
+.Margins & Padding: By setting these to 0, it removes any default spacing, allowing for more control over layout spacing.
+
+**- Header Styling**
+
+```CSS
+header {
+    background-color: #0073e6;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+```
+  
+.Color & Text Styling: The header has a bold blue background (#0073e6) and white text to make it prominent. The large font size and bold styling indicate its importance as a key site element.
+.Centering Text: Text is centered for a balanced, visually pleasing look.
+
+**- Navigation Styling**
+
+```CSS
+nav {
+    background-color: #005bb5;
+    overflow: hidden;
+    display: flex; /* Ensures items are in a row */
+    justify-content: center; /* Centers the navigation items */
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+nav a:hover {
+    background-color: #004494;
+    color: #fff;
+}
+
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #005bb5;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+nav ul li a:hover {
+    background-color: #004494;
+}
+```
+  
+.Responsive Flex Layout: The navigation bar is styled with flex to align items in a row, providing easy access to navigation links. Centering (justify-content: center) ensures that links are balanced and intuitively placed.
+.Link Colors & Hover Effects: Links are white on a dark blue background, ensuring readability. The hover effect slightly darkens the background (#004494), providing feedback to users when they interact with a link.
+.List Item Styling: nav ul li items are spaced out with margin-right, ensuring sufficient space between links for easy clickability on desktop screens. Last items have no right margin to align with the container’s edge.
+
+**- Main Content Styling**
+
+```CSS
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+main h1 {
+    color: #0073e6;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+main p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+```
+  
+.Section Text Centering & Max Width: The main content section uses centered text and a max width (800px) to keep line lengths manageable for reading.
+.Headings and Text Colors: Blue (#0073e6) heading colors and light grey text (#666) help distinguish section titles and paragraphs, adding visual hierarchy.
+.Image Styling: Section images are set to 50% width, keeping them adaptable to different screen sizes. The rounded corners add a modern, friendly appearance.
+
+**- Form Styling**
+
+```CSS
+form {
+    max-width: 500px; /* Centering the form */
+    margin: 0 auto; /* Centering the form */
+    background-color: #fff; /* Form background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the form */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form label {
+    text-align: left;
+    color: #333;
+    font-weight: bold;
+}
+
+form input, form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+form button {
+    background-color: #0073e6;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #005bb5;
+}
+```
+  
+.Centering & Box Shadow: The form is centered and has a box shadow for depth, visually separating it from the rest of the page.
+.Form Inputs: Text inputs and text areas are padded and have rounded borders, improving usability and aesthetics.
+.Form Button: The button color (#0073e6) matches the overall theme. The hover effect on buttons gives a clear, interactive feel, enhancing user feedback.
+
+**- Footer Styling**
+
+```CSS
+footer {
+    background-color: #0073e6;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+```
+
+.Fixed Positioning: The footer is styled to stay at the bottom of the page, with a consistent background color (#0073e6) and white text. It’s small enough to avoid obstructing content but provides easy access to footer information.
+
+**- Button Styling**
+```CSS
+button, .btn {
+    background-color: #005bb5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover, .btn:hover {
+    background-color: #004494;
+}
+```
+  
+.Consistent Button Design: All buttons share a similar blue background and white text with rounded borders, giving them a cohesive look. The color change on hover provides feedback, improving interaction experience.
+
+**- Responsive Design**
+
+```CSS
+@media (max-width: 768px) {
+    nav a {
+        float: none;
+        width: 100%;
+        text-align: left;
+    }
+}
+```
+
+.Mobile Navigation: At widths below 768px, navigation links take up the full width and are aligned to the left for easier tapping on mobile screens. This approach maintains usability across devices.
+
+**- Overall User Friendliness**
+
+.Color and Spacing: Consistent colors across sections enhance brand cohesion. Spacing and padding make elements easily clickable and visually distinct.
+.Intuitive Interactivity: Hover effects and clearly defined buttons guide users in navigating the website.
+.Responsive Adjustments: Adaptable layouts ensure the design remains accessible and legible on both desktop and mobile, optimizing user experience across all screen sizes.
+
+This code enhances user-friendliness by creating a visually cohesive, responsive design that is easy to navigate and interact with, whether on desktop or mobile.
 
 ### Ai
 ### crewAI - Framework for creating and managing AI agents
