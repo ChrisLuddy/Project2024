@@ -1,7 +1,7 @@
-# core/firebase_models.py
 from firebase_admin import firestore
 from django.conf import settings
 import firebase_admin
+from datetime import datetime
 
 # Initialize Firebase if not already initialized
 if not firebase_admin._apps:
@@ -11,7 +11,6 @@ if not firebase_admin._apps:
 db = firestore.client()
 
 
-# Client model
 class Client:
     def __init__(self, name, fund_manager_id):
         self.name = name
@@ -41,8 +40,12 @@ class Client:
     def delete(client_id):
         db.collection('clients').document(client_id).delete()
 
+    @staticmethod
+    def get_all():
+        clients = db.collection('clients').stream()
+        return [client.to_dict() for client in clients]
 
-# Fund model
+
 class Fund:
     def __init__(self, name, user_id=None, client_id=None):
         self.name = name
@@ -75,8 +78,12 @@ class Fund:
     def delete(fund_id):
         db.collection('funds').document(fund_id).delete()
 
+    @staticmethod
+    def get_all():
+        funds = db.collection('funds').stream()
+        return [fund.to_dict() for fund in funds]
 
-# Portfolio model
+
 class Portfolio:
     def __init__(self, name, fund_id):
         self.name = name
@@ -106,15 +113,19 @@ class Portfolio:
     def delete(portfolio_id):
         db.collection('portfolios').document(portfolio_id).delete()
 
+    @staticmethod
+    def get_all():
+        portfolios = db.collection('portfolios').stream()
+        return [portfolio.to_dict() for portfolio in portfolios]
 
-# Asset model
+
 class Asset:
     def __init__(self, symbol, price, volume, amount, last_updated, portfolio_id):
         self.symbol = symbol
         self.price = price
         self.volume = volume
         self.amount = amount
-        self.last_updated = last_updated
+        self.last_updated = last_updated or datetime.utcnow().isoformat()
         self.portfolio_id = portfolio_id
 
     def save(self):
@@ -141,7 +152,7 @@ class Asset:
             'price': self.price,
             'volume': self.volume,
             'amount': self.amount,
-            'last_updated': self.last_updated,
+            'last_updated': datetime.utcnow().isoformat(),
             'portfolio_id': self.portfolio_id
         })
 
@@ -149,8 +160,12 @@ class Asset:
     def delete(asset_id):
         db.collection('assets').document(asset_id).delete()
 
+    @staticmethod
+    def get_all():
+        assets = db.collection('assets').stream()
+        return [asset.to_dict() for asset in assets]
 
-# Order model
+
 class Order:
     def __init__(self, amount, order_type, portfolio_id):
         self.amount = amount
@@ -183,8 +198,12 @@ class Order:
     def delete(order_id):
         db.collection('orders').document(order_id).delete()
 
+    @staticmethod
+    def get_all():
+        orders = db.collection('orders').stream()
+        return [order.to_dict() for order in orders]
 
-# TradeRating model
+
 class TradeRating:
     def __init__(self, rating, order_id):
         self.rating = rating
@@ -214,8 +233,12 @@ class TradeRating:
     def delete(rating_id):
         db.collection('trade_ratings').document(rating_id).delete()
 
+    @staticmethod
+    def get_all():
+        ratings = db.collection('trade_ratings').stream()
+        return [rating.to_dict() for rating in ratings]
 
-# AI Forecast model
+
 class AIForecast:
     def __init__(self, forecast, user_id):
         self.forecast = forecast
@@ -245,8 +268,12 @@ class AIForecast:
     def delete(forecast_id):
         db.collection('ai_forecasts').document(forecast_id).delete()
 
+    @staticmethod
+    def get_all():
+        forecasts = db.collection('ai_forecasts').stream()
+        return [forecast.to_dict() for forecast in forecasts]
 
-# SupportRequest model
+
 class SupportRequest:
     def __init__(self, request, user_id):
         self.request = request
@@ -275,3 +302,8 @@ class SupportRequest:
     @staticmethod
     def delete(request_id):
         db.collection('support_requests').document(request_id).delete()
+
+    @staticmethod
+    def get_all():
+        requests = db.collection('support_requests').stream()
+        return [request.to_dict() for request in requests]
