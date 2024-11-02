@@ -9,7 +9,7 @@ ACT (Agentic Corporate Trader)
 - [Data Model Overview](#data-model-overview)
 - [Database Diagram](#database-diagram)
 - [Backend](#backend)
-- [External APIs Integration](#external-apis-integration)
+- [API](#api)
 - [Frontend](#frontend)
 - [css](#css)
 - [Ai](#ai)
@@ -400,31 +400,11 @@ You can access both the API and the Django Admin interface using this URL.
 
 - **Django Admin**: To access the admin panel, navigate to `/admin/` on the server URL (e.g., `http://161.35.38.50:8000/admin/`).
 
-- **API Endpoints**: The API can be accessed by using the following paths:
+- **API Endpoints**: The API can be accessed by using the `/api/`, for example
 
   - **User Registration**: 
     ```bash
     POST http://161.35.38.50:8000/api/register/
-    ```
-
-  - **JWT Authentication**:
-    ```bash
-    POST http://161.35.38.50:8000/api/token/
-    ```
-
-  - **JWT Token Refresh**:
-    ```bash
-    POST http://161.35.38.50:8000/api/token/refresh/
-    ```
-
-  - **Yahoo Finance API**:
-    ```bash
-    GET http://161.35.38.50:8000/api/yahoo-finance/
-    ```
-
-  - **Alpha Vantage API**:
-    ```bash
-    GET http://161.35.38.50:8000/api/alpha-vantage/
     ```
 
 
@@ -582,6 +562,61 @@ Vary: Accept
 }
 ```
 
+### Asset Management
+- **GET** `/api/assets/` - Retrieve all assets.
+- **POST** `/api/assets/` - Create a new asset.
+- **GET** `/api/assets/<asset_id>/` - Retrieve a specific asset by its ID.
+- **PUT** `/api/assets/<asset_id>/` - Update an existing asset.
+- **DELETE** `/api/assets/<asset_id>/` - Delete an asset.
+
+### Client Management
+- **GET** `/api/clients/` - Retrieve all clients.
+- **POST** `/api/clients/` - Create a new client.
+- **GET** `/api/clients/<client_id>/` - Retrieve a specific client by its ID.
+- **PUT** `/api/clients/<client_id>/` - Update an existing client.
+- **DELETE** `/api/clients/<client_id>/` - Delete a client.
+
+### Fund Management
+- **GET** `/api/funds/` - Retrieve all funds.
+- **POST** `/api/funds/` - Create a new fund.
+- **GET** `/api/funds/<fund_id>/` - Retrieve a specific fund by its ID.
+- **PUT** `/api/funds/<fund_id>/` - Update an existing fund.
+- **DELETE** `/api/funds/<fund_id>/` - Delete a fund.
+
+### Portfolio Management
+- **GET** `/api/portfolios/` - Retrieve all portfolios.
+- **POST** `/api/portfolios/` - Create a new portfolio.
+- **GET** `/api/portfolios/<portfolio_id>/` - Retrieve a specific portfolio by its ID.
+- **PUT** `/api/portfolios/<portfolio_id>/` - Update an existing portfolio.
+- **DELETE** `/api/portfolios/<portfolio_id>/` - Delete a portfolio.
+
+### Order Management
+- **GET** `/api/orders/` - Retrieve all orders.
+- **POST** `/api/orders/` - Create a new order.
+- **GET** `/api/orders/<order_id>/` - Retrieve a specific order by its ID.
+- **PUT** `/api/orders/<order_id>/` - Update an existing order.
+- **DELETE** `/api/orders/<order_id>/` - Delete an order.
+
+### Trade Rating Management
+- **GET** `/api/trade-ratings/` - Retrieve all trade ratings.
+- **POST** `/api/trade-ratings/` - Create a new trade rating.
+- **GET** `/api/trade-ratings/<trade_rating_id>/` - Retrieve a specific trade rating by its ID.
+- **PUT** `/api/trade-ratings/<trade_rating_id>/` - Update an existing trade rating.
+- **DELETE** `/api/trade-ratings/<trade_rating_id>/` - Delete a trade rating.
+
+### AI Forecast Management
+- **GET** `/api/ai-forecasts/` - Retrieve all AI forecasts.
+- **POST** `/api/ai-forecasts/` - Create a new AI forecast.
+- **GET** `/api/ai-forecasts/<forecast_id>/` - Retrieve a specific AI forecast by its ID.
+- **PUT** `/api/ai-forecasts/<forecast_id>/` - Update an existing AI forecast.
+- **DELETE** `/api/ai-forecasts/<forecast_id>/` - Delete an AI forecast.
+
+### Support Request Management
+- **GET** `/api/support-requests/` - Retrieve all support requests.
+- **POST** `/api/support-requests/` - Create a new support request.
+- **GET** `/api/support-requests/<support_request_id>/` - Retrieve a specific support request by its ID.
+- **PUT** `/api/support-requests/<support_request_id>/` - Update an existing support request.
+- **DELETE** `/api/support-requests/<support_request_id>/` - Delete a support request.
 
 ### External APIs Integration
 
