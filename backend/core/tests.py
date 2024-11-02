@@ -2,16 +2,26 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.tokens import RefreshToken
+
+User = get_user_model()
 
 
 class FirebaseModelsTests(APITestCase):
+    def setUp(self):
+        # Create a user and authenticate with JWT token
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        refresh = RefreshToken.for_user(self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {str(refresh.access_token)}')
+
     def test_client_crud_operations(self):
         # Create a client
         create_url = reverse('client-list-create')
         data = {"name": "Test Client", "fund_manager_id": 1}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        client_id = response.data['client_id']  # Updated key
+        client_id = response.data['client_id']
 
         # Retrieve the client
         retrieve_url = reverse('client-detail', args=[client_id])
@@ -35,7 +45,7 @@ class FirebaseModelsTests(APITestCase):
         data = {"name": "Test Fund", "user_id": 1}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        fund_id = response.data['fund_id']  # Updated key
+        fund_id = response.data['fund_id']
 
         # Retrieve the fund
         retrieve_url = reverse('fund-detail', args=[fund_id])
@@ -59,7 +69,7 @@ class FirebaseModelsTests(APITestCase):
         data = {"name": "Test Portfolio", "fund_id": "some_fund_id"}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        portfolio_id = response.data['portfolio_id']  # Updated key
+        portfolio_id = response.data['portfolio_id']
 
         # Retrieve the portfolio
         retrieve_url = reverse('portfolio-detail', args=[portfolio_id])
@@ -83,7 +93,7 @@ class FirebaseModelsTests(APITestCase):
         data = {"symbol": "AAPL", "price": 150.0, "volume": 1000, "amount": 10, "portfolio_id": "some_portfolio_id"}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        asset_id = response.data['asset_id']  # Updated key
+        asset_id = response.data['asset_id']
 
         # Retrieve the asset
         retrieve_url = reverse('asset-detail', args=[asset_id])
@@ -107,7 +117,7 @@ class FirebaseModelsTests(APITestCase):
         data = {"order_type": "buy", "amount": 5, "portfolio_id": "some_portfolio_id"}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        order_id = response.data['order_id']  # Updated key
+        order_id = response.data['order_id']
 
         # Retrieve the order
         retrieve_url = reverse('order-detail', args=[order_id])
@@ -131,7 +141,7 @@ class FirebaseModelsTests(APITestCase):
         data = {"rating": 4.5, "order_id": "some_order_id"}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        trade_rating_id = response.data['trade_rating_id']  # Updated key
+        trade_rating_id = response.data['trade_rating_id']
 
         # Retrieve the trade rating
         retrieve_url = reverse('trade-rating-detail', args=[trade_rating_id])
@@ -152,10 +162,10 @@ class FirebaseModelsTests(APITestCase):
     def test_ai_forecast_crud_operations(self):
         # Create an AI forecast
         create_url = reverse('ai-forecast-list-create')
-        data = {"forecast": "Positive", "user_id": 1}
+        data = {"forecast": "Positive", "user_id": self.user.id}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        forecast_id = response.data['forecast_id']  # Updated key
+        forecast_id = response.data['forecast_id']
 
         # Retrieve the AI forecast
         retrieve_url = reverse('ai-forecast-detail', args=[forecast_id])
@@ -164,7 +174,7 @@ class FirebaseModelsTests(APITestCase):
         self.assertEqual(response.data['forecast'], "Positive")
 
         # Update the AI forecast
-        update_data = {"forecast": "Negative", "user_id": 1}
+        update_data = {"forecast": "Negative", "user_id": self.user.id}
         response = self.client.put(retrieve_url, update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['forecast'], "Negative")
@@ -176,10 +186,10 @@ class FirebaseModelsTests(APITestCase):
     def test_support_request_crud_operations(self):
         # Create a support request
         create_url = reverse('support-request-list-create')
-        data = {"request": "Need help", "user_id": 1}
+        data = {"request": "Need help", "user_id": self.user.id}
         response = self.client.post(create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        support_request_id = response.data['support_request_id']  # Updated key
+        support_request_id = response.data['support_request_id']
 
         # Retrieve the support request
         retrieve_url = reverse('support-request-detail', args=[support_request_id])
@@ -188,7 +198,7 @@ class FirebaseModelsTests(APITestCase):
         self.assertEqual(response.data['request'], "Need help")
 
         # Update the support request
-        update_data = {"request": "Updated request for assistance", "user_id": 1}
+        update_data = {"request": "Updated request for assistance", "user_id": self.user.id}
         response = self.client.put(retrieve_url, update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['request'], "Updated request for assistance")
@@ -196,3 +206,35 @@ class FirebaseModelsTests(APITestCase):
         # Delete the support request
         response = self.client.delete(retrieve_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
+class APITestAuthorization(APITestCase):
+    def setUp(self):
+        # Create a user for testing authorization
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.auth_url = reverse('token_obtain_pair')
+        self.register_url = reverse('register')
+        self.asset_url = reverse('asset-list-create')
+
+    def test_registration_access_without_auth(self):
+        # Access registration endpoint without authorization
+        response = self.client.post(self.register_url, {
+            "username": "newuser",
+            "password": "newpass",
+            "role": "fund_admin"
+        })
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_access_protected_endpoint_without_auth(self):
+        # Remove authorization token and attempt to access a protected endpoint
+        response = self.client.get(self.asset_url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_access_protected_endpoint_with_auth(self):
+        # Obtain token for the user
+        refresh = RefreshToken.for_user(self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {str(refresh.access_token)}')
+        
+        # Access protected endpoint with authorization
+        response = self.client.get(self.asset_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

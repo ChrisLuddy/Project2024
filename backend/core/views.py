@@ -48,7 +48,7 @@ class AssetView(APIView):
         )
         asset_id = asset.save()
         return Response({"asset_id": asset_id, "message": "Asset created successfully!"}, status=status.HTTP_201_CREATED)
-    
+
     def put(self, request, asset_id):
         asset = Asset(
             symbol=request.data.get('symbol'),
