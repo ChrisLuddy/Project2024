@@ -1,4 +1,4 @@
-# settings.py
+# act_backend/settings.py
 """
 Django settings for act_backend project.
 
