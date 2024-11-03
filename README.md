@@ -636,7 +636,8 @@ The Yahoo Finance API provides real-time stock prices, market data, and other fi
 - `type`: The type of asset (e.g., `STOCKS`).
 
 ```bash
-curl -X GET 'http://127.0.0.1:8000/api/yahoo-finance/?ticker=AAPL&type=STOCKS'
+curl -X GET 'http://127.0.0.1:8000/api/yahoo-finance/?ticker=AAPL&type=STOCKS' \
+-H 'Authorization: Bearer YOUR_ACCESS_JWT_TOKEN'
 ```
 
 **Example Response:**
@@ -699,7 +700,8 @@ The Alpha Vantage API provides historical and real-time stock data, including da
 - `outputsize`: Data size, either compact (latest 100 data points) or full (all available data).
 
 ```bash
-curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL'
+curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL' \
+-H 'Authorization: Bearer YOUR_ACCESS_JWT_TOKEN'
 ```
 
 **Example Response:**
