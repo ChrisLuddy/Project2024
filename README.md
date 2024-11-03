@@ -549,13 +549,12 @@ With **Fund Administrator** or **Fund Manager** credentials in the request body:
 This will return access and refresh tokens, which are used to authenticate API requests. 
 
 For example:
-```json
+```bash
 POST /api/token/
 HTTP 200 OK
 Allow: POST, OPTIONS
 Content-Type: application/json
 Vary: Accept
-
 {
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...hEdGfvcfWZk6mZa0ftLU3AOPyFDZHI",
     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC...-Rl2Tc57Kkp_MzuH0jxg0APRrDr9o9s"
@@ -563,11 +562,143 @@ Vary: Accept
 ```
 
 ### Asset Management
-- **GET** `/api/assets/` - Retrieve all assets.
-- **POST** `/api/assets/` - Create a new asset.
-- **GET** `/api/assets/<asset_id>/` - Retrieve a specific asset by its ID.
-- **PUT** `/api/assets/<asset_id>/` - Update an existing asset.
-- **DELETE** `/api/assets/<asset_id>/` - Delete an asset.
+
+#### Retrieve All Assets
+
+Endpoint: ``GET /api/assets/``
+
+Description: ``Fetches a list of all assets.``
+
+Example Request:
+```bash
+curl -X GET 'http://127.0.0.1:8000/api/assets/' -H 'Authorization: Bearer JWT_TOKEN'
+```
+
+Example Response (Status 200):
+```json
+[
+    {
+        "id": "asset_id_1",
+        "symbol": "AAPL",
+        "price": 150.5,
+        "volume": 2000,
+        "amount": 100,
+        "portfolio_id": "portfolio_id_1",
+        "last_updated": "2024-11-02T12:34:56Z"
+    },
+    ...
+]
+```
+
+#### Create an Asset
+
+Endpoint: ``POST /api/assets/``
+
+Description: ``Creates a new asset.``
+
+Request Body:
+```json
+{
+    "symbol": "AAPL",
+    "price": 150.5,
+    "volume": 2000,
+    "amount": 100,
+    "portfolio_id": "portfolio_id_1"
+}
+```
+
+Example Request:
+
+```bash
+curl -X POST 'http://127.0.0.1:8000/api/assets/' -H 'Authorization: Bearer JWT_TOKEN' -d '{"symbol": "AAPL", "price": 150.5, "volume": 2000, "amount": 100, "portfolio_id": "portfolio_id_1"}'
+```
+
+Example Response (Status 201 Created):
+```json
+{
+    "id": "asset_id_1",
+    "symbol": "AAPL",
+    "price": 150.5,
+    "volume": 2000,
+    "amount": 100,
+    "portfolio_id": "portfolio_id_1",
+    "last_updated": "2024-11-02T12:34:56Z"
+}
+```
+
+#### Retrieve a Specific Asset by ID
+
+Endpoint: ``GET /api/assets/<asset_id>/``
+
+Description: ``Fetches details of a specific asset by its ID.``
+
+Example Request:
+```bash
+curl -X GET 'http://127.0.0.1:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN'
+```
+
+Example Response (Status 200):
+```json
+{
+    "id": "asset_id_1",
+    "symbol": "AAPL",
+    "price": 150.5,
+    "volume": 2000,
+    "amount": 100,
+    "portfolio_id": "portfolio_id_1",
+    "last_updated": "2024-11-02T12:34:56Z"
+}
+```
+
+#### Update an Existing Asset
+
+Endpoint: ``PUT /api/assets/<asset_id>/``
+
+Description: ``Updates an existing asset's details.``
+
+Request Body:
+```json
+{
+    "symbol": "AAPL",
+    "price": 160.0,
+    "volume": 2500,
+    "amount": 120
+}
+```
+
+Example Request:
+```bash
+curl -X PUT 'http://127.0.0.1:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN' -d '{"symbol": "AAPL", "price": 160.0, "volume": 2500, "amount": 120}'
+```
+
+Example Response (Status 200):
+```json
+{
+    "id": "asset_id_1",
+    "symbol": "AAPL",
+    "price": 160.0,
+    "volume": 2500,
+    "amount": 120,
+    "portfolio_id": "portfolio_id_1",
+    "last_updated": "2024-11-03T12:34:56Z"
+}
+```
+
+#### Delete an Asset
+
+Endpoint: ``DELETE /api/assets/<asset_id>/``
+
+Description: ``Deletes a specific asset.``
+
+Example Request:
+```bash
+curl -X DELETE 'http://127.0.0.1:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN'
+```
+
+Example Response (Status 204 No Content):
+```json
+{}
+```
 
 ### Client Management
 - **GET** `/api/clients/` - Retrieve all clients.
