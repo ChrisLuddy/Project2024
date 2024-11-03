@@ -1,3 +1,4 @@
+# core/firebase_models.py
 from firebase_admin import firestore
 from django.conf import settings
 import firebase_admin
