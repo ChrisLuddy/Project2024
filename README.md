@@ -571,7 +571,7 @@ Description: ``Fetches a list of all assets.``
 
 Example Request:
 ```bash
-curl -X GET 'http://127.0.0.1:8000/api/assets/' -H 'Authorization: Bearer JWT_TOKEN'
+curl -X GET 'http://161.35.38.50:8000/api/assets/' -H 'Authorization: Bearer JWT_TOKEN'
 ```
 
 Example Response (Status 200):
@@ -610,7 +610,7 @@ Request Body:
 Example Request:
 
 ```bash
-curl -X POST 'http://127.0.0.1:8000/api/assets/' -H 'Authorization: Bearer JWT_TOKEN' -d '{"symbol": "AAPL", "price": 150.5, "volume": 2000, "amount": 100, "portfolio_id": "portfolio_id_1"}'
+curl -X POST 'http://161.35.38.50:8000/api/assets/' -H 'Authorization: Bearer JWT_TOKEN' -d '{"symbol": "AAPL", "price": 150.5, "volume": 2000, "amount": 100, "portfolio_id": "portfolio_id_1"}'
 ```
 
 Example Response (Status 201 Created):
@@ -634,7 +634,7 @@ Description: ``Fetches details of a specific asset by its ID.``
 
 Example Request:
 ```bash
-curl -X GET 'http://127.0.0.1:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN'
+curl -X GET 'http://161.35.38.50:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN'
 ```
 
 Example Response (Status 200):
@@ -668,7 +668,7 @@ Request Body:
 
 Example Request:
 ```bash
-curl -X PUT 'http://127.0.0.1:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN' -d '{"symbol": "AAPL", "price": 160.0, "volume": 2500, "amount": 120}'
+curl -X PUT 'http://161.35.38.50:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN' -d '{"symbol": "AAPL", "price": 160.0, "volume": 2500, "amount": 120}'
 ```
 
 Example Response (Status 200):
@@ -692,7 +692,7 @@ Description: ``Deletes a specific asset.``
 
 Example Request:
 ```bash
-curl -X DELETE 'http://127.0.0.1:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN'
+curl -X DELETE 'http://161.35.38.50:8000/api/assets/asset_id_1/' -H 'Authorization: Bearer JWT_TOKEN'
 ```
 
 Example Response (Status 204 No Content):
@@ -767,8 +767,8 @@ The Yahoo Finance API provides real-time stock prices, market data, and other fi
 - `type`: The type of asset (e.g., `STOCKS`).
 
 ```bash
-curl -X GET 'http://127.0.0.1:8000/api/yahoo-finance/?ticker=AAPL&type=STOCKS' \
--H 'Authorization: Bearer YOUR_ACCESS_JWT_TOKEN'
+curl -X GET 'http://161.35.38.50:8000/api/yahoo-finance/?ticker=AAPL&type=STOCKS' \
+-H 'Authorization: Bearer JWT_TOKEN'
 ```
 
 **Example Response:**
@@ -831,8 +831,8 @@ The Alpha Vantage API provides historical and real-time stock data, including da
 - `outputsize`: Data size, either compact (latest 100 data points) or full (all available data).
 
 ```bash
-curl -X GET 'http://127.0.0.1:8000/api/alpha-vantage/?symbol=AAPL' \
--H 'Authorization: Bearer YOUR_ACCESS_JWT_TOKEN'
+curl -X GET 'http://161.35.38.50:8000/api/alpha-vantage/?symbol=AAPL' \
+-H 'Authorization: Bearer JWT_TOKEN'
 ```
 
 **Example Response:**
