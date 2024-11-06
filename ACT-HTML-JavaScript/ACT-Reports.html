@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Meta tag for character encoding -->
-    <meta charset="UTF-8">
-    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Title of the webpage displayed in the browser tab -->
-    <title>ACT Web Application - Home</title>
-    <!-- Link to the external CSS stylesheet for styling the webpage -->
-    <link rel="stylesheet" href="ACT-Web-styles.css">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACT Web Application - Reports</title>
+    <link rel="stylesheet" href="ACT-Web-styles.css">
 </head>
 
 <body>
-    <!-- Header section containing navigation links -->
     <header>
-        <!-- Logo for the application displayed -->
-        <div class="logo">ACT Web Application</div>
+        <nav>
+            <div class="logo">ACT Web Application</div>
+            <ul>
+                <li><a href="ACT-Homepage.html">Home</a></li>
+                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+                <li><a href="ACT-Reports.html">Reports</a></li>
+                <li><a href="ACT-Support.html">Support</a></li>
+                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+                <li><a href="ACT-Login.html">Login</a></li>
+                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <nav>
-        
-        <!-- Unordered list of navigation links -->
-        <ul id="nav-links">
-            <li><a href="ACT-Homepage.html">Home</a></li>
-            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
-            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-            <li><a href="ACT-Reports.html">Reports</a></li>
-            <li><a href="ACT-Support.html">Support</a></li>
-            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-            <li><a href="ACT-Login.html">Login</a></li>
-            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-            <!-- <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>-->
-        </ul>
-    </nav>
+    <section id="reports">
+        <h2>Financial Reports</h2>
+        <img src="images/ACT-Reports.png" alt="ACT Reports Image" style="width: 100%; max-width: 600px; height: auto;">
+        <p>Generate detailed financial reports for the portfolio.</p>
 
-    <!-- Main section containing the welcome message -->
-    <section>
-        <!-- Main heading of the page -->
-        <h1>Reports</h1>
+        <!-- Added placeholders for stocks and cryptos -->
+        <h3>Your Stocks:</h3>
+        <ul id="stock-list"></ul> <!-- Placeholder for displaying user's stocks -->
+
+        <h3>Your Cryptocurrencies:</h3>
+        <ul id="crypto-list"></ul> <!-- Placeholder for displaying user's cryptocurrencies -->
+
+        <!-- Buttons to download PDF or CSV -->
+        <button id="download-pdf" class="generate-report-btn">Download PDF Report</button>
+        <button id="download-csv" class="generate-report-btn">Download CSV Report</button>
     </section>
 
-    <!-- Footer section containing copyright information -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
-    <!-- Link to the external JavaScript file for additional functionality -->
+    <!--jsPDF-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
     <script src="ACT-Web.js"></script>
 </body>
 
