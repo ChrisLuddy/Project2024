@@ -1,32 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
+
 <head>
+    <!-- Meta tag specifying the character encoding for the document -->
     <meta charset="UTF-8">
+    
+    <!-- Meta tag for ensuring proper rendering on mobile devices by setting the viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The title of the webpage, displayed in the browser tab -->
     <title>Buy Stocks and Crypto</title>
+    
+    <!-- Link to the favicon -->
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
+    
+    <!-- Displays the website logo on the page -->
+    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
+    
+    <!-- Link to the external CSS file for styling the page -->
     <link rel="stylesheet" href="ACT-Web-styles.css">
 </head>
+
 <body>
+    <!-- Main container for the page's content -->
     <div class="container">
+    
+        <!-- Main heading of the page -->
         <h1>Buy Stocks and Cryptocurrencies</h1>
+        
+        <!-- Image that visually represents the purchase section -->
         <img src="images/ACT-Purchase.png" alt="ACT Purchase Image" style="width: 100%; max-width: 600px; height: auto;">
+        
+        <!-- Section for displaying the stock selection form -->
         <section id="stocks">
+            <!-- Subheading for the stocks section -->
             <h2>Tech Stocks</h2>
+            
+            <!-- Form for selecting tech stocks, with an ID for potential JavaScript handling -->
             <form id="stocks-form">
+                <!-- Stock selection items dynamically generated here -->
                 <div class="stock-item">
-                    <label for="stock1">Stock 1: </label>
-                    <select id="stock1" class="stock-select" required>
-                        <option value="">Select a stock</option>
-                        <option value="AAPL">Apple (AAPL)</option>
-                        <option value="GOOGL">Alphabet (GOOGL)</option>
-                        <option value="MSFT">Microsoft (MSFT)</option>
-                        <option value="AMZN">Amazon (AMZN)</option>
-                        <option value="FB">Meta Platforms (META)</option>
-                        <option value="CRM">Salesforce (CRM)</option>
-                        <option value="NFLX">Netflix (NFLX)</option>
-                        <option value="NVDA">NVIDIA (NVDA)</option>
-                        <option value="ADBE">Adobe (ADBE)</option>
-                        <option value="ORCL">Oracle (ORCL)</option>
+                    <label for="stock1">Stock 1: </label> 
+                    <select id="stock1" class="stock-select" required> 
+                        <option value="">Select a stock</option> 
                     </select>
                 </div>
                 <div class="stock-item">
@@ -86,16 +102,18 @@
             </form>
         </section>
 
+        <!-- Section for displaying the cryptocurrency selection form -->
         <section id="crypto">
+            <!-- Subheading for the cryptocurrencies section -->
             <h2>Cryptocurrencies</h2>
+            
+            <!-- Form for selecting cryptocurrencies, with an ID for potential JavaScript handling -->
             <form id="crypto-form">
+                <!-- Crypto selection items dynamically generated here -->
                 <div class="crypto-item">
                     <label for="crypto1">Crypto 1: </label>
-                    <select id="crypto1" class="crypto-select" required>
-                        <option value="">Select a cryptocurrency</option>
-                        <option value="BTC">Bitcoin (BTC)</option>
-                        <option value="ETH">Ethereum (ETH)</option>
-                        <option value="LTC">Litecoin (LTC)</option>
+                    <select id="crypto1" class="crypto-select" required> 
+                        <option value="">Select a cryptocurrency</option> 
                     </select>
                 </div>
                 <div class="crypto-item">
@@ -113,10 +131,15 @@
             </form>
         </section>
 
+        <!-- Button to trigger the purchase action -->
         <button id="buy-button">Buy Now</button>
+        
+        <!-- Placeholder for displaying the purchase summary after the purchase -->
         <div id="purchase-summary"></div>
     </div>
 
+    <!-- Link to an external JavaScript file that provides functionality for the page -->
     <script src="ACT-Web.js"></script>
 </body>
+
 </html>
