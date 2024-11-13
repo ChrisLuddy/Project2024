@@ -375,3 +375,104 @@ if (window.location.pathname.includes("ACT-Reports.html")) {
     };
 }
 
+    // Reviews Page Script for handling display and submission of user reviews
+    if (window.location.pathname.includes("ACT-Reviews.html")) {
+        // Fetch and display existing reviews
+        function loadReviews() {
+            fetch("/api/reviews")
+                .then(response => response.json())
+                .then(data => {
+                    const reviewsContainer = document.getElementById("reviews-container");
+                    reviewsContainer.innerHTML = ""; // Clear existing reviews
+                    data.reviews.forEach(review => {
+                        const reviewElement = document.createElement("div");
+                        reviewElement.className = "review";
+                        reviewElement.innerHTML = `<h3>${review.user}</h3><p>${review.content}</p><small>Rating: ${review.rating}/5</small>`;
+                        reviewsContainer.appendChild(reviewElement); // Display each review
+                    });
+                })
+                .catch(error => {
+                    alert("Failed to load reviews: " + error.message); // Handle errors
+                });
+        }
+
+        // Submit new review
+        const reviewForm = document.getElementById("review-form");
+        reviewForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const content = document.getElementById("review-content").value;
+            const rating = document.getElementById("review-rating").value;
+
+            fetch("/api/reviews", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ content, rating })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Review submission failed');
+                return response.json();
+            })
+            .then(() => {
+                alert("Review submitted successfully!");
+                loadReviews(); // Reload reviews after submission
+            })
+            .catch(error => {
+                alert("Failed to submit review: " + error.message); // Display error
+            });
+        });
+
+        // Load reviews when the page loads
+        loadReviews();
+    }
+
+        // Purchase Page Script for handling product purchases
+        if (window.location.pathname.includes("ACT-Purchase.html")) {
+            // Load available products
+            function loadProducts() {
+                fetch("/api/products")
+                    .then(response => response.json())
+                    .then(data => {
+                        const productsContainer = document.getElementById("products-container");
+                        productsContainer.innerHTML = ""; // Clear existing products
+                        data.products.forEach(product => {
+                            const productElement = document.createElement("div");
+                            productElement.className = "product";
+                            productElement.innerHTML = `<h3>${product.name}</h3><p>${product.description}</p><p>Price: $${product.price}</p><button data-product-id="${product.id}">Purchase</button>`;
+                            productsContainer.appendChild(productElement);
+                        });
+                    })
+                    .catch(error => {
+                        alert("Failed to load products: " + error.message); // Handle errors
+                    });
+            }
+    
+            // Handle purchase action
+            document.getElementById("products-container").addEventListener("click", function (e) {
+                if (e.target.tagName === "BUTTON") {
+                    const productId = e.target.getAttribute("data-product-id");
+    
+                    fetch("/api/purchase", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ productId })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Purchase failed');
+                        return response.json();
+                    })
+                    .then(() => {
+                        alert("Purchase successful!");
+                    })
+                    .catch(error => {
+                        alert("Failed to complete purchase: " + error.message); // Handle errors
+                    });
+                }
+            });
+    
+            // Load products when the page loads
+            loadProducts();
+        }
