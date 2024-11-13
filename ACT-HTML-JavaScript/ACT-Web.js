@@ -427,52 +427,66 @@ if (window.location.pathname.includes("ACT-Reports.html")) {
         loadReviews();
     }
 
-        // Purchase Page Script for handling product purchases
-        if (window.location.pathname.includes("ACT-Purchase.html")) {
-            // Load available products
-            function loadProducts() {
-                fetch("/api/products")
-                    .then(response => response.json())
-                    .then(data => {
-                        const productsContainer = document.getElementById("products-container");
-                        productsContainer.innerHTML = ""; // Clear existing products
-                        data.products.forEach(product => {
-                            const productElement = document.createElement("div");
-                            productElement.className = "product";
-                            productElement.innerHTML = `<h3>${product.name}</h3><p>${product.description}</p><p>Price: $${product.price}</p><button data-product-id="${product.id}">Purchase</button>`;
-                            productsContainer.appendChild(productElement);
-                        });
-                    })
-                    .catch(error => {
-                        alert("Failed to load products: " + error.message); // Handle errors
-                    });
-            }
+        // Handle purchase action when the "Buy Now" button is clicked
+document.getElementById("buy-button").addEventListener("click", function () {
+    // Get the selected stocks from the form
+    const selectedStocks = [];
+    const stockSelects = document.querySelectorAll('.stock-select');
     
-            // Handle purchase action
-            document.getElementById("products-container").addEventListener("click", function (e) {
-                if (e.target.tagName === "BUTTON") {
-                    const productId = e.target.getAttribute("data-product-id");
-    
-                    fetch("/api/purchase", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ productId })
-                    })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Purchase failed');
-                        return response.json();
-                    })
-                    .then(() => {
-                        alert("Purchase successful!");
-                    })
-                    .catch(error => {
-                        alert("Failed to complete purchase: " + error.message); // Handle errors
-                    });
-                }
-            });
-    
-            // Load products when the page loads
-            loadProducts();
+    // Loop through all stock select elements to capture the selected values
+    stockSelects.forEach(select => {
+        const selectedValue = select.value;
+        if (selectedValue) {
+            selectedStocks.push(selectedValue); // Add to selected stocks array if a stock is selected
         }
+    });
+
+    // Get the selected cryptocurrencies from the form
+    const selectedCryptos = [];
+    const cryptoSelects = document.querySelectorAll('.crypto-select');
+    
+    // Loop through all crypto select elements to capture the selected values
+    cryptoSelects.forEach(select => {
+        const selectedValue = select.value;
+        if (selectedValue) {
+            selectedCryptos.push(selectedValue); // Add to selected cryptocurrencies array if selected
+        }
+    });
+
+    // If no stocks or cryptos are selected, show an alert
+    if (selectedStocks.length === 0 && selectedCryptos.length === 0) {
+        alert("Please select at least one stock or cryptocurrency to purchase.");
+        return; // Stop the function if no selections are made
+    }
+
+    // Prepare the data to send to the server
+    const purchaseData = {
+        stocks: selectedStocks, // Stocks selected by the user
+        cryptos: selectedCryptos // Cryptos selected by the user
+    };
+
+    // Send the purchase data to the server
+    fetch("/api/purchase", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(purchaseData) // Send the data as JSON
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Purchase failed'); // Check if the response is okay
+        return response.json(); // Parse the response as JSON
+    })
+    .then(data => {
+        // Display purchase summary
+        document.getElementById("purchase-summary").innerHTML = `
+            <h3>Purchase Summary:</h3>
+            <p>Stocks Purchased: ${data.stocks.join(', ')}</p>
+            <p>Cryptos Purchased: ${data.cryptos.join(', ')}</p>
+        `;
+        alert("Purchase successful!");
+    })
+    .catch(error => {
+        alert("Failed to complete purchase: " + error.message); // Handle errors
+    });
+});
