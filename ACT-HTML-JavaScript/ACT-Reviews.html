@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratings & Reviews</title>
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rate Our Application</h1>
+        <img src="images/ACT-Reviews.png" alt="ACT Reviews Image" style="width: 100%; max-width: 600px; height: auto;">
+        <div class="rating">
+            <h2>Your Rating:</h2>
+            <div class="stars" id="star-rating">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <div id="selected-rating">Selected Rating: None</div>
+        </div>
+
+        <div class="review">
+            <h2>Your Review:</h2>
+            <textarea id="review-text" rows="5" placeholder="Write your review here..."></textarea>
+        </div>
+
+        <div class="comment">
+            <h2>Review:</h2>
+            <input type="text" id="comment" placeholder="Add a comment...">
+        </div>
+
+        <button id="submit-review">Submit Review</button>
+
+        <h2>Reviews:</h2>
+        <div id="reviews-container"></div>
+    </div>
+
+    <script src="ACT-Web.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Stocks and Crypto</title>
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Buy Stocks and Cryptocurrencies</h1>
+        <img src="images/ACT-Purchase.png" alt="ACT Purchase Image" style="width: 100%; max-width: 600px; height: auto;">
+        <section id="stocks">
+            <h2>Tech Stocks</h2>
+            <form id="stocks-form">
+                <div class="stock-item">
+                    <label for="stock1">Stock 1: </label>
+                    <select id="stock1" class="stock-select" required>
+                        <option value="">Select a stock</option>
+                        <option value="AAPL">Apple (AAPL)</option>
+                        <option value="GOOGL">Alphabet (GOOGL)</option>
+                        <option value="MSFT">Microsoft (MSFT)</option>
+                        <option value="AMZN">Amazon (AMZN)</option>
+                        <option value="FB">Meta Platforms (META)</option>
+                        <option value="CRM">Salesforce (CRM)</option>
+                        <option value="NFLX">Netflix (NFLX)</option>
+                        <option value="NVDA">NVIDIA (NVDA)</option>
+                        <option value="ADBE">Adobe (ADBE)</option>
+                        <option value="ORCL">Oracle (ORCL)</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock2">Stock 2: </label>
+                    <select id="stock2" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock3">Stock 3: </label>
+                    <select id="stock3" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock4">Stock 4: </label>
+                    <select id="stock4" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock5">Stock 5: </label>
+                    <select id="stock5" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock6">Stock 6: </label>
+                    <select id="stock6" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock7">Stock 7: </label>
+                    <select id="stock7" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock8">Stock 8: </label>
+                    <select id="stock8" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock9">Stock 9: </label>
+                    <select id="stock9" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <div class="stock-item">
+                    <label for="stock10">Stock 10: </label>
+                    <select id="stock10" class="stock-select">
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+            </form>
+        </section>
+
+        <section id="crypto">
+            <h2>Cryptocurrencies</h2>
+            <form id="crypto-form">
+                <div class="crypto-item">
+                    <label for="crypto1">Crypto 1: </label>
+                    <select id="crypto1" class="crypto-select" required>
+                        <option value="">Select a cryptocurrency</option>
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="LTC">Litecoin (LTC)</option>
+                    </select>
+                </div>
+                <div class="crypto-item">
+                    <label for="crypto2">Crypto 2: </label>
+                    <select id="crypto2" class="crypto-select">
+                        <option value="">Select a cryptocurrency</option>
+                    </select>
+                </div>
+                <div class="crypto-item">
+                    <label for="crypto3">Crypto 3: </label>
+                    <select id="crypto3" class="crypto-select">
+                        <option value="">Select a cryptocurrency</option>
+                    </select>
+                </div>
+            </form>
+        </section>
+
+        <button id="buy-button">Buy Now</button>
+        <div id="purchase-summary"></div>
+    </div>
+
+    <script src="ACT-Web.js"></script>
+</body>
+</html>
