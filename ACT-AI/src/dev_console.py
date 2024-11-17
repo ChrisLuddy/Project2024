@@ -1,8 +1,12 @@
 from task_manager import TaskManager
 import sys
 import time
+import logging
 
-"""Temporary development console to test functionality prior to API integration"""
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
 class DevConsole:
     def __init__(self):
         self.task_manager = TaskManager()
@@ -12,9 +16,10 @@ class DevConsole:
             "Recommender": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11434"},
             "Blogger": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11434"}
         }
+        self.backend_authenticated = False
 
     def configure_ai_crew(self):
-        """Configure AI Crew settings"""
+        """Configure AI Crew settings and backend authentication"""
         print("\n=== AI Crew Configuration ===")
         use_default = input("Use default configuration? (y/n): ").lower() == 'y'
 
@@ -35,13 +40,34 @@ class DevConsole:
 
         if success:
             print("AI Crew configuration complete!")
+
+            self.authenticate_backend()
         else:
             print("Failed to initialize AI Crew. Please check your configuration.")
 
+    def authenticate_backend(self):
+        """Authenticate with the backend API"""
+        print("\n=== Backend Authentication ===")
+        username = input("Enter backend username (default: SuperAdmin): ").strip() or "SuperAdmin"
+        password = input("Enter backend password (default: password_123): ").strip() or "password_123"
+
+        if self.task_manager.backend_client:
+            if self.task_manager.backend_client.authenticate(username, password):
+                print("Successfully authenticated with backend!")
+                self.backend_authenticated = True
+            else:
+                print("Failed to authenticate with backend. Some functionality may be limited.")
+                self.backend_authenticated = False
+        else:
+            print("Backend client not initialized. Please configure AI Crew first.")
+
     def check_requirements(self, initial_check=True):
-        """Check if all required variables are set"""
+        """Check if all required variables and authentication are set"""
         vars = self.task_manager.get_required_variables(initial_check)
         missing = [k for k, v in vars.items() if not v]
+
+        if not self.backend_authenticated:
+            missing.append('backend_authentication')
 
         if missing:
             print("\nMissing required variables:")
@@ -53,8 +79,11 @@ class DevConsole:
     def run_comprehensive_analysis(self):
         """Run comprehensive analysis"""
         if not self.check_requirements(initial_check=True):
-            print("\nAI Crew not configured. Configuring now...")
+            print("\nMissing requirements. Configuring now...")
             self.configure_ai_crew()
+
+            if not self.backend_authenticated:
+                self.authenticate_backend()
 
         stock_symbol = input("\nEnter stock symbol (e.g., TSLA): ").strip().upper()
         self.task_manager.set_company(stock_symbol)
@@ -64,7 +93,7 @@ class DevConsole:
             results = self.task_manager.research_and_calculate()
             return results
         else:
-            print("\nCannot proceed - missing required variables")
+            print("\nCannot proceed - missing required variables or authentication")
             return None
 
     def view_specific_results(self):
@@ -91,6 +120,33 @@ class DevConsole:
             except (ValueError, IndexError):
                 print("Invalid choice")
 
+    def post_research_forecast(self):
+        """Create and post a research forecast to backend"""
+        if not self.check_requirements(initial_check=True):
+            print("\nMissing requirements. Configuring now...")
+            self.configure_ai_crew()
+
+            if not self.backend_authenticated:
+                self.authenticate_backend()
+
+        stock_symbol = input("\nEnter stock symbol (e.g., TSLA): ").strip().upper()
+        user_id = input("\nEnter user ID (press Enter for default 1): ").strip()
+        user_id = int(user_id) if user_id else 1
+
+        self.task_manager.set_company(stock_symbol)
+
+        if self.check_requirements(initial_check=True):
+            print(f"\nCreating research forecast for {stock_symbol} (User ID: {user_id})...")
+            forecast_id = self.task_manager.create_and_post_research_forecast(user_id=user_id)
+
+            if forecast_id:
+                print(f"\nSuccessfully posted forecast with ID: {forecast_id}")
+                print(f"Forecast created by User ID: {user_id}")
+            else:
+                print("\nFailed to create and post forecast")
+        else:
+            print("\nCannot proceed - missing required variables or authentication")
+
     def run_specific_task(self):
         """Run a specific task type"""
         if not self.check_requirements(initial_check=True):
@@ -99,7 +155,7 @@ class DevConsole:
 
         print("\nAvailable tasks:")
         tasks = {
-            1: ("Research", True),  # (task_name, needs_only_initial_check)
+            1: ("Research", True),
             2: ("Calculations", False),
             3: ("Risk Assessment", False),
             4: ("Blog Creation", False),
@@ -144,8 +200,6 @@ class DevConsole:
         except Exception as e:
             print(f"\nError running task: {str(e)}")
 
-
-
     def display_menu(self):
         """Display the main menu options"""
         print("\n=== AI Financial Assistant Development Console ===")
@@ -154,8 +208,10 @@ class DevConsole:
         print("3. Run Specific Task")
         print("4. View Analysis Results")
         print("5. Check Configuration Status")
-        print("6. Exit")
-        return input("\nSelect an option (1-6): ").strip()
+        print("6. Re-authenticate Backend")
+        print("7. Post Research Forecast")
+        print("8. Exit")
+        return input("\nSelect an option (1-8): ").strip()
 
     def run(self):
         """Main console loop"""
@@ -175,6 +231,10 @@ class DevConsole:
             elif choice == '5':
                 self.check_requirements()
             elif choice == '6':
+                self.authenticate_backend()
+            elif choice == '7':
+                self.post_research_forecast()
+            elif choice == '8':
                 print("\nExiting console... ")
                 sys.exit(0)
             else:

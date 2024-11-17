@@ -1,5 +1,8 @@
 from AI_Crew import AI_Crew
-from data_parsers import string_list_to_list
+from backend_client import BackendClient
+import logging
+
+logger = logging.getLogger(__name__)
 
 class TaskManager:
     def __init__(self, api_key=None, models_config=None):
@@ -10,6 +13,7 @@ class TaskManager:
         self.company = None
         self.calculation_result = None
         self.research_result = None
+        self.backend_client = None
 
     def initialize_ai_crew(self, api_key=None, models_config=None):
         """Initialize or update AI Crew configuration"""
@@ -20,7 +24,14 @@ class TaskManager:
 
         if self.api_key and self.models_config:
             self.ai_crew = AI_Crew(self.api_key, self.models_config)
+            self.backend_client = BackendClient()
             return True
+        return False
+
+    def authenticate_backend(self, username: str, password: str) -> bool:
+        """Authenticate with the backend"""
+        if self.backend_client:
+            return self.backend_client.authenticate(username, password)
         return False
 
     def set_company(self, company_name):
@@ -48,12 +59,17 @@ class TaskManager:
         if not self.company:
             raise ValueError("Company name not set")
 
+        # Get technical analysis data
+        analysis_data = self.backend_client.get_technical_analysis_data(self.company)
+        market_context = self.backend_client.format_technical_analysis(analysis_data)
+
         return [
             self.ai_crew.create_task(
                 agent=self.ai_crew.agents[0],
                 description=f"Research the stock performance and recent news of {self.company}.",
                 expected_output="Provide a summary of stock's recent performance, financials, and news articles."
             ),
+            # Needs additional API endpoints for accurate data
             self.ai_crew.create_task(
                 agent=self.ai_crew.agents[0],
                 description="""Find the following specific financial numbers from the investigated stock:
@@ -68,8 +84,58 @@ class TaskManager:
 
                 Format the numbers clearly and explain the time period each number represents (e.g. quarterly, annual, TTM).""",
                 expected_output="A clear list of these financial numbers with their time periods and sources."
+            ),
+            self.ai_crew.create_task(
+                agent=self.ai_crew.agents[0],
+                description=f"""Analyze short-term trading opportunities for {self.company} based on technical analysis.
+
+        {market_context}
+
+        Provide a detailed short-term trading analysis covering:
+
+        1. Price Action Analysis:
+           - Current trend direction and strength
+           - Price momentum indicators
+           - Support/resistance levels from current price action
+           - Significance of the current bid/ask spread
+
+        2. Volume Analysis:
+           - Volume trend analysis
+           - Buying/selling pressure analysis
+           - Volume-price relationship
+           - Unusual volume activity assessment
+
+        3. Trading Range Analysis:
+           - Key levels within today's range
+           - Position relative to 52-week range
+           - Breakout/breakdown potential
+           - Price volatility assessment
+
+        4. Market Context:
+           - Current market phase
+           - Trading session analysis
+           - Exchange-specific considerations
+           - Real-time vs delayed data implications
+
+        5. Short-term Opportunities:
+           - Identified trading setups
+           - Risk/reward scenarios
+           - Entry/exit points
+           - Stop-loss levels
+
+        Format each section clearly and provide specific price levels where applicable.""",
+                expected_output="""Provide a comprehensive short-term trading analysis with:
+        1. Clear trend identification and direction
+        2. Specific support and resistance levels
+        3. Volume-based insights
+        4. Concrete trading opportunities
+        5. Risk management levels (entry, exit, stop-loss)
+        6. Short-term price targets
+        7. Confidence level in the analysis"""
             )
         ]
+
+
 
     def _create_calculation_task(self):
         """Create calculation tasks"""
@@ -384,6 +450,45 @@ class TaskManager:
 
         except Exception as e:
             print(f"Error in analysis: {str(e)}")
+            return None
+
+    def create_and_post_research_forecast(self, user_id: int) -> str:
+        """
+        Create and post a research-based forecast
+
+        """
+        try:
+            if not self.company:
+                raise ValueError("Company symbol not set")
+
+            # Get technical data
+            tech_data = self.backend_client.get_technical_analysis_data(self.company)
+            if not tech_data:
+                raise ValueError(f"Could not get technical data for {self.company}")
+
+            # Execute research tasks
+            research_tasks = self._create_research_task()
+            analysis_result = self.ai_crew.kickoff(research_tasks)
+
+            # Create forecast data
+            from data_parsers import ForecastParser
+            forecast_data = ForecastParser.format_forecast(
+                technical_data=tech_data,
+                analysis_text=analysis_result,
+                symbol=self.company
+            )
+
+            if forecast_data:
+                # Post to backend
+                result = self.backend_client.post_forecast(forecast_data, user_id)
+                if result:
+                    logger.info(f"Posted research forecast for {self.company} by user {user_id}")
+                    return result.get('forecast_id')
+
+            return None
+
+        except Exception as e:
+            logger.error(f"Error creating research forecast: {str(e)}")
             return None
 
     def print_results(self):
