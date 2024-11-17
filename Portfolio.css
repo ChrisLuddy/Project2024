@@ -1,0 +1,37 @@
+/* Style for portfolio holdings table */
+/* Center the div holding the table and set a max-width */
+.portfolio-holdings {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.portfolio-holdings table {
+    width: 90%;                 /* Make the table take up more width */
+    max-width: 1200px;          /* Add a max-width to limit on larger screens */
+    border-collapse: separate;
+    border-spacing: 0 15px;     /* Adds space between rows */
+    margin: 0 auto;             /* Center the table */
+}
+
+.portfolio-holdings th,
+.portfolio-holdings td {
+    padding: 16px 20px;         /* Increase padding to spread contents */
+    text-align: left;
+    background-color: #f9f9f9;  /* Light background for readability */
+    border: 1px solid #ddd;     /* Light border */
+}
+
+.portfolio-holdings th {
+    background-color: #4CAF50;  /* Darker color for headers */
+    color: white;
+    font-weight: bold;
+}
+
+.portfolio-holdings tr td:first-child {
+    font-weight: bold;          /* Emphasize stock symbols */
+}
+
+.portfolio-holdings tr:hover td {
+    background-color: #f1f1f1;  /* Hover effect for rows */
+}
