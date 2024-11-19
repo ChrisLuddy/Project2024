@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
 from .views import (
     RegisterView, AssetView, YahooFinance, AlphaVantage,
     ClientView, FundView, PortfolioView, OrderView,
-    TradeRatingView, AIForecastView, SupportRequestView
+    TradeRatingView, AIForecastView, SupportRequestView, YahooNewsView
 )
 
 
@@ -35,4 +35,5 @@ urlpatterns = [
     path('ai-forecasts/<str:forecast_id>/', AIForecastView.as_view(), name='ai-forecast-detail'),
     path('support-requests/', SupportRequestView.as_view(), name='support-request-list-create'),
     path('support-requests/<str:support_request_id>/', SupportRequestView.as_view(), name='support-request-detail'),
+    path('yahoo-news/', YahooNewsView.as_view(), name='yahoo-news'),
 ]

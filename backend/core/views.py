@@ -271,3 +271,34 @@ class AlphaVantage(APIView):
             return Response({"error": f"Failed to connect to Alpha Vantage API: {e}"}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class YahooNewsView(APIView):
+    """
+    Fetches financial news from Yahoo Finance using RapidAPI and returns the response.
+    """
+
+    def get(self, request):
+        # Extract query parameters
+        tickers = request.GET.get('tickers', 'AAPL')  # Default to AAPL if no tickers are provided
+        news_type = request.GET.get('type', 'ALL')    # Default to ALL if no type is provided
+
+        try:
+            # Define the Yahoo Finance API URL and headers
+            url = "https://yahoo-finance15.p.rapidapi.com/api/v2/markets/news"
+            headers = {
+                'X-RapidAPI-Key': settings.YAHOO_FINANCE_API_KEY,
+                'X-RapidAPI-Host': "yahoo-finance15.p.rapidapi.com"
+            }
+            params = {"tickers": tickers, "type": news_type}
+
+            # Make the API request
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()  # Raise an exception for HTTP errors
+            data = response.json()
+
+            return Response(data, status=status.HTTP_200_OK)
+        except requests.RequestException as e:
+            return Response({"error": f"Failed to fetch data from Yahoo Finance: {e}"}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
