@@ -816,6 +816,107 @@ curl -X GET 'http://161.35.38.50:8000/api/yahoo-finance/?ticker=AAPL&type=STOCKS
 }
 ```
 
+#### Yahoo Finance News API:
+
+The Yahoo News API endpoint in our backend allows fetching real-time financial up-to-date market news, trends, and insights from the Yahoo Finance service.
+
+**URL:** `/api/yahoo-finance/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `ticker`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
+- `type`: The type of asset (e.g., `STOCKS`).
+
+```bash
+curl -X GET http://161.35.38.50:8000/api/yahoo-news/ \
+-H "Authorization: Bearer JWT_TOKEN" \
+-H "Content-Type: application/json" \
+-d "tickers=AAPL&type=ALL"
+```
+
+**Example Response:**
+
+```json
+{
+    "meta": {
+        "version": "v1.0",
+        "status": 200,
+        "copywrite": "https://apicalls.io",
+        "total": 50
+    },
+    "body": [
+        {
+            "url": "https://www.cnbc.com/2024/11/19/qualcomm-says-it-expects-4-billion-in-pc-sales-by-2029.html",
+            "img": "https://cdn.snapi.dev/images/v1/o/w/m/qcomm14-2450117-2767892.jpg",
+            "title": "Qualcomm says it expects $4 billion in PC chip sales by 2029",
+            "text": "Qualcomm said at its investor day on Tuesday...",
+            "source": "CNBC",
+            "type": "Article",
+            "tickers": ["$QCOM"],
+            "time": "Nov 19, 2024, 4:49 PM EST",
+            "ago": "6 minutes ago"
+        },
+        {
+            "url": "https://www.youtube-nocookie.com/embed/q8qdLAb0nMo",
+            "img": "https://cdn.snapi.dev/images/v1/m/i/6/nvda19-2686814-2767903.jpg",
+            "title": "What Nvidia's Blackwell means for 2025 AI chip demand",
+            "text": "Nvidia (NVDA) prepares to report fiscal third quarter earnings...",
+            "source": "Yahoo Finance",
+            "type": "Video",
+            "tickers": ["$NVDA"],
+            "time": "Nov 19, 2024, 4:48 PM EST",
+            "ago": "7 minutes ago"
+        }
+    ]
+}
+```
+
+**Response Fields:**
+
+- **`meta`**: Metadata about the API call.
+  - **`version`**: API version.
+  - **`status`**: HTTP status code.
+  - **`total`**: Total number of articles retrieved.
+
+- **`body`**: A list of news articles.
+  - **`url`**: The link to the full news article or video.
+  - **`img`**: URL to the thumbnail image.
+  - **`title`**: Title of the article or video.
+  - **`text`**: A brief description of the content.
+  - **`source`**: The source of the news (e.g., CNBC, Reuters).
+  - **`type`**: Type of content (`Article` or `Video`).
+  - **`tickers`**: Associated stock tickers.
+  - **`time`**: Published date and time.
+  - **`ago`**: How long ago the news was published.
+
+**Common Use Cases:**
+
+1. Fetch All News: Retrieve all available financial news.
+```bash
+curl -X GET http://161.35.38.50:8000/api/yahoo-news/ \
+-H "Authorization: Bearer JWT_TOKEN"
+```
+
+2. Fetch News by Tickers: Retrieve news related to specific companies or assets.
+```bash
+curl -X GET http://161.35.38.50:8000/api/yahoo-news/?tickers=AAPL,MSFT \
+-H "Authorization: Bearer JWT_TOKEN"
+```
+
+3. Filter by Content Type: Fetch only videos or articles.
+```bash
+curl -X GET http://161.35.38.50:8000/api/yahoo-news/?type=Video \
+-H "Authorization: Bearer JWT_TOKEN"
+```
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **400 Bad Request:** Verify that query parameters are correctly formatted.
+* **503 Service Unavailable:** Yahoo API service is down or unreachable.
+
+
 
 #### Alpha Vantage API:
 
