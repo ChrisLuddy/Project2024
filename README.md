@@ -820,13 +820,13 @@ curl -X GET 'http://161.35.38.50:8000/api/yahoo-finance/?ticker=AAPL&type=STOCKS
 
 The Yahoo News API endpoint in our backend allows fetching real-time financial up-to-date market news, trends, and insights from the Yahoo Finance service.
 
-**URL:** `/api/yahoo-finance/`
+**URL:** `/api/yahoo-news/`
 
 **Request Method:** `GET`
 
 **Request Parameters:**
 - `ticker`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
-- `type`: The type of asset (e.g., `STOCKS`).
+- `type`: The type of asset (`ALL`, `VIDEO` or `PRESS_RELEASE`).
 
 ```bash
 curl -X GET http://161.35.38.50:8000/api/yahoo-news/ \
@@ -885,7 +885,7 @@ curl -X GET http://161.35.38.50:8000/api/yahoo-news/ \
   - **`title`**: Title of the article or video.
   - **`text`**: A brief description of the content.
   - **`source`**: The source of the news (e.g., CNBC, Reuters).
-  - **`type`**: Type of content (`Article` or `Video`).
+  - **`type`**: Type of content (`ALL` or `VIDEO` or `PRESS_RELEASE`).
   - **`tickers`**: Associated stock tickers.
   - **`time`**: Published date and time.
   - **`ago`**: How long ago the news was published.
@@ -906,7 +906,7 @@ curl -X GET http://161.35.38.50:8000/api/yahoo-news/?tickers=AAPL,MSFT \
 
 3. Filter by Content Type: Fetch only videos or articles.
 ```bash
-curl -X GET http://161.35.38.50:8000/api/yahoo-news/?type=Video \
+curl -X GET http://161.35.38.50:8000/api/yahoo-news/?type=VIDEO \
 -H "Authorization: Bearer JWT_TOKEN"
 ```
 
