@@ -215,11 +215,31 @@ class ForecastParser(DataParser):
 
     @staticmethod
     def format_technical_analysis(technical_data: TechnicalData) -> str:
-        """Format TechnicalData into readable string using existing format"""
-        return BackendClient.format_technical_analysis({
-            'technical': technical_data,
-            'historical': None
-        })
+        """Format TechnicalData into readable string"""
+        if not technical_data:
+            return "Technical data unavailable"
+
+        return f"""
+    REAL-TIME MARKET DATA:
+    Price Action:
+    - Current Price: ${technical_data.price.last_sale_price}
+    - Net Change: {technical_data.price.net_change} ({technical_data.price.percent_change}%)
+    - Bid/Ask Spread: ${technical_data.price.bid_price} / ${technical_data.price.ask_price}
+
+    Volume Analysis:
+    - Current Volume: {technical_data.volume.current_volume:,}
+    - Bid Size: {technical_data.volume.bid_size:,}
+    - Ask Size: {technical_data.volume.ask_size:,}
+
+    Trading Ranges:
+    - Today's Range: ${technical_data.ranges.daily_low} - ${technical_data.ranges.daily_high}
+    - 52-Week Range: ${technical_data.ranges.fifty_two_week_low} - ${technical_data.ranges.fifty_two_week_high}
+
+    Market Context:
+    - Exchange: {technical_data.status.exchange}
+    - Market Status: {technical_data.status.status}
+    - Data Type: {'Real-time' if technical_data.status.is_real_time else 'Delayed'}
+    """
 
     @staticmethod
     def to_api_format(forecast: ForecastData) -> str:

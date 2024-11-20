@@ -18,7 +18,7 @@ def initialize_task_manager():
         # Placeholder models
         models_config={
             "Researcher": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11434"},
-            "Accountant": {"model": "gpt-4o-mini", "base_url": "https://api.openai.com/v1"},
+            "Accountant": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11434"},
             "Recommender": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11434"},
             "Blogger": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11434"}
         }
