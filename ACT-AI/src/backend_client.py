@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 import logging
 from typing import Optional, Dict
+from data_parsers import ForecastParser
 from data_parsers import (
     MarketDataParser,
     TechnicalData,
@@ -11,6 +12,7 @@ from data_parsers import (
     MarketStatus,
     ForecastData
 )
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -176,7 +178,7 @@ RECENT HISTORICAL DATA:
             Optional[Dict]: Response data containing forecast_id if successful
         """
         try:
-            from data_parsers import ForecastParser
+
             forecast_text = ForecastParser.to_api_format(forecast_data)
 
             response = self.session.post(

@@ -1,5 +1,6 @@
 from AI_Crew import AI_Crew
 from backend_client import BackendClient
+from data_parsers import ForecastParser
 import logging
 
 logger = logging.getLogger(__name__)
@@ -471,7 +472,6 @@ class TaskManager:
             analysis_result = self.ai_crew.kickoff(research_tasks)
 
             # Create forecast data
-            from data_parsers import ForecastParser
             forecast_data = ForecastParser.format_forecast(
                 technical_data=tech_data,
                 analysis_text=analysis_result,
