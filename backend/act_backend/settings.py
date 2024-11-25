@@ -43,6 +43,8 @@ ALLOWED_HOSTS = [
     'localhost'
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True  # don't use in production
+
 
 # Application definition
 
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  # work with API
     'core',  # main business logic
+    'corsheaders',  # CORS
 ]
 
 # Use custom user model
@@ -68,6 +71,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'act_backend.urls'
