@@ -1,7 +1,7 @@
 // Base API URL
-const BASE_URL = "http://127.0.0.1:8000/api";
+// const BASE_URL = "http://127.0.0.1:8000/api";
 
-// const BASE_URL = "http://161.35.38.50:8000/api";
+const BASE_URL = "http://161.35.38.50:8000/api";
 let accessToken = ""; // Store JWT token after login
 
 // Helper function to set headers
