@@ -186,7 +186,7 @@ function fetchYahooNews(tickers = "", type = "ALL") {
     });
 }
 
-function initYahooNewsPage() {
+function updateNews() {
     fetchYahooNews("AAPL", "ALL")
         .then(data => {
             const newsContainer = document.getElementById("news-container");
@@ -198,8 +198,7 @@ function initYahooNewsPage() {
                     return `
                         <div class="news-item">
                             <img src="${article.img || ''}" alt="${article.title}" />
-                            <h3>${article.title}</h3>
-                            <span><small>${publishedDate}</small></span>
+                            <h3>${article.title} <small>(${publishedDate})</small></h3>
                             <p>${article.text}</p>
                             <a href="${article.url}" target="_blank">Read more</a>
                         </div>
@@ -208,6 +207,17 @@ function initYahooNewsPage() {
                 .join("");
         })
         .catch(error => alert("Error fetching news: " + error.message));
+}
+
+function initYahooNewsPage() {
+    // Initial news load
+    updateNews();
+
+    // Add event listener for the refresh button
+    const refreshButton = document.getElementById("refresh-news-button");
+    refreshButton.addEventListener("click", () => {
+        updateNews();
+    });
 }
 
 // Main Initialization
