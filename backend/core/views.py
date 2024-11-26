@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework import status, generics, permissions
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 from .serializers import RegisterSerializer
 from .firebase_models import Client, Fund, Portfolio, Asset, Order, TradeRating, AIForecast, SupportRequest
 from django.conf import settings
@@ -277,6 +278,8 @@ class YahooNewsView(APIView):
     """
     Fetches financial news from Yahoo Finance using RapidAPI and returns the response.
     """
+
+    permission_classes = [AllowAny]
 
     def get(self, request):
         # Extract query parameters
