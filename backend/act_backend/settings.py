@@ -40,7 +40,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '161.35.38.50',
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    'welsol21.github.io/Project2024',
+    'ChrisLuddy.github.io/Project2024',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # don't use in production
