@@ -21,7 +21,7 @@
     border-collapse: separate;
     border-spacing: 0 10px;  /* Spacing between rows */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow around table */
-    background-color: #ffffff;
+    background-color: #1d1e22;
 }
 
 .ai-predictions-container th, .ai-predictions-container td {
@@ -41,11 +41,11 @@
 
 /* Styling for table rows */
 .ai-predictions-container tr:nth-child(even) td {
-    background-color: #f7f7f7;  /* Light background for alternating rows */
+    background-color: #1d1e22;  /* Light background for alternating rows */
 }
 
 .ai-predictions-container tr:nth-child(odd) td {
-    background-color: #ffffff;
+    background-color: #1d1e22;
 }
 
 /* Hover effect for table rows */
@@ -57,7 +57,7 @@
 /* Emphasize the first column (Stock Symbol) */
 .ai-predictions-container td:first-child {
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
 }
 
 /* Responsive table adjustments */
