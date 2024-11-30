@@ -1,0 +1,288 @@
+/* Body Background */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: 200% 200%;
+    animation: backgroundHue 55s infinite alternate;
+    background-color: #1d1e22; /* Dark background for the page */
+    color: #ffffff; /* White text color */
+}
+
+/* Neon Dot Styling for Mouse Glow */
+.neon-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0, 115, 230, 0.5);
+    box-shadow: 0 0 10px rgba(0, 115, 230, 0.5);
+    pointer-events: none;
+}
+
+/* Header Styling */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #0073e6;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+/* Navigation Styling */
+nav {
+    position: sticky;
+    top: 73px;
+    z-index: 999;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    background-color: #005bb5;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+nav a:hover {
+    transform: scale(1.1);
+    background-color: #003d7a;
+}
+
+/* Section Styling */
+section {
+    padding: 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #1d1e22; /* Section background color */
+    color: #fff;
+    border-radius: 8px;
+}
+
+/* Form Styling */
+form {
+    background-color: #1d1e22; /* Dark gray background */
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form label {
+    text-align: left;
+    color: #fff; /* White labels */
+    font-weight: bold;
+}
+
+form select, form input[type="number"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #333; /* Dark gray background for inputs */
+    color: #fff; /* White text color for inputs */
+}
+
+form select:focus, form input[type="number"]:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+}
+
+form button {
+    padding: 12px 20px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: #005bb5;
+    transform: translateY(-2px);
+}
+
+/* Search Bar */
+#asset-search {
+    margin: 30px auto;
+    text-align: center;
+}
+
+#asset-search h3 {
+    
+    color: #005bb5;
+    margin-bottom: 15px;
+}
+
+#search-bar {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
+    border: 1px solid #333;
+    background-color: #333;  /* Dark text color for better readability */
+    border-radius: 5px;
+    font-size: 1em;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#search-bar:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+    outline: none;
+}
+
+#search-results {
+    margin: 10px auto;
+    padding: 0;
+    list-style: none;
+    max-width: 400px;
+    text-align: left;
+}
+
+#search-results li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s ease;
+}
+
+#search-results li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Client Asset Table */
+#client-assets {
+    margin: 30px auto;
+    text-align: center;
+}
+
+#client-assets table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#client-assets th, #client-assets td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#client-assets th {
+    background-color: #0073e6;
+    color: white;
+    text-transform: uppercase;
+}
+
+#client-assets tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#client-assets tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Default styling for labels */
+label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Change color when radio input is checked */
+input[type="radio"][value="above"]:checked + label {
+    color: green;
+}
+
+input[type="radio"][value="below"]:checked + label {
+    color: red;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav a {
+        float: none;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+/* Background Animation */
+@keyframes backgroundHue {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+/* Fade in and out for alerts */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    20%, 80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+/* Mouse Glow (Neon Dots) */
+.neon-dot {
+    position: fixed;  /* Fix the position relative to the viewport */
+    width: 15px;      /* Set size for the dot */
+    height: 15px;     /* Set size for the dot */
+    border-radius: 50%; /* Make it circular */
+    background: rgba(0, 115, 230, 0.5); /* Neon blue color */
+    box-shadow: 0 0 10px rgba(0, 115, 230, 0.5); /* Glow effect */
+    transition: all 0.2s ease; /* Smooth transition for movement */
+    z-index: 9999; /* Ensure the glow is above all other elements */
+}
+
+/* Add additional styles for mouse glow if necessary */
+#mouse-glow {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    transition: transform 0.05s ease;
+    z-index: 9999;
+}
