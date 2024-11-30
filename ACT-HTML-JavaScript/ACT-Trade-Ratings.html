@@ -1,78 +1,162 @@
-<!DOCTYPE html> <!-- Declares the document type as HTML5. This is necessary for proper rendering and behavior of the webpage -->
-<html lang="en"> <!-- Specifies the language of the document as English -->
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8"> <!-- Specifies the character encoding as UTF-8, which includes most characters from all known languages -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures the page is responsive on mobile devices by setting the viewport width to device width -->
-    <title>ACT Web Application - Trade Ratings</title> <!-- Sets the title of the webpage, which will appear in the browser tab -->
+    <!-- Meta tag for character encoding -->
+    <meta charset="UTF-8">
+    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Home</title>
+    <!-- Link to the external CSS stylesheet for styling the webpage -->
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+    <script src="ACT-Web.js"></script>
 
-    <!-- Link to the favicon, a small icon displayed in the browser tab -->
-    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-
-    <!-- Displays the website logo on the page, though logos are typically placed in the body. This is a visual representation for users -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-
-    <!-- Link to the external CSS file for styling the page -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css"> <!-- This external CSS file contains styles for the webpage -->
 </head>
 
 <body>
-    <!-- Main body content of the webpage -->
-    
+    <!-- Header section containing navigation links -->
     <header>
-        <!-- The header contains the navigation menu for the website -->
-        <nav> <!-- This is the navigation bar containing the links to different pages of the site -->
-            <div class="logo">ACT Web Application</div> <!-- Displays the website logo text -->
-
-            <!-- Unordered list representing the menu links -->
-            <ul>
-                <li><a href="ACT-Homepage.html">Home</a></li> <!-- Link to the homepage -->
-                <li><a href="ACT-Portfolio.html">Portfolio</a></li> <!-- Link to the portfolio page -->
-                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li> <!-- Link to the AI predictions page -->
-                <li><a href="ACT-Reports.html">Reports</a></li> <!-- Link to the reports page -->
-                <li><a href="ACT-Support.html">Support</a></li> <!-- Link to the support page -->
-                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li> <!-- Link to the trade ratings page -->
-                <li><a href="ACT-Login.html">Login</a></li> <!-- Link to the login page -->
-                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li> <!-- Link to the fund manager dashboard page -->
-                <li><a href="ACT-Price-System.html">Price Alert System</a></li> <!-- Link to the price alert system page -->
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li> <!-- Link to the fund manager welcome page -->
-            </ul> <!-- End of navigation links list -->
-        </nav> <!-- End of navigation bar -->
+        <!-- Logo for the application displayed -->
+        <div class="logo">ACT Web Application</div>
     </header>
 
-    <section id="trade-ratings">
-        <!-- Section for displaying trade ratings -->
-        <h2>Trade Ratings</h2> <!-- Main heading of the section -->
+    <nav>
         
-        <!-- Image representing trade ratings, displayed in full width but with a maximum width of 600px for proper scaling -->
-        <img src="images/ACT-Trade-Ratings.png" alt="ACT Trade Ratings Image" style="width: 100%; max-width: 600px; height: auto;">
+        <!-- Unordered list of navigation links -->
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main section containing the welcome message -->
+    <main>
         
-        <!-- Description paragraph explaining the content of this section -->
-        <p>View the latest trade ratings for your portfolio's technology stocks and cryptocurrencies based on online and social media discussions.</p>
+        <section>
+            <h1>Trade Ratings</h1>
+            <p>Evaluate the performance of your past investments and track how your current trades are progressing. Use this page to understand which investments have performed well and gain insights for future strategies.</p>
+        </section>
 
-        <!-- Section for technology stocks ratings -->
-        <div id="stocks-section">
-            <h3>Technology Stocks</h3> <!-- Subheading for technology stocks ratings -->
-            <div id="stocks-container"></div> <!-- Container where the technology stock ratings will be displayed dynamically -->
-        </div>
+        <!-- Section for Past Performance Ratings -->
+        <section id="past-performance">
+            <h2>Past Performance Ratings</h2>
 
-        <!-- Section for cryptocurrency ratings -->
-        <div id="cryptos-section">
-            <h3>Cryptocurrencies</h3> <!-- Subheading for cryptocurrency ratings -->
-            <div id="cryptos-container"></div> <!-- Container where the cryptocurrency ratings will be displayed dynamically -->
-        </div>
+            <table class="trade-table">
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Type</th>
+                        <th>Entry Price (USD)</th>
+                        <th>Current Price (USD)</th>
+                        <th>Change (%)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bitcoin (BTC)</td>
+                        <td>Crypto</td>
+                        <td>$20,000</td>
+                        <td class="current-price">$22,000</td>
+                        <td class="change-value">+10%</td>
+                        <td class="status">Good</td>
+                    </tr>
+                    <!-- Additional rows as needed -->
+                </tbody>
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Type</th>
+                        <th>Initial Investment (USD)</th>
+                        <th>Current Value (USD)</th>
+                        <th>Net Change (%)</th>
+                        <th>Performance Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Apple Inc. (AAPL)</td>
+                        <td>Stock</td>
+                        <td>$1,000</td>
+                        <td>$1,250</td>
+                        <td>+25%</td>
+                        <td><span class="rating good">Excellent</span></td>
+                    </tr>
+                    <tr>
+                        <td>Bitcoin (BTC)</td>
+                        <td>Crypto</td>
+                        <td>$2,000</td>
+                        <td>$1,800</td>
+                        <td>-10%</td>
+                        <td><span class="rating poor">Below Average</span></td>
+                    </tr>
+                    <!-- Additional rows as needed -->
+                </tbody>
+            </table>
+        </section>
 
-        <!-- Additional container for other trade data, potentially for future dynamic content -->
-        <div id="trade-data-container"></div> <!-- Placeholder for displaying trade data (not yet specified) -->
-    </section> <!-- End of trade ratings section -->
+        <!-- Section for Current Trades -->
+        <section id="current-trades">
+            <h2>Current Trade Performance</h2>
+            <table class="trade-table">
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Type</th>
+                        <th>Entry Price (USD)</th>
+                        <th>Current Price (USD)</th>
+                        <th>Change (%)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ethereum (ETH)</td>
+                        <td>Crypto</td>
+                        <td>$1,750</td>
+                        <td>$1,850</td>
+                        <td>+5.71%</td>
+                        <td><span class="status uptrend">Uptrend</span></td>
+                    </tr>
+                    <tr>
+                        <td>Amazon (AMZN)</td>
+                        <td>Stock</td>
+                        <td>$120</td>
+                        <td>$125</td>
+                        <td>+4.17%</td>
+                        <td><span class="status uptrend">Uptrend</span></td>
+                    </tr>
+                    <!-- Additional rows as needed -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section for Future Projections -->
+        <section id="future-projections">
+            <h2>Future Projections</h2>
+            <p>Analyze the projected trends for your ongoing investments based on market data and AI-driven insights.</p>
+            <div class="projection-chart">
+                <!-- Placeholder for projections chart -->
+                <div class="chart-placeholder">Future projection chart will be displayed here.</div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer section containing copyright information -->
     <footer>
-        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> <!-- Copyright message -->
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
-    <!-- Link to the external JavaScript file that handles the interactive functionality on the page -->
-    <script src="ACT-Web.js"></script> <!-- JavaScript file that likely manages the dynamic behavior of the page -->
+    <!-- Link to the external JavaScript file for additional functionality -->
+    <script src="ACT-Web.js"></script>
 </body>
 
 </html>
