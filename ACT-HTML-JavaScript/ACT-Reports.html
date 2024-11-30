@@ -2,60 +2,88 @@
 <html lang="en">
 
 <head>
+    <!-- Meta tag for character encoding -->
     <meta charset="UTF-8">
+    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACT Web Application - Reports</title>
-    <!-- Link to the favicon -->
-   <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-   <!-- Displays the website logo in the page -->
-   <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css">
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Home</title>
+    <!-- Link to the external CSS stylesheet for styling the webpage -->
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+    <script src="ACT-Math.js" defer></script>
+    <script src="ACT-Web.js" defer></script>
 </head>
 
 <body>
+    <!-- Header section containing the logo and navigation -->
     <header>
-        <nav>
-            <div class="logo">ACT Web Application</div>
-            <ul>
-                <li><a href="ACT-Homepage.html">Home</a></li>
-                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
-                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-                <li><a href="ACT-Reports.html">Reports</a></li>
-                <li><a href="ACT-Support.html">Support</a></li>
-                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-                <li><a href="ACT-Login.html">Login</a></li>
-                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>
-            </ul>
-        </nav>
+        <div class="logo">ACT Web Application</div>
     </header>
 
-    <section id="reports">
-        <h2>Financial Reports</h2>
-        <img src="images/ACT-Reports.png" alt="ACT Reports Image" style="width: 100%; max-width: 600px; height: auto;">
-        <p>Generate detailed financial reports for the portfolio.</p>
+    <!-- Navigation bar -->
+    <nav>
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
 
-        <!-- Added placeholders for stocks and cryptos -->
-        <h3>Your Stocks:</h3>
-        <ul id="stock-list"></ul> <!-- Placeholder for displaying user's stocks -->
+    <!-- Main container for the page's content -->
+    <main class="container">
+        <!-- Main heading -->
+        <h1>Buy Stocks and Cryptocurrencies</h1>
+        
+        <!-- Decorative image -->
+        <img src="images/ACT-Purchase.png" alt="ACT Purchase Image" style="width: 100%; max-width: 600px; height: auto;">
+        
+        <!-- Stocks section -->
+        <section id="stocks">
+            <h2>Tech Stocks</h2>
+            <form id="stocks-form">
+                <!-- Dynamically add stocks here -->
+                <div class="stock-item">
+                    <label for="stock1">Stock 1:</label>
+                    <select id="stock1" class="stock-select" required>
+                        <option value="">Select a stock</option>
+                    </select>
+                </div>
+                <!-- Add similar blocks for more stocks -->
+            </form>
+        </section>
 
-        <h3>Your Cryptocurrencies:</h3>
-        <ul id="crypto-list"></ul> <!-- Placeholder for displaying user's cryptocurrencies -->
+        <!-- Cryptocurrencies section -->
+        <section id="crypto">
+            <h2>Cryptocurrencies</h2>
+            <form id="crypto-form">
+                <div class="crypto-item">
+                    <label for="crypto1">Crypto 1:</label>
+                    <select id="crypto1" class="crypto-select" required>
+                        <option value="">Select a cryptocurrency</option>
+                    </select>
+                </div>
+                <!-- Add similar blocks for more cryptocurrencies -->
+            </form>
+        </section>
 
-        <!-- Buttons to download PDF or CSV -->
-        <button id="download-pdf" class="generate-report-btn">Download PDF Report</button>
-        <button id="download-csv" class="generate-report-btn">Download CSV Report</button>
-    </section>
+        <!-- Button to trigger purchase -->
+        <button id="buy-button">Buy Now</button>
 
+        <!-- Placeholder for the purchase summary -->
+        <div id="purchase-summary"></div>
+    </main>
+
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
-
-    <!--jsPDF-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-
-    <script src="ACT-Web.js"></script>
 </body>
 
 </html>
