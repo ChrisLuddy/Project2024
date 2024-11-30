@@ -8,13 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title of the webpage displayed in the browser tab -->
     <title>ACT Web Application - Home</title>
-    <!-- Link to the favicon -->
-   <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-   <!-- Displays the website logo in the page -->
-   <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
     <!-- Link to the external CSS stylesheet for styling the webpage -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css">
-
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+    <script src="ACT-Web.js"></script>
 </head>
 
 <body>
@@ -25,26 +21,94 @@
     </header>
 
     <nav>
+        
         <!-- Unordered list of navigation links -->
         <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
             <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
             <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
             <li><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
-            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-            <li><a href="ACT-Login.html">Login</a></li>
-            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-            <!-- <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>-->
         </ul>
     </nav>
 
     <!-- Main section containing the welcome message -->
     <section>
         <!-- Main heading of the page -->
-        <h1>Portfolio</h1>
+        
+         <!-- Introduction -->
+         <div class="portfolio-summary">
+            <h2>Portfolio Summary</h2>
+            <p>Total Asset Value: $<span id="total-asset-value">125,000</span></p>
+            <p>Number of Holdings: <span id="holding-count">5</span></p>
+        </div>
+
+        <h2>Stock Holdings</h2>
+        <!-- Portfolio Table for Stock Holdings -->
+        <div class="portfolio-holdings">
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Stock Symbol</th>
+                        <th>Company Name</th>
+                        <th>Quantity</th>
+                        <th>Current Price</th>
+                        <th>Total Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AAPL</td>
+                        <td>Apple Inc.</td>
+                        <td>50</td>
+                        <td>$150</td>
+                        <td>$7,500</td>
+                    </tr>
+                    <tr>
+                        <td>GOOGL</td>
+                        <td>Alphabet Inc.</td>
+                        <td>20</td>
+                        <td>$2,500</td>
+                        <td>$50,000</td>
+                    </tr>
+                    <tr>
+                        <td>MSFT</td>
+                        <td>Microsoft Corp.</td>
+                        <td>30</td>
+                        <td>$300</td>
+                        <td>$9,000</td>
+                    </tr>
+                    <tr>
+                        <td>TSLA</td>
+                        <td>Tesla Inc.</td>
+                        <td>10</td>
+                        <td>$700</td>
+                        <td>$7,000</td>
+                    </tr>
+                    <tr>
+                        <td>AMZN</td>
+                        <td>Amazon.com Inc.</td>
+                        <td>5</td>
+                        <td>$3,000</td>
+                        <td>$15,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
+
+
+
+
+
+
+
 
     <!-- Footer section containing copyright information -->
     <footer>
