@@ -1,3 +1,74 @@
+// Function to check the performance and return a status label
+function getPerformanceStatus(change) {
+    if (change < 0) {
+        return "poor";
+    } else {
+        return "good";
+    }
+}
+
+// Example usage
+let netChange1 = -10; // Example negative change
+let netChange2 = 15;  // Example positive change
+
+console.log(`The performance is ${getPerformanceStatus(netChange1)} for change: ${netChange1}%`);
+console.log(`The performance is ${getPerformanceStatus(netChange2)} for change: ${netChange2}%`);
+
+// Function to apply this to elements on a webpage
+function updateTablePerformance() {
+    // Select all table rows that need checking
+    const rows = document.querySelectorAll('.trade-table tbody tr');
+
+    rows.forEach(row => {
+        const changeCell = row.querySelector('td:nth-child(5)'); // Assuming the 5th cell contains the change %
+        const performanceCell = row.querySelector('td:last-child'); // Last cell for status label
+
+        // Parse the change as a float (assumes % sign is not present)
+        const change = parseFloat(changeCell.textContent);
+
+        // Get performance status and update the performance cell
+        const status = getPerformanceStatus(change);
+        performanceCell.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+
+        // Add a class to color-code the cell
+        performanceCell.className = `status ${status}`;
+    });
+}
+
+// Call the function when the page is loaded
+window.onload = updateTablePerformance;
+
+// Function to update the price and calculate the change
+function updatePrice(rowSelector, newPrice) {
+    // Select the specific row
+    const row = document.querySelector(rowSelector);
+
+    // Select the cells for entry price and current price
+    const entryPriceCell = row.querySelector('td:nth-child(3)');
+    const currentPriceCell = row.querySelector('td:nth-child(4)');
+    const changeCell = row.querySelector('td:nth-child(5)');
+    const statusCell = row.querySelector('td:nth-child(6)');
+
+    // Get the entry price as a number
+    const entryPrice = parseFloat(entryPriceCell.textContent.replace(/[^0-9.-]+/g, ''));
+    
+    // Update the current price cell with the new price
+    currentPriceCell.textContent = `$${newPrice.toFixed(2)}`;
+
+    // Calculate the change percentage
+    const changePercentage = ((newPrice - entryPrice) / entryPrice) * 100;
+    changeCell.textContent = `${changePercentage.toFixed(2)}%`;
+
+    // Determine the status based on the change percentage
+    const status = changePercentage < 0 ? "poor" : "good";
+    statusCell.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    statusCell.className = `status ${status}`;
+}
+
+// Example usage to update the first row in the table with a new price
+updatePrice('.trade-table tbody tr', 23000);
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Global Functions 
 
