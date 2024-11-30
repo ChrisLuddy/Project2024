@@ -1,47 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Sets character encoding to UTF-8 to support a wide range of characters -->
+    <!-- Meta tag for character encoding -->
     <meta charset="UTF-8">
-    <!-- Makes the page responsive by setting the viewport to match device width -->
+    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Sets the title of the page, which appears in the browser tab -->
-    <title>ACT Web Application - Fund Manager Dashboard</title>
-    <!-- Link to the favicon -->
-   <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-   <!-- Displays the website logo in the page -->
-   <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-    <!-- Links to an external CSS file for styling the page -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css">
-    <!-- Loads the jsPDF library for generating PDF files on the client side -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- Links the JavaScript file for page functionality and defers loading until HTML parsing is complete -->
-    <script src="ACT-Web.js" defer></script>
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Home</title>
+    <!-- Link to the external CSS stylesheet for styling the webpage -->
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+    <script src="ACT-Web.js"></script>
+
+
 </head>
 
 <body>
-    <!-- Header section containing the navigation bar -->
+    <!-- Header section containing navigation links -->
     <header>
-        <!-- Navigation bar with links to other pages within the application -->
-        <nav>
-            <!-- Application logo or name displayed at the top of the page -->
-            <div class="logo">ACT Web Application</div>
-            <!-- List of navigation links -->
-            <ul>
-                <!-- Each list item links to a different section of the application -->
-                <li><a href="ACT-Homepage.html">Home</a></li>
-                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-                <li><a href="ACT-Reports.html">Reports</a></li>
-                <li><a href="ACT-Support.html">Support</a></li>
-                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-                <li><a href="ACT-Login.html">Login</a></li>
-                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>
-            </ul>
-        </nav>
+        <!-- Logo for the application displayed -->
+        <div class="logo">ACT Web Application</div>
     </header>
+
+    <nav>
+        
+        <!-- Unordered list of navigation links -->
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
 
     <!-- Main section of the page displaying the fund manager dashboard -->
     <section id="dashboard">
