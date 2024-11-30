@@ -1,25 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Specifies the document type and version of HTML being used -->
-    <meta charset="UTF-8"> <!-- Sets the character encoding for the HTML document to UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures proper scaling on mobile devices -->
-    <title>ACT Web Application - Fund Manager Welcome</title> <!-- The title that appears in the browser tab -->
-    
-    <!-- Link to the favicon -->
-    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-    
-    <!-- Link to the CSS stylesheet for styling the page -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACT Web Application - Fund Manager Welcome</title>
+    <link rel="stylesheet" href="ACT-Web-styles.css"> 
+    <header>
+        <h2>Fund Manager Welcome</h2>
+    </header>
 </head>
-
 <body>
     <!-- 
     This page serves as the home page for fund managers upon logging in.
@@ -27,31 +16,28 @@
     and quick links to important functionalities such as managing client records,
     setting price alerts, and generating reports.
     -->
-
-    <!-- Header section containing the page title and navigation links -->
-    <header>
-        <h2>Fund Manager Welcome</h2> <!-- Main heading for the Fund Manager Welcome page -->
-        <nav>
-            <!-- Navigation menu containing a list of links -->
-            <ul>
-                <li><a href="ACT-Homepage.html">Home</a></li> <!-- Link to the homepage -->
-                <li><a href="ACT-Support.html">Support</a></li> <!-- Link to the support page -->
-                <li><a href="ACT-Login.html">Login</a></li> <!-- Link to the login page -->
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li> <!-- Link to the current welcome page -->
-            </ul>
-        </nav>
-    </header>
+    
+    <nav>
+        <!-- Unordered list of navigation links -->
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
 
     <!-- Main content of the Fund Manager Welcome page -->
     <main id="welcome-container" style="display: none;"> <!-- Initially hidden; shown when the user is authenticated -->
         <section id="welcome">
-            <!-- Welcome message personalized for the fund manager -->
-            <h2>Welcome, <span id="fund-manager-name"></span>!</h2> <!-- Placeholder to display the fund manager's name -->
-            
-            <!-- Image associated with the Fund Manager Welcome page -->
-            <img src="images/ACT-Fund-Manager-Welcome.png" alt="ACT Homepage Image" style="width: 100%; max-width: 600px; height: auto;">
-            
-            <!-- Introductory text for the fund manager's homepage -->
+            <h2>Welcome, <span id="fund-manager-name"></span>!</h2> <!-- Placeholder for the fund manager's name -->
+            <img src="C:\Users\chris\OneDrive\Desktop\Group Project Web\Project2024\ACT-HTML-JavaScript\Images\ACT-Fund-Manager-Welcome.png" alt="ACT Homepage Image" >
             <p>
                 Welcome to your Fund Manager Homepage where you can manage your clients. Here, you'll discover a clear overview of your homepage
                 and quick access to critical features such as maintaining client records, setting price alerts, and creating reports to help 
@@ -59,33 +45,26 @@
             </p>
         </section>
 
-        <!-- Dashboard section providing an overview of important metrics -->
         <section id="dashboard">
-            <h3>Dashboard Overview</h3> <!-- Subheading for the Dashboard section -->
-            <div class="metrics"> <!-- Container for displaying key metrics -->
-                <!-- Display for the total number of clients -->
+            <h3>Dashboard Overview</h3>
+            <div class="metrics">
                 <div class="metric">
-                    <h4>Total Clients</h4> <!-- Metric title -->
+                    <h4>Total Clients</h4>
                     <p id="total-clients"></p> <!-- Placeholder for displaying total number of clients -->
                 </div>
-                
-                <!-- Display for the number of alerts -->
                 <div class="metric">
-                    <h4>Number of Alerts</h4> <!-- Metric title -->
+                    <h4>Number of Alerts</h4>
                     <p id="number-of-alerts"></p> <!-- Placeholder for displaying the number of alerts -->
                 </div>
-                
-                <!-- Display for recent activities of the fund manager -->
                 <div class="metric">
-                    <h4>Recent Activities</h4> <!-- Metric title -->
+                    <h4>Recent Activities</h4>
                     <p id="recent-activities"></p> <!-- Placeholder for displaying recent activities -->
                 </div>
             </div>
         </section>
 
-        <!-- Section with quick links to frequently used pages -->
         <section id="quick-links">
-            <h3>Quick Links</h3> <!-- Subheading for the Quick Links section -->
+            <h3>Quick Links</h3>
             <ul>
                 <li><a href="ACT-Fund-Manager.html">Manage Client Records</a></li> <!-- Link to manage client records -->
                 <li><a href="ACT-Price-System.html">Set Price Alerts</a></li> <!-- Link to set price alerts -->
@@ -94,13 +73,10 @@
         </section>
     </main>
 
-    <!-- Footer section at the bottom of the page -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> <!-- Footer copyright notice -->
     </footer>
 
-    <!-- Link to the external JavaScript file that handles functionality and page behavior -->
-    <script src="ACT-Web.js"></script>
+    <script src="ACT-Web.js"></script> <!-- Link to the external JavaScript file for functionality -->
 </body>
-
 </html>
