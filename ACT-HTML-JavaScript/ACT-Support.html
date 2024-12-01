@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <!-- Title of the webpage displayed in the browser tab -->
     <title>ACT Web Application - Support</title> 
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
+    <!-- Displays the website logo in the page -->
+    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
     <!-- Link to the external CSS stylesheet for styling the support page -->
-    <link rel="stylesheet" href="ACT-Web-styles.css"> 
+    <link rel="stylesheet" href="css/ACT-Web-styles.css"> 
     <script src="ACT-Web.js"></script>
 
 </head>
@@ -24,15 +27,17 @@
         <!-- Unordered list of navigation links -->
        <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
-            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li style="display: none;"></li><li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
             <li><a href="ACT-Login.html">Login</a></li>
-            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
-            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
-            <li><a href="ACT-Yahoo-News.html">News</a></li>
-            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Register.html">Register</a></li>
+            <li style="display: none;"></li><li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li style="display: none;"></li><li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li style="display: none;"></li><li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li style="display: none;"></li><li><a href="ACT-Yahoo-News.html">News</a></li>
+            <li style="display: none;"></li><li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li style="display: none;"></li><li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li style="display: none;"></li><li><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Reviews.html">Review</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
         </ul>
@@ -42,9 +47,10 @@
     <section id="support">
         <!-- Secondary heading for the contact support form -->
         <h1>Contact Support</h1>
-        <img src="C:\Users\chris\OneDrive\Desktop\Group Project Web\Project2024\ACT-HTML-JavaScript\Images\ACT-Support.png" alt="ACT Homepage Image" >
+        <img src="images/ACT-Support.png" alt="ACT Support Image" style="width: 100%; max-width: 600px; height: auto;">
         <!-- Form element for users to send a support message, action points to the contact support endpoint -->
         <form action="/contact-support" method="POST"> 
+            <p>To contact customer service, please call us at: <a href="tel:+353863123456">+353 (863) 123-456</a></p>
             <!-- Label for the email input field -->
             <label for="email">Email:</label>
             <!-- Input field for user email, required for form submission -->
