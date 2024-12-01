@@ -1,3 +1,164 @@
+// Base API URL
+// const BASE_URL = "http://127.0.0.1:8000/api";
+
+const BASE_URL = "http://161.35.38.50:8000/api";
+let accessToken = ""; // Store JWT token after login
+
+// Firebase Initialization
+(async function initializeFirebase() {
+    // Dynamically fetch Firebase configuration 
+    const firebaseConfig = await fetch("/path/to/your/firebase-config.json")
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to load Firebase configuration");
+            return response.json();
+        })
+        .catch(error => {
+            console.error("Firebase initialization error:", error.message);
+        });
+
+    // Initialize Firebase with fetched configuration
+    if (firebaseConfig) {
+        import("https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js")
+            .then(({ initializeApp }) => {
+                const app = initializeApp(firebaseConfig);
+                console.log("Firebase Initialized:", app);
+            })
+            .catch(error => console.error("Error importing Firebase App:", error.message));
+    }
+})();
+
+// Helper function to set headers
+function getHeaders(authRequired = true) {
+    const headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    };
+    if (authRequired && accessToken) {
+        headers["Authorization"] = `Bearer ${accessToken}`;
+    }
+    return headers;
+}
+
+// Authentication Functions
+
+// Handle Login
+function handleLogin(username, password) {
+    return fetch(`${BASE_URL}/token/`, {
+        method: "POST",
+        headers: getHeaders(false),
+        body: JSON.stringify({ username, password }),
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Invalid login credentials");
+            return response.json();
+        })
+        .then(data => {
+            accessToken = data.access;
+            return data;
+        });
+}
+
+// Handle Registration
+function handleRegistration(username, password, role) {
+    return fetch(`${BASE_URL}/register/`, {
+        method: "POST",
+        headers: getHeaders(false),
+        body: JSON.stringify({ username, password, role }), // Include role
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Registration failed");
+            return response.json();
+        });
+}
+
+// Fetch Functions
+
+// Fetch Yahoo News
+function fetchYahooNews(tickers = "", type = "ALL") {
+    const queryParams = new URLSearchParams({ tickers, type });
+    return fetch(`${BASE_URL}/yahoo-news/?${queryParams.toString()}`, {
+        method: "GET",
+        headers: getHeaders(),
+    }).then(response => {
+        if (!response.ok) throw new Error("Failed to fetch Yahoo News");
+        return response.json();
+    });
+}
+
+// Fetch User Details
+function fetchUserDetails() {
+    return fetch(`${BASE_URL}/user/`, {
+        method: "GET",
+        headers: getHeaders(),
+    }).then(response => {
+        if (!response.ok) throw new Error("Failed to fetch user details");
+        return response.json();
+    });
+}
+
+// Fetch Assets
+function fetchAssets() {
+    return fetch(`${BASE_URL}/assets/`, {
+        method: "GET",
+        headers: getHeaders(),
+    }).then(response => {
+        if (!response.ok) throw new Error("Failed to fetch assets");
+        return response.json();
+    });
+}
+
+// Action Functions
+
+// Handle Purchase
+function makePurchase(stocks, cryptos) {
+    return fetch(`${BASE_URL}/purchase/`, {
+        method: "POST",
+        headers: getHeaders(),
+        body: JSON.stringify({ stocks, cryptos }),
+    }).then(response => {
+        if (!response.ok) throw new Error("Failed to complete purchase");
+        return response.json();
+    });
+}
+
+// DOM Manipulation
+
+// Initialize Login Page
+function initLoginPage() {
+    const loginForm = document.querySelector("form");
+    loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        handleLogin(username, password)
+            .then(() => {
+                alert("Login successful!");
+                window.location.href = "ACT-Fund-Manager-Welcome.html";
+            })
+            .catch(error => alert(error.message));
+    });
+}
+
+// Initialize Registration Page
+function initRegistrationPage() {
+    const registrationForm = document.getElementById("registration-form");
+    registrationForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value; // Username
+        const password = document.getElementById("password").value; // Password
+        const role = document.getElementById("role").value; // Role from dropdown or input
+
+        handleRegistration(username, password, role) // Include role in the registration payload
+            .then(() => {
+                alert("Registration successful!");
+                window.location.href = "ACT-Login.html"; // Redirect to login page
+            })
+            .catch(error => alert(error.message));
+    });
+}
+
 // Function to check the performance and return a status label
 function getPerformanceStatus(change) {
     if (change < 0) {
@@ -68,243 +229,38 @@ function updatePrice(rowSelector, newPrice) {
 // Example usage to update the first row in the table with a new price
 updatePrice('.trade-table tbody tr', 23000);
 
+// Create the relaxed hue glow dynamically
+const mouseHue = document.createElement("div");
+mouseHue.id = "mouse-hue";
+document.body.appendChild(mouseHue);
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Global Functions 
-
-    // Function to check if the user is logged in by checking the session
-    function isLoggedIn() {
-        return fetch("/api/check-session", { method: "GET" })
-            .then(response => response.ok); // Returns true if the response is OK
-    }
-
-    // Function to retrieve the logged-in user's data from the server
-    function getLoggedInUser() {
-        return fetch("/api/user")
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to fetch user data');
-                return response.json(); // Parse and return the user data as JSON
-            });
-    }
-
-    // Redirects the user to the login page if they are not logged in
-    function redirectIfNotLoggedIn() {
-        return isLoggedIn().then(loggedIn => {
-            if (!loggedIn) {
-                window.location.href = "ACT-Login.html";
-            }
-        });
-    }
-
-    // Create the relaxed hue glow dynamically
-    const mouseHue = document.createElement("div");
-    mouseHue.id = "mouse-hue";
-    document.body.appendChild(mouseHue);
-
-    // Update glow position and hue on mousemove
-    document.addEventListener("mousemove", (e) => {
-        const x = Math.round((e.clientX / window.innerWidth) * 360);
-        const y = Math.round((e.clientY / window.innerHeight) * 360);
-        mouseHue.style.left = `${e.clientX}px`;
-        mouseHue.style.top = `${e.clientY}px`;
-        mouseHue.style.background = `radial-gradient(circle, hsla(${x}, 70%, 50%, 0.2), transparent 80%)`;
-    });
-
-    // Homepage Script
-    if (window.location.pathname.includes("ACT-Homepage.html")) {
-        isLoggedIn().then(loggedIn => {
-            const fundManagerLink = document.querySelector('a[href="ACT-Fund-Manager-Welcome.html"]');
-            fundManagerLink.style.display = loggedIn ? "block" : "none";
-        });
-    }
-
-    // Login Page Script 
-    if (window.location.pathname.includes("ACT-Login.html")) {
-        const loginForm = document.querySelector("form");
-        loginForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            fetch("/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, password })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Login failed');
-                return response.json();
-            })
-            .then(data => {
-                window.location.href = "ACT-Fund-Manager-Welcome.html";
-            })
-            .catch(error => {
-                alert("Invalid login credentials.");
-            });
-        });
-    }
-
-    // Registration Page Script 
-    if (window.location.pathname.includes("ACT-Register.html")) {
-        const registrationForm = document.getElementById("registration-form");
-        const usernameInput = document.getElementById("username");
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password");
-        const passwordStrengthIndicator = document.getElementById("password-strength");
-
-        usernameInput.addEventListener("input", function () {
-            const usernameError = document.getElementById("username-error");
-            usernameError.style.display = usernameInput.value.length < 3 ? "block" : "none"; 
-        });
-
-        emailInput.addEventListener("input", function () {
-            const emailError = document.getElementById("email-error");
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            emailError.style.display = !emailRegex.test(emailInput.value) ? "block" : "none"; 
-        });
-
-        passwordInput.addEventListener("input", function () {
-            const password = passwordInput.value;
-            let strength = "";
-            if (password.length < 6) {
-                strength = "Weak";
-            } else if (password.length <= 10) {
-                strength = "Moderate";
-            } else {
-                strength = "Strong";
-            }
-            passwordStrengthIndicator.textContent = "Password Strength: " + strength;
-        });
-
-        registrationForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            fetch("/api/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: usernameInput.value,
-                    email: emailInput.value,
-                    password: passwordInput.value
-                })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Registration failed');
-                return response.json();
-            })
-            .then(data => {
-                alert("Registration complete!");
-                window.location.href = "ACT-Login.html";
-            })
-            .catch(error => {
-                alert("Registration failed: " + error.message);
-            });
-        });
-    }
-
-    // Fund Manager Welcome Page Script 
-    if (window.location.pathname.includes("ACT-Fund-Manager-Welcome.html")) {
-        redirectIfNotLoggedIn().then(() => {
-            getLoggedInUser().then(userData => {
-                if (!userData || !(userData.role === 'Fund Manager' || userData.role === 'System Administrator')) {
-                    window.location.href = "ACT-Login.html";
-                } else {
-                    const welcomeContainer = document.getElementById("welcome-container");
-                    welcomeContainer.style.display = "block";
-
-                    const fundManagerName = document.getElementById("fund-manager-name");
-                    fundManagerName.textContent = userData.name;
-
-                    fetch("/api/dashboard")
-                        .then(response => {
-                            if (!response.ok) throw new Error('Failed to fetch dashboard data');
-                            return response.json();
-                        })
-                        .then(data => {
-                            document.getElementById("total-clients").textContent = data.totalClients;
-                            document.getElementById("number-of-alerts").textContent = data.numberOfAlerts;
-                            document.getElementById("recent-activities").textContent = data.recentActivities.join(", ");
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            alert("Failed to load dashboard data.");
-                        });
-                }
-            });
-        });
-    }
-
-    // === Support Page Script ===
-    if (window.location.pathname.includes("ACT-Support.html")) {
-        const supportForm = document.querySelector("form");
-        supportForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
-
-            fetch("/api/support", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, message })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Support request failed');
-                alert("Support message sent successfully.");
-                supportForm.reset();
-            })
-            .catch(error => {
-                alert("Failed to send support message: " + error.message);
-            });
-        });
-    }
+// Update glow position and hue on mousemove
+document.addEventListener("mousemove", (e) => {
+    const x = Math.round((e.clientX / window.innerWidth) * 360);
+    const y = Math.round((e.clientY / window.innerHeight) * 360);
+    mouseHue.style.left = `${e.clientX}px`;
+    mouseHue.style.top = `${e.clientY}px`;
+    mouseHue.style.background = `radial-gradient(circle, hsla(${x}, 70%, 50%, 0.2), transparent 80%)`;
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const numDots = 30; // Number of neon dots
-    const dots = [];
-    let mouseX = 0, mouseY = 0;
-
-    // Create dots and append them to the body
-    for (let i = 0; i < numDots; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'neon-dot'; // Add a class for styling
-        document.body.appendChild(dot);
-        dots.push(dot);
-    }
-
-    // Function to move dots in a trailing effect
-    function moveDots() {
-        let nextX = mouseX, nextY = mouseY;
-
-        // Move each dot towards the mouse position with easing
-        dots.forEach((dot) => {
-            const currentX = dot.style.left ? parseFloat(dot.style.left) : 0;
-            const currentY = dot.style.top ? parseFloat(dot.style.top) : 0;
-
-            // Update the position of the dot
-            dot.style.left = `${nextX}px`;
-            dot.style.top = `${nextY}px`;
-
-            // Calculate the next position with easing for smooth movement
-            nextX += (currentX - nextX) * 0.3;
-            nextY += (currentY - nextY) * 0.3;
-        });
-
-        requestAnimationFrame(moveDots); // Continue the animation
-    }
-
-    // Track mouse movement
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;  // Get horizontal mouse position
-        mouseY = e.clientY;  // Get vertical mouse position
+// Homepage Script
+if (window.location.pathname.includes("ACT-Homepage.html")) {
+    isLoggedIn().then(loggedIn => {
+        const fundManagerLink = document.querySelector('a[href="ACT-Fund-Manager-Welcome.html"]');
+        fundManagerLink.style.display = loggedIn ? "block" : "none";
     });
+}
 
-    moveDots(); // Start the dot animation
-});
+// Support Page Script
+if (window.location.pathname.includes("ACT-Support.html")) {
+    const supportForm = document.querySelector("form");
+    supportForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const query = document.getElementById("query").value;
+        const email = document.getElementById("email").value;
 
+        sendSupportQuery(query, email)
+            .then(() => alert("Your query has been sent!"))
+            .catch(error => alert(error.message));
+    });
+}
