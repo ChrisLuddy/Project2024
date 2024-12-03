@@ -387,19 +387,39 @@ button:after, .btn:after {
 
 
 
-
 /* Header Styling */
 header {
+    display: flex;
+    align-items: center; /* Vertically center the logo and title */
+    justify-content: center; /* Center the text horizontally */
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #0073e6;
     padding: 20px;
-    text-align: center;
     color: white;
     font-size: 1.8em;
     font-weight: bold;
+    text-align: center;
+}
+
+/* Logo Styling */
+#header-logo {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    position: absolute; /* This allows the logo to stay on the left */
+    left: 10px; /* Adjust the left margin to move the logo */
+    top: 10px; /* Move the logo up by 5px (adjust as needed) */
+}
+
+/* Title Styling */
+header h2 {
+    margin: 0; /* Remove default margin */
+    font-size: 24px; /* Adjust size as needed */
+    font-weight: 600; /* Optional: Add some weight to the title */
+    width: 100%; /* Ensure title takes up the full available width */
+    text-align: center; /* Center the title */
 }
 
 
