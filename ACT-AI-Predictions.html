@@ -1,52 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <!-- Meta tag specifying the character encoding for the document -->
     <meta charset="UTF-8">
+    <!-- Meta tag for responsive design, sets the viewport to ensure proper scaling on various devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the webpage displayed in the browser tab -->
     <title>ACT Web Application - AI Predictions</title>
-    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
-    <link rel="stylesheet" href="css/ACT-Web-styles.css">
+    <!-- Link to the external CSS stylesheet for consistent styling across pages -->
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+
 </head>
 
 <body>
+    <!-- Header section containing navigation links -->
     <header>
-        <nav>
-            <!-- Unordered list of navigation links -->
-            <ul id="nav-links">
-                <li><a href="ACT-Homepage.html">Home</a></li>
-                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
-                <li><a href="ACT-Login.html">Login</a></li>
-                <li><a href="ACT-Register.html">Register</a></li>
-                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
-                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-                <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
-                <li><a href="ACT-Yahoo-News.html">News</a></li>
-                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-                <li><a href="ACT-Reports.html">Reports</a></li>
-                <li><a href="ACT-Reviews.html">Review</a></li>
-                <li><a href="ACT-Support.html">Support</a></li>
-            </ul>
-        </nav>
+        <div class="header-logo">
+            <img src="images/ACT-Logo.png" alt="ACT Logo" id="header-logo">
+        <!-- Logo for the application displayed -->
+        <div class="logo">ACT Web Application</div>
     </header>
 
-    <section id="ai-predictions">
-        <h2>AI Predictions</h2>
-        <img src="images/ACT-AI-Predictions.png" alt="ACT AI Predictions Image" style="width: 100%; max-width: 600px; height: auto;">
-        <div class="ai-predictions-container">
-            <!-- AI predictions from backend -->
-        </div>
-    </section>
+    <!-- Navigation bar holding the page links -->
+    <nav>
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
 
+    <!-- Centered wrapper for aligning the main content -->
+    <div class="centered-wrapper">
+        <section id="ai-predictions">
+            <h2>AI Stock Predictions: 10-Year Forecast</h2>
+            <p>Explore how AI-powered insights project the growth of popular stocks over the next 10 years, offering potential value for long-term investments.</p>
+
+            <!-- Image illustrating AI forecast for stocks -->
+            <img src="images/ACT-AI-Predictions.png" alt="ACT AI Predictions Image" style="width: 100%; max-width: 600px; height: auto; margin-bottom: 20px;">
+
+            <!-- Description of the AI prediction methodology -->
+            <p>This AI-driven model analyzes market trends, company growth, and other factors to estimate where stock prices might be in the next decade.</p>
+            
+            <!-- Stock Predictions Table -->
+            <div class="ai-predictions-container">
+                <h2>10-Year Stock Forecast</h2 >
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stock Symbol</th>
+                            <th>Company Name</th>
+                            <th>Current Price</th>
+                            <th>Predicted Price in 10 Years</th>
+                            <th>Growth Rate (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AAPL</td>
+                            <td>Apple Inc.</td>
+                            <td>$150</td>
+                            <td>$450</td>
+                            <td>200%</td>
+                        </tr>
+                        <tr>
+                            <td>GOOGL</td>
+                            <td>Alphabet Inc.</td>
+                            <td>$2,500</td>
+                            <td>$7,500</td>
+                            <td>200%</td>
+                        </tr>
+                        <tr>
+                            <td>MSFT</td>
+                            <td>Microsoft Corp.</td>
+                            <td>$300</td>
+                            <td>$900</td>
+                            <td>200%</td>
+                        </tr>
+                        <tr>
+                            <td>TSLA</td>
+                            <td>Tesla Inc.</td>
+                            <td>$700</td>
+                            <td>$2,100</td>
+                            <td>200%</td>
+                        </tr>
+                        <tr>
+                            <td>AMZN</td>
+                            <td>Amazon.com Inc.</td>
+                            <td>$3,000</td>
+                            <td>$9,000</td>
+                            <td>200%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer section containing copyright information -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
+    <!-- Link to the external JavaScript file for additional functionality -->
     <script src="ACT-Web.js"></script>
 </body>
-
 </html>
