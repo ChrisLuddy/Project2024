@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tag for character encoding -->
+    <meta charset="UTF-8">
+    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Home</title>
+    <!-- Link to the external CSS stylesheet for styling the webpage -->
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+    <script src="ACT-Math.js"></script>
+    <script src="ACT-Web.js"></script>
+
+</head>
+
+<body>
+    <!-- Header section containing navigation links -->
+    <header>
+        <!-- Logo for the application displayed -->
+        <div class="logo">ACT Web Application</div>
+    </header>
+
+    <nav>
+        
+        <!-- Unordered list of navigation links -->
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Yahoo-News.html">News</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Reviews.html">Review</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main section containing the welcome message -->
+    <main>
+    <!-- Unordered list of navigation links -->
+    
+
+    <!-- News Section -->
+    <section>
+    <!-- Main container for all the page's content -->
+    <div class="container">
+        <!-- Main heading for the page -->
+        <h1>Rate Our Application</h1>
+
+        <!-- Image that visually represents the rating and reviews section -->
+        <img src="images/ACT-Reviews.png" alt="ACT Reviews Image" style="width: 100%; max-width: 600px; height: auto;">
+        
+        <!-- Section for displaying the rating stars -->
+        <div class="rating">
+            <h2>Your Rating:</h2> <!-- Subheading for the rating section -->
+
+            <!-- Container for star rating system -->
+            <div class="stars" id="star-rating"> <!-- Each star represents a rating value -->
+                <span class="star" data-value="1">&#9733;</span> <!-- Star icon for 1 rating -->
+                <span class="star" data-value="2">&#9733;</span> <!-- Star icon for 2 rating -->
+                <span class="star" data-value="3">&#9733;</span> <!-- Star icon for 3 rating -->
+                <span class="star" data-value="4">&#9733;</span> <!-- Star icon for 4 rating -->
+                <span class="star" data-value="5">&#9733;</span> <!-- Star icon for 5 rating -->
+            </div>
+
+            <!-- Display the selected rating dynamically (initially showing "None") -->
+            <div id="selected-rating">Selected Rating: None</div>
+        </div>
+
+        <!-- Section for submitting a textual review -->
+        <div class="review">
+            <h2>Your Review:</h2> <!-- Subheading for the review section -->
+            <!-- Textarea input for users to write a detailed review -->
+            <textarea id="review-text" rows="5" placeholder="Write your review here..."></textarea>
+        </div>
+
+        <!-- Section for adding a comment to the review -->
+        <div class="comment">
+            <h2>Review:</h2> <!-- Subheading for the comment section -->
+            <!-- Text input field for users to write a comment about the review -->
+            <input type="text" id="comment" placeholder="Add a comment...">
+        </div>
+
+        <!-- Button that triggers the submission of the review -->
+        <p style="margin-bottom: 30px;"></p>
+        <button id="submit-review">Submit Review</button>
+
+        <!-- Section to display all the submitted reviews -->
+        <h2>Reviews:</h2> <!-- Heading for the reviews list -->
+        <div id="reviews-container"></div> <!-- Placeholder where the list of reviews will be dynamically populated -->
+    </div>
+
+    <!-- External JavaScript file that provides functionality for the page -->
+    <script src="ACT-Web.js"></script>
+    </section>
+</body>
+
+</html>

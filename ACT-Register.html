@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tag specifying the character encoding for the document -->
+    <meta charset="UTF-8"> 
+    <!-- Meta tag for responsive design, sets the viewport to ensure proper scaling on various devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Register</title> 
+    <!-- Link to the external CSS stylesheet for styling the registration page -->
+    <link rel="stylesheet" href="ACT-Web-styles.css"> 
+    <script src="ACT-Web.js"></script>
+
+</head>
+
+<body>
+    <!-- Header section containing navigation links -->
+    <header>
+        <!-- Logo for the application displayed in the navigation bar -->
+        <div class="logo">ACT Web Application</div>
+    </header>
+
+    <nav>
+        <!-- Unordered list of navigation links -->
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Yahoo-News.html">News</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Reviews.html">Review</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
+    <!-- Main section containing the registration form -->
+    <section>
+        <!-- Secondary heading for the registration form -->
+        <h2>Register</h2>
+        <img src="C:\Users\chris\OneDrive\Desktop\Group Project Web\Project2024\ACT-HTML-JavaScript\Images\ACT-Register.png" alt="ACT Homepage Image">
+        <!-- Form element for user registration with action pointing to the registration endpoint -->
+        <form id="registration-form" action="/register" method="POST"> 
+            <!-- Label for the username input field -->
+            <label for="username">Username:</label>
+            <!-- Input field for user username, required for form submission -->
+            <input type="text" id="username" name="username" required> 
+            <!-- Error message for invalid username, initially hidden -->
+            <span id="username-error" style="display:none; color:red;">Invalid username.</span>
+
+            <!-- Label for the email input field -->
+            <label for="email">Email:</label>
+            <!-- Input field for user email, required for form submission -->
+            <input type="email" id="email" name="email" required> 
+            <!-- Error message for invalid email, initially hidden -->
+            <span id="email-error" style="display:none; color:red;">Invalid email.</span>
+
+            <!-- Label for the password input field -->
+            <label for="password">Password:</label>
+            <!-- Input field for user password, required for form submission -->
+            <input type="password" id="password" name="password" required> 
+            <!-- Placeholder for displaying password strength feedback -->
+            <div id="password-strength"></div>
+
+            <!-- Submit button for the registration form -->
+            <button type="submit">Register</button> 
+        </form>
+    </section>
+
+    <!-- Footer section containing copyright information -->
+    <footer>
+        <!-- Copyright notice -->
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> 
+    </footer>
+
+    <!-- Link to the external JavaScript file for additional functionality -->
+    <script src="ACT-Web.js"></script> 
+</body>
+</html>

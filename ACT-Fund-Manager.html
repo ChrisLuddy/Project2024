@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tag for character encoding -->
+    <meta charset="UTF-8">
+    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Home</title>
+    <!-- Link to the external CSS stylesheet for styling the webpage -->
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+    <script src="ACT-Web.js"></script>
+
+
+</head>
+
+<body>
+    <!-- Header section containing navigation links -->
+    <header>
+        <!-- Logo for the application displayed -->
+        <div class="logo">ACT Web Application</div>
+    </header>
+
+    <nav>
+        
+        <!-- Unordered list of navigation links -->
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main section of the page displaying the fund manager dashboard -->
+    <section id="dashboard">
+        <!-- Title of the dashboard section -->
+        <h2>Fund Manager Dashboard</h2>
+        <!-- Image that visually represents the dashboard, with responsive scaling -->
+        <img src="images/ACT-Fund-Manager.png" alt="ACT Fund Manager Dashboard Image" style="width: 100%; max-width: 600px; height: auto;">
+        
+        <!-- Container for search functionality and sorting options -->
+        <div class="search-filter">
+            <!-- Input field for searching clients -->
+            <input type="text" id="search-bar" placeholder="Search clients...">
+            <!-- Dropdown menu to allow sorting of client records -->
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+                <option value="name">Name</option>
+                <option value="transaction-history">Transaction History</option>
+            </select>
+        </div>
+
+        <!-- Section for displaying client records in a table format -->
+        <div id="client-records" class="client-records-container">
+            <!-- Subtitle for the client records table -->
+            <h3>Client Records</h3>
+            <!-- Table to display client company, contact details, and transaction history -->
+            <table id="client-table">
+                <thead>
+                    <!-- Header row for the table -->
+                    <tr>
+                        <th>Client Company</th> <!-- Column header for client company names -->
+                        <th>Contact Details</th> <!-- Column header for client contact details -->
+                        <th>Transaction History</th> <!-- Column header for client transaction history -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Client records will be added dynamically within this body -->
+                </tbody>
+            </table>
+
+            <!-- Section with buttons to download data in PDF or CSV format -->
+            <div class="download-buttons">
+                <button id="download-pdf">Download PDF</button> <!-- Button to download client data as PDF -->
+                <button id="download-csv">Download CSV</button> <!-- Button to download client data as CSV -->
+            </div>
+        </div>
+
+        <!-- Modal popup for adding or editing client information -->
+        <div id="client-modal" class="modal">
+            <!-- Content area within the modal popup -->
+            <div class="modal-content">
+                <!-- Close button for the modal -->
+                <span class="close">&times;</span>
+                <!-- Title indicating whether the form is for adding or editing a client -->
+                <h3 id="modal-title">Add/Edit Client</h3>
+                <!-- Form for entering client details -->
+                <form id="client-form">
+                    <!-- Label and input field for entering the client company name -->
+                    <label for="client-name">Client Company Name:</label>
+                    <input type="text" id="client-name" name="client-name" required>
+
+                    <!-- Label and input field for entering contact details -->
+                    <label for="contact-details">Contact Details:</label>
+                    <input type="text" id="contact-details" name="contact-details" required>
+
+                    <!-- Label and textarea for entering the client transaction history -->
+                    <label for="transaction-history">Transaction History:</label>
+                    <textarea id="transaction-history" name="transaction-history" required></textarea>
+
+                    <!-- Submit button to save the client information -->
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer section with copyright information -->
+    <footer>
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Additional script for jsPDF functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    
+    <!-- Links the JavaScript file for handling page interactions and client data -->
+    <script src="ACT-Web.js"></script>
+</body>
+
+</html>

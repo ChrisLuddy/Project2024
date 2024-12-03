@@ -1,0 +1,921 @@
+/* Body Background */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: 200% 200%;
+    animation: backgroundHue 55s infinite alternate;
+    font-family: Arial, sans-serif;
+    background-color: #1d1e22;
+    color: #ffffff;
+    cursor: none; /* Hide the default cursor */
+}
+
+.neon-dot {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0, 115, 230, 0.5);
+    box-shadow: 0 0 10px rgba(0, 115, 230, 0.5);
+    pointer-events: none;    
+    transition: all 0.2s ease; /* Smooth transition for movement */
+    z-index: 9999; /* Ensure the glow is above all other elements */
+}
+
+
+/* Navigation Styling */
+nav {
+    position: sticky;
+    top: 73px; /* Adjust based on the header height */
+    z-index: 999; /* Stays on top of other elements but below the header */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight shadow for separation */
+    transition: all 0.3s ease-in-out;
+    background-color: #005bb5;
+    overflow: hidden;
+    display: flex; /* Ensures items are in a row */
+    justify-content: center; /* Centers the navigation items */
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+nav a:hover {
+    transform: scale(1.1); /* Slightly enlarges the link on hover */
+    background-color: #003d7a; /* Darker background for hover effect */
+}
+
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #005bb5;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+nav ul li a:hover {
+    background-color: #004494;
+}
+
+
+/* Main Content Styling */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+main h1 {
+    color: #0073e6;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+main p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+
+/* Section Styling */
+section {
+    padding: 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #1d1e22; /* Section background color */
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 
+                0 0 40px rgba(0, 255, 255, 0.6), 
+                0 0 60px rgba(0, 255, 255, 0.4); /* Glowing Effect */
+    transition: box-shadow 0.3s ease-in-out;
+    animation: glowPulse 2s infinite;
+}
+
+
+section h2 {
+    color: #0073e6;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+
+
+section p {
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+section img {
+    margin-bottom: 1.5rem;
+    width: 50%;
+    max-width: 100%;
+    border-radius: 3px;
+}
+
+section form {}
+
+
+/* Button Styling */
+button, .btn {
+    background-color: #1d1e22; /* Match the background color for consistency */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    position: relative;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-family: 'Spartan', Arial, sans-serif; /* Use the Spartan font for consistency */
+}
+
+button:hover, .btn:hover {
+    background-color: #1d1e22; /* Keep the same background for hover */
+    transform: translateY(-2px); /* Slight hover lift */
+}
+
+
+/* Glowing Effect for Buttons */
+button:before, .btn:before,
+button:after, .btn:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(
+        45deg, 
+        #57d5ff, #0081b0, #00ffd5, 
+        #002bff, #7a00ff, #57d5ff
+    );
+    background-size: 400%;
+    z-index: -1; /* Place behind the button */
+    animation: glow 50s linear infinite;
+}
+
+button:after, .btn:after {
+    filter: blur(20px); /* Create a soft glow */
+}
+
+
+
+/* Background Animation */
+@keyframes backgroundHue {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0073e6;
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInOut 4s ease forwards;
+}
+
+
+/* Optional: Glowing Animation for Dynamic Effect */
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 
+                    0 0 40px rgba(0, 255, 255, 0.6), 
+                    0 0 60px rgba(0, 255, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 255, 255, 1), 
+                    0 0 50px rgba(0, 255, 255, 0.8), 
+                    0 0 70px rgba(0, 255, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 
+                    0 0 40px rgba(0, 255, 255, 0.6), 
+                    0 0 60px rgba(0, 255, 255, 0.4);
+    }
+}
+
+
+
+
+
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    20%, 80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@keyframes glow {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 500% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+
+
+
+/* Style for portfolio holdings table */
+/* Center the div holding the table and set a max-width */
+.portfolio-holdings {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.portfolio-holdings table {
+    width: 90%;                 /* Make the table take up more width */
+    max-width: 1200px;          /* Add a max-width to limit on larger screens */
+    border-collapse: separate;
+    border-spacing: 0 15px;     /* Adds space between rows */
+    margin: 0 auto;             /* Center the table */
+}
+
+.portfolio-holdings th,
+.portfolio-holdings td {
+    padding: 16px 20px;         /* Increase padding to spread contents */
+    text-align: left;
+    background-color: #1d1e22;  /* Light background for readability */
+    border: 1px solid #ddd;     /* Light border */
+}
+
+.portfolio-holdings th {
+    background-color: #4CAF50;  /* Darker color for headers */
+    color: white;
+    font-weight: bold;
+}
+
+.portfolio-holdings tr td:first-child {
+    font-weight: bold;          /* Emphasize stock symbols */
+}
+
+.portfolio-holdings tr:hover td {
+    background-color: #2a2b2e;  /* Hover effect for rows */
+}
+
+/*Trade Ratings*/
+.status.good {
+    color: green;
+    font-weight: bold;
+}
+
+.status.poor {
+    color: red;
+    font-weight: bold;
+}
+
+
+
+/* Ai Predictions  */
+/* Style for centered wrapper */
+.centered-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Style for AI predictions container */
+.ai-predictions-container {
+    width: 100%;
+    max-width: 900px;  /* Increased max-width for more content space */
+    margin: 30px auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Enhanced styling for AI predictions table */
+.ai-predictions-container table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;  /* Spacing between rows */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow around table */
+    background-color: #1d1e22;
+}
+
+.ai-predictions-container th, .ai-predictions-container td {
+    padding: 15px 20px;  /* Increased padding for larger cells */
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Styling for table headers */
+.ai-predictions-container th {
+    background-color: #4CAF50; /* Green color for headers */
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+}
+
+/* Styling for table rows */
+.ai-predictions-container tr:nth-child(even) td {
+    background-color: #1d1e22;  /* Light background for alternating rows */
+}
+
+.ai-predictions-container tr:nth-child(odd) td {
+    background-color: #1d1e22;
+}
+
+/* Hover effect for table rows */
+.ai-predictions-container tr:hover td {
+    background-color: #eaf5e9; /* Soft green hover for rows */
+    cursor: pointer;
+}
+
+/* Emphasize the first column (Stock Symbol) */
+.ai-predictions-container td:first-child {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+
+
+
+/* Header Styling */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #0073e6;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+
+
+/* Search Bar */
+#asset-search {
+    margin: 30px auto;
+    text-align: center;
+}
+
+#asset-search h3 {
+    
+    color: #005bb5;
+    margin-bottom: 15px;
+}
+
+#search-bar {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
+    border: 1px solid #333;
+    background-color: #333;  /* Dark text color for better readability */
+    border-radius: 5px;
+    font-size: 1em;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#search-bar:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+    outline: none;
+}
+
+#search-results {
+    margin: 10px auto;
+    padding: 0;
+    list-style: none;
+    max-width: 400px;
+    text-align: left;
+}
+
+#search-results li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s ease;
+}
+
+#search-results li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Client Asset Table */
+#client-assets {
+    margin: 30px auto;
+    text-align: center;
+}
+
+#client-assets table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#client-assets th, #client-assets td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#client-assets th {
+    background-color: #0073e6;
+    color: white;
+    text-transform: uppercase;
+}
+
+#client-assets tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#client-assets tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Default styling for labels */
+label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Change color when radio input is checked */
+input[type="radio"][value="above"]:checked + label {
+    color: green;
+}
+
+input[type="radio"][value="below"]:checked + label {
+    color: red;
+}
+
+
+
+/* Background Animation */
+@keyframes backgroundHue {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+
+/* Add additional styles for mouse glow if necessary */
+#mouse-glow {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    transition: transform 0.05s ease;
+    z-index: 9999;
+}
+
+
+form {
+    max-width: 500px; /* Centering the form */
+    margin: 0 auto; /* Centering the form */
+    background-color: #1d1e22; /* Form background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the form */
+    box-shadow: 0 2px 10px rgb(0, 0, 0); /* Box shadow for depth */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+
+form label {
+    text-align: left;
+    color: #fff; /* White labels */
+    font-weight: bold;
+}
+
+
+/* Email input and message textarea styling */
+form input[type="email"], form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #333; /* Dark gray background for the input and textarea */
+    color: #fff; /* White text color for better contrast */
+} /*to do change 4 below functions to login page seperate  */
+
+/* Focus styling for input and textarea */
+form input[type="email"]:focus, form textarea:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+}
+/* Email input and message textarea styling */
+form input[type="password"], form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #333; /* Dark gray background for the input and textarea */
+    color: #fff; /* White text color for better contrast */
+}
+
+/* Focus styling for input and textarea */
+form input[type="passwprd"]:focus, form textarea:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+}
+
+form select, form input[type="number"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #333; /* Dark gray background for inputs */
+    color: #fff; /* White text color for inputs */
+}
+
+form select:focus, form input[type="number"]:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+}
+
+form button {
+    padding: 12px 20px;
+    background-color: #666;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: #1d1e22;
+    transform: translateY(-2px);
+}
+
+/* Search Bar Styling */
+#search-bar {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background-color: #333; /* Dark grey background for the search bar */
+    color: #fff; /* White text color */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#search-bar:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+    outline: none;
+}
+
+
+/* Dashboard Section Styling */
+#dashboard {
+    
+    background-color: #1d1e22;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+#dashboard img {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Search and Filter Section */
+.search-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+/* Styling for the search bar */
+#search-bar {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background-color: #333; /* Dark grey background */
+    color: #fff; /* White text color */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#search-bar:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+    outline: none;
+}
+
+/* Styling for the dropdown menu */
+#sort {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: #333; /* Dark grey background for dropdown */
+    color: #fff; /* White text color */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+#sort:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.5);
+    outline: none;
+}
+
+/* Client Records Table */
+.client-records-container {
+    margin-top: 40px;
+}
+
+#client-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#client-table th, #client-table td {
+    padding: 18px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#client-table th {
+    background-color: #0073e6;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+#client-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+#client-table tr:hover {
+    background-color: #1d1e22;
+    cursor: pointer;
+}
+
+/* Download Buttons */
+.download-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.download-buttons button {
+    background-color: #0073e6;
+    color: #ffff;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.download-buttons button:hover {
+    background-color: #005bb5;
+    transform: translateY(-2px);
+}
+
+/* Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 650px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal .close {
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    float: right;
+}
+
+.modal .close:hover,
+.modal .close:focus {
+    color: black;
+    cursor: pointer;
+}
+
+#modal-title {
+    font-size: 1.8rem;
+    color: #0073e6;
+    margin-bottom: 20px;
+}
+
+#client-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#client-form input,
+#client-form textarea {
+    padding: 12px 18px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+#client-form button {
+    background-color: #0073e6;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#client-form button:hover {
+    background-color: #005bb5;
+    transform: translateY(-2px);
+}
+
+
+/* Footer Styling */
+footer {
+    background-color: #0073e6;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #dashboard {
+        padding: 15px;
+    }
+
+    nav a {
+        float: none;
+        width: 100%;
+        text-align: left;
+    }
+
+    .search-filter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #search-bar {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    #client-table {
+        font-size: 0.9rem;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+    }
+
+    .download-buttons button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+}
+
+
+/* Responsive table adjustments */
+@media screen and (max-width: 600px) {
+    .ai-predictions-container table, 
+    .ai-predictions-container thead, 
+    .ai-predictions-container tbody, 
+    .ai-predictions-container th, 
+    .ai-predictions-container td, 
+    .ai-predictions-container tr { 
+        display: block; 
+        width: 100%;
+    }
+    .ai-predictions-container th {
+        display: none; /* Hide headers on small screens */
+    }
+    .ai-predictions-container td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 5px;
+        border-bottom: 1px solid #ddd;
+    }
+    .ai-predictions-container td:before {
+        content: attr(data-label); /* Label data in cells for small screens */
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #4CAF50;
+    }
+}
+

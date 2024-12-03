@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACT Web Application - Fund Manager Welcome</title>
+    <link rel="stylesheet" href="ACT-Web-styles.css"> 
+    <header>
+        <h2>Fund Manager Welcome</h2>
+    </header>
+</head>
+<body>
+    <!-- 
+    This page serves as the home page for fund managers upon logging in.
+    It displays a personalized welcome message, a dashboard overview,
+    and quick links to important functionalities such as managing client records,
+    setting price alerts, and generating reports.
+    -->
+    
+    <nav>
+        <!-- Unordered list of navigation links -->
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main content of the Fund Manager Welcome page -->
+    <main id="welcome-container" style="display: none;"> <!-- Initially hidden; shown when the user is authenticated -->
+        <section id="welcome">
+            <h2>Welcome, <span id="fund-manager-name"></span>!</h2> <!-- Placeholder for the fund manager's name -->
+            <img src="C:\Users\chris\OneDrive\Desktop\Group Project Web\Project2024\ACT-HTML-JavaScript\Images\ACT-Fund-Manager-Welcome.png" alt="ACT Homepage Image" >
+            <p>
+                Welcome to your Fund Manager Homepage where you can manage your clients. Here, you'll discover a clear overview of your homepage
+                and quick access to critical features such as maintaining client records, setting price alerts, and creating reports to help 
+                you efficiently manage your customers' portfolios.
+            </p>
+        </section>
+
+        <section id="dashboard">
+            <h3>Dashboard Overview</h3>
+            <div class="metrics">
+                <div class="metric">
+                    <h4>Total Clients</h4>
+                    <p id="total-clients"></p> <!-- Placeholder for displaying total number of clients -->
+                </div>
+                <div class="metric">
+                    <h4>Number of Alerts</h4>
+                    <p id="number-of-alerts"></p> <!-- Placeholder for displaying the number of alerts -->
+                </div>
+                <div class="metric">
+                    <h4>Recent Activities</h4>
+                    <p id="recent-activities"></p> <!-- Placeholder for displaying recent activities -->
+                </div>
+            </div>
+        </section>
+
+        <section id="quick-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="ACT-Fund-Manager.html">Manage Client Records</a></li> <!-- Link to manage client records -->
+                <li><a href="ACT-Price-System.html">Set Price Alerts</a></li> <!-- Link to set price alerts -->
+                <li><a href="ACT-Reports.html">Generate Reports</a></li> <!-- Link to generate reports -->
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> <!-- Footer copyright notice -->
+    </footer>
+
+    <script src="ACT-Web.js"></script> <!-- Link to the external JavaScript file for functionality -->
+</body>
+</html>
