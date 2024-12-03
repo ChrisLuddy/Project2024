@@ -1,78 +1,59 @@
-<!DOCTYPE html> <!-- Declares the document type as HTML5. This is necessary for proper rendering and behavior of the webpage -->
-<html lang="en"> <!-- Specifies the language of the document as English -->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8"> <!-- Specifies the character encoding as UTF-8, which includes most characters from all known languages -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures the page is responsive on mobile devices by setting the viewport width to device width -->
-    <title>ACT Web Application - Trade Ratings</title> <!-- Sets the title of the webpage, which will appear in the browser tab -->
-
-    <!-- Link to the favicon, a small icon displayed in the browser tab -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACT Web Application - Trade Ratings</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-
-    <!-- Displays the website logo on the page, though logos are typically placed in the body. This is a visual representation for users -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-
-    <!-- Link to the external CSS file for styling the page -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css"> <!-- This external CSS file contains styles for the webpage -->
+    <!-- Displays the website logo in the page -->
+    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
+    <!-- Link to the external CSS stylesheet for styling the login page -->
+    <link rel="stylesheet" href="css/ACT-Web-styles.css">
 </head>
 
 <body>
-    <!-- Main body content of the webpage -->
-    
     <header>
-        <!-- The header contains the navigation menu for the website -->
-        <nav> <!-- This is the navigation bar containing the links to different pages of the site -->
-            <div class="logo">ACT Web Application</div> <!-- Displays the website logo text -->
-
-            <!-- Unordered list representing the menu links -->
+        <nav>
+            <div class="logo">ACT Web Application</div>
             <ul>
-                <li><a href="index.html">Home</a></li> <!-- Link to the homepage -->
-                <li><a href="ACT-Portfolio.html">Portfolio</a></li> <!-- Link to the portfolio page -->
-                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li> <!-- Link to the AI predictions page -->
-                <li><a href="ACT-Reports.html">Reports</a></li> <!-- Link to the reports page -->
-                <li><a href="ACT-Support.html">Support</a></li> <!-- Link to the support page -->
-                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li> <!-- Link to the trade ratings page -->
-                <li><a href="ACT-Login.html">Login</a></li> <!-- Link to the login page -->
-                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li> <!-- Link to the fund manager dashboard page -->
-                <li><a href="ACT-Price-System.html">Price Alert System</a></li> <!-- Link to the price alert system page -->
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li> <!-- Link to the fund manager welcome page -->
-            </ul> <!-- End of navigation links list -->
-        </nav> <!-- End of navigation bar -->
+                <li><a href="ACT-Homepage.html">Home</a></li>
+                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+                <li><a href="ACT-Reports.html">Reports</a></li>
+                <li><a href="ACT-Support.html">Support</a></li>
+                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+                <li><a href="ACT-Login.html">Login</a></li>
+                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>
+            </ul>
+        </nav>
     </header>
 
     <section id="trade-ratings">
-        <!-- Section for displaying trade ratings -->
-        <h2>Trade Ratings</h2> <!-- Main heading of the section -->
-        
-        <!-- Image representing trade ratings, displayed in full width but with a maximum width of 600px for proper scaling -->
+        <h2>Trade Ratings</h2>
         <img src="images/ACT-Trade-Ratings.png" alt="ACT Trade Ratings Image" style="width: 100%; max-width: 600px; height: auto;">
-        
-        <!-- Description paragraph explaining the content of this section -->
         <p>View the latest trade ratings for your portfolio's technology stocks and cryptocurrencies based on online and social media discussions.</p>
 
-        <!-- Section for technology stocks ratings -->
         <div id="stocks-section">
-            <h3>Technology Stocks</h3> <!-- Subheading for technology stocks ratings -->
-            <div id="stocks-container"></div> <!-- Container where the technology stock ratings will be displayed dynamically -->
+            <h3>Technology Stocks</h3>
+            <div id="stocks-container"></div>
         </div>
 
-        <!-- Section for cryptocurrency ratings -->
         <div id="cryptos-section">
-            <h3>Cryptocurrencies</h3> <!-- Subheading for cryptocurrency ratings -->
-            <div id="cryptos-container"></div> <!-- Container where the cryptocurrency ratings will be displayed dynamically -->
+            <h3>Cryptocurrencies</h3>
+            <div id="cryptos-container"></div>
         </div>
 
-        <!-- Additional container for other trade data, potentially for future dynamic content -->
-        <div id="trade-data-container"></div> <!-- Placeholder for displaying trade data (not yet specified) -->
-    </section> <!-- End of trade ratings section -->
+        <div id="trade-data-container"></div>
+    </section>
 
-    <!-- Footer section containing copyright information -->
     <footer>
-        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> <!-- Copyright message -->
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
-    <!-- Link to the external JavaScript file that handles the interactive functionality on the page -->
-    <script src="ACT-Web.js"></script> <!-- JavaScript file that likely manages the dynamic behavior of the page -->
+    <script src="ACT-Web.js"></script>
 </body>
 
 </html>

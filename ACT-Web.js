@@ -4,6 +4,29 @@
 const BASE_URL = "http://161.35.38.50:8000/api";
 let accessToken = ""; // Store JWT token after login
 
+// Firebase Initialization
+(async function initializeFirebase() {
+    // Dynamically fetch Firebase configuration 
+    const firebaseConfig = await fetch("/path/to/your/firebase-config.json")
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to load Firebase configuration");
+            return response.json();
+        })
+        .catch(error => {
+            console.error("Firebase initialization error:", error.message);
+        });
+
+    // Initialize Firebase with fetched configuration
+    if (firebaseConfig) {
+        import("https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js")
+            .then(({ initializeApp }) => {
+                const app = initializeApp(firebaseConfig);
+                console.log("Firebase Initialized:", app);
+            })
+            .catch(error => console.error("Error importing Firebase App:", error.message));
+    }
+})();
+
 // Helper function to set headers
 function getHeaders(authRequired = true) {
     const headers = {
@@ -136,101 +159,108 @@ function initRegistrationPage() {
     });
 }
 
-// Initialize Yahoo News Page
-function initYahooNewsPage() {
-    fetchYahooNews("AAPL", "ALL")
-        .then(data => {
-            const newsContainer = document.getElementById("news-container");
-            newsContainer.innerHTML = data.body
-                .map(
-                    article => `
-                <div class="news-item">
-                    <img src="${article.img}" alt="${article.title}">
-                    <h3>${article.title}</h3>
-                    <p>${article.text}</p>
-                    <a href="${article.url}" target="_blank">Read more</a>
-                </div>
-            `
-                )
-                .join("");
-        })
-        .catch(error => alert("Error fetching news: " + error.message));
-}
-
-// Initialize Purchase Page
-function initPurchasePage() {
-    const purchaseForm = document.getElementById("purchase-form");
-    purchaseForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const stocks = document.getElementById("stocks").value.split(",");
-        const cryptos = document.getElementById("cryptos").value.split(",");
-
-        makePurchase(stocks, cryptos)
-            .then(data => {
-                alert("Purchase successful!");
-                console.log("Purchase Summary:", data);
-            })
-            .catch(error => alert("Error making purchase: " + error.message));
-    });
-}
-
-// Fetch Yahoo News
-function fetchYahooNews(tickers = "", type = "ALL") {
-    const queryParams = new URLSearchParams({ tickers, type });
-    return fetch(`${BASE_URL}/yahoo-news/?${queryParams.toString()}`, {
-        method: "GET",
-        headers: getHeaders(false), // Authorization not required
-    }).then(response => {
-        if (!response.ok) throw new Error("Failed to fetch Yahoo News");
-        return response.json();
-    });
-}
-
-function updateNews() {
-    fetchYahooNews("AAPL", "ALL")
-        .then(data => {
-            const newsContainer = document.getElementById("news-container");
-            newsContainer.innerHTML = data.body
-                .map(article => {
-                    // Ensure date is formatted properly
-                    const publishedDate = new Date(article.date || article.pubDate || Date.now()).toLocaleString();
-
-                    return `
-                        <div class="news-item">
-                            <img src="${article.img || ''}" alt="${article.title}" />
-                            <h3>${article.title} <small>(${publishedDate})</small></h3>
-                            <p>${article.text}</p>
-                            <a href="${article.url}" target="_blank">Read more</a>
-                        </div>
-                    `;
-                })
-                .join("");
-        })
-        .catch(error => alert("Error fetching news: " + error.message));
-}
-
-function initYahooNewsPage() {
-    // Initial news load
-    updateNews();
-
-    // Add event listener for the refresh button
-    const refreshButton = document.getElementById("refresh-news-button");
-    refreshButton.addEventListener("click", () => {
-        updateNews();
-    });
-}
-
-// Main Initialization
-document.addEventListener("DOMContentLoaded", () => {
-    const path = window.location.pathname;
-
-    if (path.includes("ACT-Login.html")) {
-        initLoginPage();
-    } else if (path.includes("ACT-Register.html")) {
-        initRegistrationPage();
-    } else if (path.includes("ACT-Yahoo-News.html")) {
-        initYahooNewsPage();
-    } else if (path.includes("ACT-Purchase.html")) {
-        initPurchasePage();
+// Function to check the performance and return a status label
+function getPerformanceStatus(change) {
+    if (change < 0) {
+        return "poor";
+    } else {
+        return "good";
     }
+}
+
+// Example usage
+let netChange1 = -10; // Example negative change
+let netChange2 = 15;  // Example positive change
+
+console.log(`The performance is ${getPerformanceStatus(netChange1)} for change: ${netChange1}%`);
+console.log(`The performance is ${getPerformanceStatus(netChange2)} for change: ${netChange2}%`);
+
+// Function to apply this to elements on a webpage
+function updateTablePerformance() {
+    // Select all table rows that need checking
+    const rows = document.querySelectorAll('.trade-table tbody tr');
+
+    rows.forEach(row => {
+        const changeCell = row.querySelector('td:nth-child(5)'); // Assuming the 5th cell contains the change %
+        const performanceCell = row.querySelector('td:last-child'); // Last cell for status label
+
+        // Parse the change as a float (assumes % sign is not present)
+        const change = parseFloat(changeCell.textContent);
+
+        // Get performance status and update the performance cell
+        const status = getPerformanceStatus(change);
+        performanceCell.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+
+        // Add a class to color-code the cell
+        performanceCell.className = `status ${status}`;
+    });
+}
+
+// Call the function when the page is loaded
+window.onload = updateTablePerformance;
+
+// Function to update the price and calculate the change
+function updatePrice(rowSelector, newPrice) {
+    // Select the specific row
+    const row = document.querySelector(rowSelector);
+
+    // Select the cells for entry price and current price
+    const entryPriceCell = row.querySelector('td:nth-child(3)');
+    const currentPriceCell = row.querySelector('td:nth-child(4)');
+    const changeCell = row.querySelector('td:nth-child(5)');
+    const statusCell = row.querySelector('td:nth-child(6)');
+
+    // Get the entry price as a number
+    const entryPrice = parseFloat(entryPriceCell.textContent.replace(/[^0-9.-]+/g, ''));
+    
+    // Update the current price cell with the new price
+    currentPriceCell.textContent = `$${newPrice.toFixed(2)}`;
+
+    // Calculate the change percentage
+    const changePercentage = ((newPrice - entryPrice) / entryPrice) * 100;
+    changeCell.textContent = `${changePercentage.toFixed(2)}%`;
+
+    // Determine the status based on the change percentage
+    const status = changePercentage < 0 ? "poor" : "good";
+    statusCell.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    statusCell.className = `status ${status}`;
+}
+
+// Example usage to update the first row in the table with a new price
+updatePrice('.trade-table tbody tr', 23000);
+
+// Create the relaxed hue glow dynamically
+const mouseHue = document.createElement("div");
+mouseHue.id = "mouse-hue";
+document.body.appendChild(mouseHue);
+
+// Update glow position and hue on mousemove
+document.addEventListener("mousemove", (e) => {
+    const x = Math.round((e.clientX / window.innerWidth) * 360);
+    const y = Math.round((e.clientY / window.innerHeight) * 360);
+    mouseHue.style.left = `${e.clientX}px`;
+    mouseHue.style.top = `${e.clientY}px`;
+    mouseHue.style.background = `radial-gradient(circle, hsla(${x}, 70%, 50%, 0.2), transparent 80%)`;
 });
+
+// Homepage Script
+if (window.location.pathname.includes("ACT-Homepage.html")) {
+    isLoggedIn().then(loggedIn => {
+        const fundManagerLink = document.querySelector('a[href="ACT-Fund-Manager-Welcome.html"]');
+        fundManagerLink.style.display = loggedIn ? "block" : "none";
+    });
+}
+
+// Support Page Script
+if (window.location.pathname.includes("ACT-Support.html")) {
+    const supportForm = document.querySelector("form");
+    supportForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const query = document.getElementById("query").value;
+        const email = document.getElementById("email").value;
+
+        sendSupportQuery(query, email)
+            .then(() => alert("Your query has been sent!"))
+            .catch(error => alert(error.message));
+    });
+}

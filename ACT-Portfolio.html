@@ -2,57 +2,63 @@
 <html lang="en">
 
 <head>
-    <!-- Meta tag for character encoding -->
     <meta charset="UTF-8">
-    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Title of the webpage displayed in the browser tab -->
-    <title>ACT Web Application - Home</title>
-    <!-- Link to the favicon -->
-   <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-   <!-- Displays the website logo in the page -->
-   <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-    <!-- Link to the external CSS stylesheet for styling the webpage -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css">
-
+    <title>ACT Web Application - Portfolio</title>
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
+    <!-- Displays the website logo in the page -->
+    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
+    <!-- Link to the external CSS stylesheet for styling the login page -->
+    <link rel="stylesheet" href="css/ACT-Web-styles.css">
 </head>
 
 <body>
-    <!-- Header section containing navigation links -->
     <header>
-        <!-- Logo for the application displayed -->
-        <div class="logo">ACT Web Application</div>
+        <nav>
+            <!-- Unordered list of navigation links -->
+            <ul id="nav-links">
+                <li><a href="ACT-Homepage.html">Home</a></li>
+                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
+                <li><a href="ACT-Login.html">Login</a></li>
+                <li><a href="ACT-Register.html">Register</a></li>
+                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+                <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+                <li><a href="ACT-Yahoo-News.html">News</a></li>
+                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+                <li><a href="ACT-Reports.html">Reports</a></li>
+                <li><a href="ACT-Reviews.html">Review</a></li>
+                <li><a href="ACT-Support.html">Support</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <nav>
-        <!-- Unordered list of navigation links -->
-        <ul id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
-            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-            <li><a href="ACT-Reports.html">Reports</a></li>
-            <li><a href="ACT-Support.html">Support</a></li>
-            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-            <li><a href="ACT-Login.html">Login</a></li>
-            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-            <!-- <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>-->
-        </ul>
-    </nav>
-
-    <!-- Main section containing the welcome message -->
-    <section>
-        <!-- Main heading of the page -->
-        <h1>Portfolio</h1>
+    <section id="portfolio">
+        <h2>ACT Portfolio</h2>
+        <img src="images/ACT-Portfolio.png" alt="ACT Portfolio Image" style="width: 100%; max-width: 600px; height: auto;">
+        <div class="portfolio-container">
+            <div class="portfolio-item">
+                <h3>Technology Stocks</h3>
+                <ul id="stock-list" data-portfolio-category="stocks">
+                    <!-- Stock items will be dynamically populated -->
+                </ul>
+                <a href="ACT-Purchase.html" class="add-asset-btn">Add New Stock</a>
+            </div>
+            <div class="portfolio-item">
+                <h3>Cryptocurrencies</h3>
+                <ul id="crypto-list" data-portfolio-category="cryptocurrencies">
+                    <!-- Cryptocurrency items will be dynamically populated -->
+                </ul>
+                <a href="ACT-Purchase.html" class="add-asset-btn">Add New Cryptocurrency</a>
+            </div>
+        </div>
     </section>
 
-    <!-- Footer section containing copyright information -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
-
-    <!-- Link to the external JavaScript file for additional functionality -->
-    <script src="ACT-Web.js"></script>
 </body>
 
 </html>

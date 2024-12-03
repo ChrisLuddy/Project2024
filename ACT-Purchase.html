@@ -1,145 +1,96 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 
 <head>
-    <!-- Meta tag specifying the character encoding for the document -->
+    <!-- Meta tag for character encoding -->
     <meta charset="UTF-8">
-    
-    <!-- Meta tag for ensuring proper rendering on mobile devices by setting the viewport -->
+    <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- The title of the webpage, displayed in the browser tab -->
-    <title>Buy Stocks and Crypto</title>
-    
-    <!-- Link to the favicon -->
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>ACT Web Application - Home</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    
-    <!-- Displays the website logo on the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-    
-    <!-- Link to the external CSS file for styling the page -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css" type="text/css">
+    <!-- Displays the website logo in the page -->
+    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
+    <!-- Link to the external CSS stylesheet for styling the webpage -->
+    <link rel="stylesheet" href="css/ACT-Web-styles.css">
+    <script src="ACT-Math.js" defer></script>
+    <script src="ACT-Web.js" defer></script>
 </head>
 
 <body>
+    <!-- Header section containing the logo and navigation -->
+    <header>
+        <div class="logo">ACT Web Application</div>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav>
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Register.html">Register</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Yahoo-News.html">News</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Reviews.html">Review</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+        </ul>
+    </nav>
+
     <!-- Main container for the page's content -->
-    <div class="container">
-    
-        <!-- Main heading of the page -->
+    <main class="container">
+        <!-- Main heading -->
         <h1>Buy Stocks and Cryptocurrencies</h1>
         
-        <!-- Image that visually represents the purchase section -->
+        <!-- Decorative image -->
         <img src="images/ACT-Purchase.png" alt="ACT Purchase Image" style="width: 100%; max-width: 600px; height: auto;">
         
-        <!-- Section for displaying the stock selection form -->
+        <!-- Stocks section -->
         <section id="stocks">
-            <!-- Subheading for the stocks section -->
             <h2>Tech Stocks</h2>
-            
-            <!-- Form for selecting tech stocks, with an ID for potential JavaScript handling -->
             <form id="stocks-form">
-                <!-- Stock selection items dynamically generated here -->
+                <!-- Dynamically add stocks here -->
                 <div class="stock-item">
-                    <label for="stock1">Stock 1: </label> 
-                    <select id="stock1" class="stock-select" required> 
-                        <option value="">Select a stock</option> 
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock2">Stock 2: </label>
-                    <select id="stock2" class="stock-select">
+                    <label for="stock1">Stock 1:</label>
+                    <select id="stock1" class="stock-select" required>
                         <option value="">Select a stock</option>
                     </select>
                 </div>
-                <div class="stock-item">
-                    <label for="stock3">Stock 3: </label>
-                    <select id="stock3" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock4">Stock 4: </label>
-                    <select id="stock4" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock5">Stock 5: </label>
-                    <select id="stock5" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock6">Stock 6: </label>
-                    <select id="stock6" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock7">Stock 7: </label>
-                    <select id="stock7" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock8">Stock 8: </label>
-                    <select id="stock8" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock9">Stock 9: </label>
-                    <select id="stock9" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
-                <div class="stock-item">
-                    <label for="stock10">Stock 10: </label>
-                    <select id="stock10" class="stock-select">
-                        <option value="">Select a stock</option>
-                    </select>
-                </div>
+                <!-- Add similar blocks for more stocks -->
             </form>
         </section>
 
-        <!-- Section for displaying the cryptocurrency selection form -->
+        <!-- Cryptocurrencies section -->
         <section id="crypto">
-            <!-- Subheading for the cryptocurrencies section -->
             <h2>Cryptocurrencies</h2>
-            
-            <!-- Form for selecting cryptocurrencies, with an ID for potential JavaScript handling -->
             <form id="crypto-form">
-                <!-- Crypto selection items dynamically generated here -->
                 <div class="crypto-item">
-                    <label for="crypto1">Crypto 1: </label>
-                    <select id="crypto1" class="crypto-select" required> 
-                        <option value="">Select a cryptocurrency</option> 
-                    </select>
-                </div>
-                <div class="crypto-item">
-                    <label for="crypto2">Crypto 2: </label>
-                    <select id="crypto2" class="crypto-select">
+                    <label for="crypto1">Crypto 1:</label>
+                    <select id="crypto1" class="crypto-select" required>
                         <option value="">Select a cryptocurrency</option>
                     </select>
                 </div>
-                <div class="crypto-item">
-                    <label for="crypto3">Crypto 3: </label>
-                    <select id="crypto3" class="crypto-select">
-                        <option value="">Select a cryptocurrency</option>
-                    </select>
-                </div>
+                <!-- Add similar blocks for more cryptocurrencies -->
             </form>
         </section>
 
-        <!-- Button to trigger the purchase action -->
+        <!-- Button to trigger purchase -->
         <button id="buy-button">Buy Now</button>
-        
-        <!-- Placeholder for displaying the purchase summary after the purchase -->
-        <div id="purchase-summary"></div>
-    </div>
 
-    <!-- Link to an external JavaScript file that provides functionality for the page -->
-    <script src="ACT-Web.js"></script>
+        <!-- Placeholder for the purchase summary -->
+        <div id="purchase-summary"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
+    </footer>
 </body>
 
 </html>
