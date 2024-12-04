@@ -13,6 +13,7 @@ ACT (Agentic Corporate Trader)
 - [Frontend](#frontend)
 - [css](#css)
 - [Ai](#ai)
+- [Docker Integration](#docker-integration)
 - [Product Backlog](#product-backlog)
 
 ### Features
@@ -124,12 +125,17 @@ Django’ssupport for asynchronous requests, it is very important for work with 
 
 Flask can be use for smaller microservices or lightweight APIs, but for a centralized backend with complex features and high security needs, Django is the optimal choice.
 
-### Database-Configuration
+### Database Configuration
 
-In this project, we are using a combination of **SQLite** and **Firebase Firestore** for data management. 
+This project utilizes the following database setup:
 
-- **SQLite**: Used for Django's built-in system data (e.g., user authentication, admin panel, sessions other system-level data).
-- **Firebase Firestore**: Used for storing business logic data (e.g., assets, trades, user portfolios).
+1. **SQLite**:
+   - Purpose: Used for storing system-level data (e.g., user authentication, admin panel, session data).
+   - Configuration: Default Django database (`db.sqlite3`).
+
+2. **Firebase Firestore**:
+   - Purpose: Used for business logic data (e.g., assets, portfolios, trade history).
+   - Configuration: Integrated via Firebase Admin SDK, with credentials stored in the project directory (`config/your-firebase-key.json`).
 
 
 ## Data Model Overview
@@ -917,7 +923,6 @@ curl -X GET http://161.35.38.50:8000/api/yahoo-news/?type=VIDEO \
 * **503 Service Unavailable:** Yahoo API service is down or unreachable.
 
 
-
 #### Alpha Vantage API:
 
 The Alpha Vantage API provides historical and real-time stock data, including daily time series, which shows the open, high, low, close prices, and volume for each day. This is particularly useful for performing technical analysis or retrieving historical trends of a stock.
@@ -974,6 +979,83 @@ curl -X GET 'http://161.35.38.50:8000/api/alpha-vantage/?symbol=AAPL' \
 }
 ```
 
+#### Predict API:
+
+The Predict API endpoint provides stock prediction data based on AI analysis.
+
+**URL:** `/api/act-ai/predict/`
+
+**Request Method:** `POST`
+
+**Request Body:**
+- `symbol`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
+
+```bash
+curl -X POST http://localhost:8000/api/act-ai/predict/ \
+-H "Authorization: Bearer JWT_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{"symbol": "AAPL"}'
+```
+
+**Example Response:**
+
+```json
+{
+  "id": 1,
+  "forecast": "**AAPL Short-Term Trading Analysis**\n\n**Time of Analysis:** December 4, 2024, 01:09 AM GMT\n\n**Disclaimer:** This analysis is based on hypothetical real-time data provided and is for illustrative purposes only. It does not constitute financial advice. Trading involves risk, and losses can exceed your investment. Always conduct your own thorough research and consider consulting a financial advisor before making any investment decisions.\n\n**1. Price Action Analysis:**\n\n- **Current Trend Direction and Strength:** The current price of $243.00 shows a slight uptrend from the previous day's close of $229.00. However, the net change is minimal (0.14%), suggesting weak momentum. After-hours trading might show temporary fluctuation, and a more robust trend assessment requires observing the opening price and subsequent price action during regular trading hours.\n\n- **Price Momentum Indicators:** Without access to real-time data for momentum indicators like RSI (Relative Strength Index) or MACD (Moving Average Convergence Divergence), a precise assessment is not possible. These indicators would help confirm the strength and sustainability of the current trend.\n\n- **Support/Resistance Levels from Current Price Action:** Immediate support could be found around $238.9 (today's low), while resistance might be encountered near $242.75 (today's high). More robust support and resistance levels would be identified by examining longer-term charts and previous significant high and low points.\n\n- **Significance of the Current Bid/Ask Spread:** The bid/ask spread of $242.74/$242.95 ($0.21) is relatively tight, suggesting relatively good liquidity, making it easier to enter and exit trades. However, it doesn't reveal anything conclusive about the immediate buying or selling pressure.\n\n**2. Volume Analysis:**\n\n- **Volume Trend Analysis:** Current volume (38,861,014) is significantly higher than the previous day's volume (3,138,952). This increased volume could indicate heightened investor interest and potentially stronger price movements. Volume will be crucial in determining the trend's strength. If the price increase is accompanied by above-average volume, it suggests strong buying pressure. If volume decreases while prices rise, it could indicate a weakening buying momentum.\n\n- **Unusual Volume Activity Assessment:** The drastically higher volume today compared to yesterday warrants further investigation for any news or events driving this increased activity.\n\n**3. Trading Range Analysis:**\n\n- **Key Levels within Today's Range:** $238.9 (low) and $242.75 (high) are significant intraday levels. Breaks above $242.75 or below $238.9 could signal further price movements in that direction.\n\n- **Position Relative to 52-Week Range:** The current price of $243 is relatively high compared to the 52-week low of $164.08 but significantly below the 52-week high of $240.79, suggesting potential for further upward movement, but cautious approach is suggested.\n\n- **Breakout/Breakdown Potential:** A decisive break above $242.75 could signal a potential short-term uptrend. Conversely, a break below $238.9 could signal a possible short-term downturn.\n\n- **Price Volatility Assessment:** The relatively small range between today's high and low compared to the 52-week range indicates relatively low volatility for now. However, this could change rapidly.\n\n**4. Market Context:**\n\n- **Current Market Phase:** The overall market phase (bullish, bearish, or sideways) is not provided. This crucial context is needed for a more comprehensive analysis.\n\n- **Trading Session Analysis:** The data is from the after-hours trading session. This period can experience increased volatility due to lower liquidity and is not always representative of the regular trading session's price action.\n\n- **Exchange-Specific Considerations:** The stock trades on NASDAQ-GS, a well-established and liquid exchange.\n\n- **Real-time vs. Delayed Data Implications:** Using real-time data is crucial for short-term trading opportunities. Delayed data will not suffice.\n\n**5. Short-Term Opportunities:**\n\nBased on the limited data, identifying concrete short-term trading opportunities is difficult. A more complete picture requires:\n\n- **Real-time data for momentum indicators (RSI, MACD):** This will confirm the trend's strength and potential reversal points.\n- **Extended historical price data:** This will provide more comprehensive support and resistance levels.\n- **News and events affecting AAPL:** This will explain any unusual volume activity.\n- **Market-wide conditions:** This provides the proper context to the stock's movement.\n\n**Hypothetical Trading Scenario (Illustrative Only):**\n\n- **If the price decisively breaks above $243.50 (slightly above today's high) with increased volume:** This might signal a short-term bullish opportunity.\n  - **Entry Point:** $243.75\n  - **Stop-Loss:** $242.50\n  - **Target:** $245.00 (risk-reward of approximately 1:1)\n\n- **If the price decisively breaks below $238.00 (slightly below today's low) with increased volume:** This might signal a short-term bearish opportunity.\n  - **Entry Point:** $237.75\n  - **Stop-Loss:** $238.50\n  - **Target:** $236.00 (risk-reward of approximately 1:1)\n\n**Confidence Level:** Low. The analysis is highly limited by the absence of vital data. The confidence level would increase significantly with more complete real-time and historical data, including technical indicators and fundamental analysis.\n\n**Short-Term Price Targets:** Given the limited data, providing specific price targets is unreliable. More complete analysis is necessary.\n\n**Note:** This analysis is purely hypothetical due to the limitations in available data. It's crucial to use up-to-date and comprehensive data for making real trading decisions.",
+  "user_id": 2
+}
+```
+
+**Response Fields:**
+
+- **`forecast`**: AI prediction results.
+  - **`price`**: Predicted stock price.
+  - **`confidence`**: AI model confidence in the prediction (percentage).
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **400 Bad Request:** Ensure ``symbol`` is included in the request body.
+* **503 Service Unavailable:** Yahoo API service is down or unreachable.
+
+#### History API:
+
+The History API endpoint provides historical stock data for the specified stock symbol.
+
+**URL:** `/api/act-ai/history/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `symbol`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
+
+```bash
+curl -X GET "http://localhost:8000/api/act-ai/history/?symbol=AAPL" \
+-H "Authorization: Bearer JWT_TOKEN"
+```
+
+**Example Response:**
+
+```json
+{
+    "history": [
+        {"date": "2024-12-01", "price": 205.5},
+        {"date": "2024-12-02", "price": 207.0}
+    ]
+}
+```
+
+**Response Fields:**
+
+- **`history`**: Historical stock price data.
+  - **`date`**: Date of the historical price.
+  - **`price`**: Closing price of the stock on the given date.
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **400 Bad Request:** Ensure ``symbol`` query parameter is included.
 
 ## Frontend
 
@@ -1304,6 +1386,86 @@ Implementation:
 
 - OpenAI API provides advanced language model capabilities for complex analysis and decision-making at fast inference.
 - Provides entrypoint for ollama driven local models for integration with langchain & crewAI.
+
+### Integration
+
+- Integrated AI functionalities for stock prediction and historical data analysis.
+- APIs like Yahoo Finance and Alpha Vantage are used for real-time and historical market data.
+
+
+### Docker Integration
+
+The use of ``Docker`` became essential due to the integration of AI functionalities, which significantly increased the complexity of managing dependencies. By containerizing the application, we ensure that all dependencies — especially those related to AI models and libraries—are consistently managed and isolated across different environments.
+
+Managing these dependencies in a local development environment proved to be challenging due to potential conflicts with other libraries and platform-specific issues. Docker resolves these challenges by providing a consistent and isolated environment for the application.
+
+#### Docker Setup
+
+1. Build Docker Images:
+```bash
+docker-compose build
+```
+
+2. Run Containers:
+```bash
+docker-compose up
+```
+
+3. Access Application:
+ * Backend: ``http://localhost:8000/``
+ * SQLite: Used for system-level data.
+ * Firebase Firestore: Configured for business logic.
+
+#### Docker Compose File
+
+This section describes the `docker-compose.yml` file used to set up and run the project backend.
+
+```yaml
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./config/act-corporate-trader-firebase-adminsdk-uwhis-21e99a6344.json:/app/config/firebase_credentials.json
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=act_backend.settings
+      - FIREBASE_CREDENTIALS_FILE=firebase_credentials.json
+```
+
+**Explanation of Configuration:**
+
+1. ``version: '3.9'``: Specifies the Docker Compose file format version.
+
+2. ``services:`` Defines the services to be run in the Docker environment.
+
+3. ``web`` service:
+
+    * ``build:``
+        * ``context: .`` instructs Docker to use the current directory as the build context.
+    * ``ports:``
+        * Maps the container's port 8000 to the host's port 8000, enabling access to the Django application at ``http://localhost:8000``.
+    * ``volumes:``
+        * ``.:/app:`` Mounts the project directory from the host to /app in the container, enabling live code changes without rebuilding the container.
+        * ``./config/act-corporate-trader-firebase-adminsdk-uwhis-21e99a6344.json:/app/config/firebase_credentials.json:`` Mounts the Firebase credentials file into the container at the specified path.
+    * ``env_file:``
+        * Specifies the ``.env`` file to load additional environment variables.
+    * ``environment:``
+        * ``DJANGO_SETTINGS_MODULE:`` Specifies the Django settings module for the application.
+        * ``FIREBASE_CREDENTIALS_FILE:`` Defines the name of the Firebase credentials file within the container.
+
+#### Notes
+
+* ``AI Integration:`` The AI libraries and models are managed within the container, ensuring compatibility across environments and reducing setup complexity.
+* ``Firebase Integration:`` Ensure that the Firebase Admin SDK JSON file is correctly placed in the config directory and referenced in the volumes section.
+* ``Live Code Changes:`` The volumes directive allows live code changes to reflect without rebuilding the container.
+* ``Environment Variables:`` The .env file centralizes environment-specific configuration, making the application portable across different environments.
 
 
 ### Product Backlog
