@@ -1,6 +1,7 @@
+# ai_module/AI_Crew.py
 import os
 from crewai import Agent, Task, Crew, LLM
-from calculator_tool import CalculatorTool
+from ai_module.calculator_tool import CalculatorTool
 
 
 

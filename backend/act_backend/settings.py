@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'rest_framework',  # work with API
     'core',  # main business logic
     'corsheaders',  # CORS
+    'act_ai',  # ai engine
 ]
 
 # Use custom user model

@@ -1,4 +1,5 @@
-from task_manager import TaskManager
+# ai_module/dev_console.py
+from ai_module.task_manager import TaskManager
 import sys
 import time
 import logging

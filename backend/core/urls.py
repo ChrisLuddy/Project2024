@@ -1,5 +1,5 @@
 # core/urls.py
-from django.urls import path
+from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -36,4 +36,7 @@ urlpatterns = [
     path('support-requests/', SupportRequestView.as_view(), name='support-request-list-create'),
     path('support-requests/<str:support_request_id>/', SupportRequestView.as_view(), name='support-request-detail'),
     path('yahoo-news/', YahooNewsView.as_view(), name='yahoo-news'),
+
+    # AI routes
+    path('act-ai/', include('act_ai.urls')),
 ]

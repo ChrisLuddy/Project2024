@@ -1,8 +1,9 @@
-from task_manager import TaskManager
+# ai_module/AI_API.py
+from ai_module.task_manager import TaskManager
 import logging
 from typing import Optional, Dict, ClassVar
 from datetime import datetime
-from data_parsers import NewsParser
+from ai_module.data_parsers import NewsParser
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

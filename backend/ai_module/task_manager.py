@@ -1,6 +1,7 @@
-from AI_Crew import AI_Crew
-from backend_client import BackendClient
-from data_parsers import ForecastParser, NewsParser
+# ai_module/task_manager.py
+from ai_module.AI_Crew import AI_Crew
+from ai_module.backend_client import BackendClient
+from ai_module.data_parsers import ForecastParser, NewsParser
 import logging
 from datetime import datetime
 
