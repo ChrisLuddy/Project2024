@@ -7,7 +7,7 @@
     <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title of the webpage displayed in the browser tab -->
-    <title>ACT Web Application - Home</title>
+    <title>ACT Web Application - Buy/Sell Stocks</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
     <!-- Displays the website logo in the page -->
     <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
@@ -48,22 +48,30 @@
     <main class="container">
         <!-- Main heading -->
         <h1>Buy Stocks and Cryptocurrencies</h1>
-        
-        <!-- Decorative image -->
+
         <img src="images/ACT-Purchase.png" alt="ACT Purchase Image" style="width: 100%; max-width: 600px; height: auto;">
-        
+
         <!-- Stocks section -->
         <section id="stocks">
             <h2>Tech Stocks</h2>
             <form id="stocks-form">
-                <!-- Dynamically add stocks here -->
                 <div class="stock-item">
                     <label for="stock1">Stock 1:</label>
                     <select id="stock1" class="stock-select" required>
                         <option value="">Select a stock</option>
+                        <option value="AAPL">Apple</option>
+                        <option value="GOOG">Google</option>
+                        <option value="MSFT">Microsoft</option>
                     </select>
                 </div>
-                <!-- Add similar blocks for more stocks -->
+                <div class="stock-item">
+                    <label for="quantity1">Quantity:</label>
+                    <input type="number" id="quantity1" min="1" placeholder="Enter quantity" required>
+                </div>
+                <div class="stock-actions">
+                    <button type="button" id="buy-stock">Buy Stock</button>
+                    <button type="button" id="sell-stock">Sell Stock</button>
+                </div>
             </form>
         </section>
 
@@ -75,16 +83,22 @@
                     <label for="crypto1">Crypto 1:</label>
                     <select id="crypto1" class="crypto-select" required>
                         <option value="">Select a cryptocurrency</option>
+                        <option value="BTC">Bitcoin</option>
+                        <option value="ETH">Ethereum</option>
+                        <option value="XRP">Ripple</option>
                     </select>
                 </div>
-                <!-- Add similar blocks for more cryptocurrencies -->
+                <div class="crypto-item">
+                    <label for="crypto-quantity">Quantity:</label>
+                    <input type="number" id="crypto-quantity" min="0.01" step="0.01" placeholder="Enter quantity" required>
+                </div>
+                <div class="crypto-actions">
+                    <button type="button" id="buy-crypto">Buy Crypto</button>
+                    <button type="button" id="sell-crypto">Sell Crypto</button>
+                </div>
             </form>
         </section>
-
-        <!-- Button to trigger purchase -->
-        <button id="buy-button">Buy Now</button>
-
-        <!-- Placeholder for the purchase summary -->
+        
         <div id="purchase-summary"></div>
     </main>
 
@@ -92,6 +106,7 @@
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
+
 </body>
 
 </html>
