@@ -2,32 +2,21 @@
 <html lang="en">
 
 <head>
-    <!-- Sets the character encoding to UTF-8 to support a wide range of characters -->
     <meta charset="UTF-8">
-    <!-- Configures the viewport to be responsive on different devices, scaling the content to fit screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Sets the title of the page, which appears on the browser tab -->
-    <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
-    <!-- Firebase Firestore SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
-    <title>ACT Web Application - AI Predictions</title>
-   <!-- Link to the favicon -->
-   <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-   <!-- Displays the website logo in the page -->
-   <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
-    <!-- Links an external CSS stylesheet to apply consistent styles across the page -->
+    <title>ACT AI Chatbot</title>
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
+    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
     <link rel="stylesheet" href="ACT-Web-styles.css">
 </head>
 
 <body>
-    <!-- Header section that contains the main navigation for the site -->
+    <!-- Header Section -->
     <header>
-        <!-- Navigation bar to hold the application logo and page links -->
         <nav>
-            <!-- Displays the logo or application name in the header -->
             <div class="logo">ACT Web Application</div>
-            <!-- Unordered list that holds navigation links as list items -->
             <ul id="nav-links">
                 <li><a href="ACT-Homepage.html">Home</a></li>
                 <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
@@ -48,19 +37,26 @@
         </nav>
     </header>
 
-    <!-- Main section for displaying AI prediction data -->
-    <section id="ai-predictions">
-        <!-- Section title for AI predictions -->
-        <h2>AI Predictions</h2>
-        <!-- Image related to AI predictions, scaled to fit screen size with maximum width for responsiveness -->
-        <img src="images/ACT-AI-Predictions.png" alt="ACT AI Predictions Image" style="width: 100%; max-width: 600px; height: auto;">
-        <!-- Container to hold dynamically loaded AI prediction data from the backend -->
-        <div class="ai-predictions-container">
-            <!-- Placeholder for dynamically loaded AI predictions -->
+    <!-- Main Section -->
+    <section id="ai-chatbot">
+        <h1>ACT AI Chatbot</h1>
+        <p>Ask any financial questions, and our AI will provide you with insightful responses.</p>
+
+        <!-- Chat Interface -->
+        <div class="chat-window">
+            <div id="chat-log" class="chat-log">
+                <div class="chat-message bot">Welcome! Ask me any financial question.</div>
+            </div>
+
+            <!-- Input Form -->
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="user-input" placeholder="Type your question here..." required />
+                <button type="submit">Send</button>
+            </form>
         </div>
     </section>
 
-    <!-- Footer section containing copyright information -->
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
