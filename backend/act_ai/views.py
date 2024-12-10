@@ -75,3 +75,33 @@ class HistoryView(APIView):
             # Error Logging
             logger.error(f"Error in HistoryView: {e}", exc_info=True)
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class TradeRatingView(APIView):
+    """
+    API endpoint to get the trade rating for a given symbol.
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        try:
+            # Retrieve the symbol from query parameters
+            symbol = request.query_params.get('symbol')
+            if not symbol:
+                return Response({"error": "Symbol is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Initialize AI_API and fetch trade rating
+            ai_api = AiAPI()
+            trade_rating = ai_api.get_trade_rating(symbol=symbol, user_id=request.user.id)
+
+            # Return the trade rating if available
+            if trade_rating:
+                return Response({"trade_rating": trade_rating}, status=status.HTTP_200_OK)
+
+            # If no trade rating is found
+            return Response({"message": "No trade rating found"}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            # Log any exceptions and return an error response
+            logger.error(f"Error in TradeRatingView: {e}", exc_info=True)
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
