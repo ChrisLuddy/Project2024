@@ -98,6 +98,18 @@ function makePurchase(stocks, cryptos) {
     });
 }
 
+// Function to update navigation links based on login status
+function updateNavigationLinks() {
+    const navLinks = document.querySelectorAll('#nav-links .auth-required');
+    if (accessToken) {
+        // User is logged in, show all links
+        navLinks.forEach(link => link.style.display = 'list-item');
+    } else {
+        // User is logged out, hide auth-required links
+        navLinks.forEach(link => link.style.display = 'none');
+    }
+}
+
 // DOM Manipulation
 
 // Initialize Login Page
@@ -232,5 +244,24 @@ document.addEventListener("DOMContentLoaded", () => {
         initYahooNewsPage();
     } else if (path.includes("ACT-Purchase.html")) {
         initPurchasePage();
+    }
+
+    updateNavigationLinks();
+
+    if (window.location.pathname.includes("ACT-Login.html")) {
+        const loginForm = document.querySelector("form");
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            handleLogin(username, password)
+                .then(() => {
+                    alert("Login successful!");
+                    updateNavigationLinks(); // Update links after login
+                    window.location.href = "ACT-Fund-Manager-Welcome.html";
+                })
+                .catch(error => alert(error.message));
+        });
     }
 });
