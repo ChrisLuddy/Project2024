@@ -76,6 +76,7 @@ class HistoryView(APIView):
             logger.error(f"Error in HistoryView: {e}", exc_info=True)
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 class TradeRatingView(APIView):
     """
     API endpoint to get the trade rating for a given symbol.
@@ -104,4 +105,79 @@ class TradeRatingView(APIView):
         except Exception as e:
             # Log any exceptions and return an error response
             logger.error(f"Error in TradeRatingView: {e}", exc_info=True)
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class FinnhubStockDataView(APIView):
+    """
+    GET /api/act-ai/stock-data/
+    Fetch stock market data for a given symbol using Finnhub API.
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        symbol = request.query_params.get('symbol')
+        if not symbol:
+            return Response({"error": "Symbol is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        ai_api = AiAPI()
+        try:
+            stock_data = ai_api.get_finnhub_stock_data(symbol)
+            return Response(stock_data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class FinnhubNewsView(APIView):
+    """
+    GET /api/act-ai/stock-news/
+    Fetch news for a given category using Finnhub API.
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        category = request.query_params.get('category', 'general')
+        
+        ai_api = AiAPI()
+        try:
+            news = ai_api.get_finnhub_news(category)
+            return Response(news, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CoinDataView(APIView):
+    """
+    GET /api/act-ai/coin-data/
+    Fetch cryptocurrency data for a given coin ID using CoinGecko API.
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        coin_id = request.query_params.get('coin_id', 'bitcoin')
+        
+        ai_api = AiAPI()
+        try:
+            coin_data = ai_api.get_coingecko_coin_data(coin_id)
+            return Response(coin_data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class TrendingCoinsView(APIView):
+    """
+    GET /api/act-ai/trending-coins/
+    Fetch trending cryptocurrencies using CoinGecko API.
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        ai_api = AiAPI()
+        try:
+            trending_coins = ai_api.get_coingecko_trending_coins()
+            return Response(trending_coins, status=status.HTTP_200_OK)
+        except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

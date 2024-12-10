@@ -1,9 +1,13 @@
 # ai_module/AI_API.py
+import os
 from ai_module.task_manager import TaskManager
 import logging
 from typing import Optional, Dict, ClassVar
 from datetime import datetime
 from ai_module.data_parsers import NewsParser
+
+import requests
+from typing import List
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -191,6 +195,107 @@ class AiAPI:
 
         print("\n=== Trade Rating Test Complete ===")
 
+    # Intergration API Finnhub and CoinGecko
+
+    def get_finnhub_stock_data(self, symbol: str) -> Dict:
+        """
+        Fetch stock market data for a given symbol using Finnhub API.
+        """
+
+        try:
+            # Retrieve API key from environment variables
+            api_key = os.getenv("FINNHUB_API_KEY")
+            if not api_key:
+                raise ValueError("FINNHUB_API_KEY is not set in the environment variables")
+
+            # Construct the URL for the request
+            base_url = "https://finnhub.io/api/v1/quote"
+            url = f"{base_url}?symbol={symbol}&token={api_key}"
+
+            logger.info(f"Fetching stock data for symbol: {symbol}")
+
+            # Execute the API request
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception for non-2xx responses
+            return response.json()
+
+        except requests.exceptions.RequestException as e:
+            # Log any HTTP request errors
+            logger.error(f"Error fetching stock data for symbol {symbol}: {e}", exc_info=True)
+            return {"error": str(e)}
+
+        except Exception as e:
+            # Log any unexpected errors
+            logger.error(f"Unexpected error in get_finnhub_stock_data: {e}", exc_info=True)
+            return {"error": str(e)}
+
+
+    def get_finnhub_news(self, category: str = "general") -> List[Dict]:
+        """
+        Fetch news from Finnhub API.
+        """
+        try:
+            # Retrieve API key from environment variables
+            api_key = os.getenv("FINNHUB_API_KEY")
+            if not api_key:
+                raise ValueError("FINNHUB_API_KEY is not set in the environment variables")
+
+            # Construct the URL for the request
+            base_url = "https://finnhub.io/api/v1/news"
+            url = f"{base_url}?category={category}&token={api_key}"
+
+            logger.info(f"Fetching Finnhub news for category: {category}")
+
+            # Execute the API request
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception for non-2xx responses
+            return response.json()
+
+        except requests.exceptions.RequestException as e:
+            # Log any HTTP request errors
+            logger.error(f"Error fetching news for category {category}: {e}", exc_info=True)
+            return {"error": str(e)}
+
+        except Exception as e:
+            # Log any unexpected errors
+            logger.error(f"Unexpected error in get_finnhub_news: {e}", exc_info=True)
+            return {"error": str(e)}
+
+
+    def get_coingecko_coin_data(self, coin_id: str = "bitcoin") -> Dict:
+        """
+        Fetch cryptocurrency data for a given coin ID using CoinGecko API.
+        """
+        try:
+            base_url = "https://api.coingecko.com/api/v3/coins"
+            url = f"{base_url}/{coin_id}"
+
+            logger.info(f"Fetching CoinGecko data for coin: {coin_id}")
+            response = requests.get(url)
+            response.raise_for_status()
+            return response.json()
+
+        except Exception as e:
+            logger.error(f"Error fetching CoinGecko coin data: {e}", exc_info=True)
+            raise
+
+    def get_coingecko_trending_coins(self) -> Dict:
+        """
+        Fetch trending cryptocurrencies using CoinGecko API.
+        """
+        try:
+            base_url = "https://api.coingecko.com/api/v3/search/trending"
+
+            logger.info("Fetching trending cryptocurrencies from CoinGecko")
+            response = requests.get(base_url)
+            response.raise_for_status()
+            return response.json()
+
+        except Exception as e:
+            logger.error(f"Error fetching CoinGecko trending coins: {e}", exc_info=True)
+            raise
+
+
 # Test functionality
 if __name__ == "__main__":
     # Use singleton instance
@@ -213,3 +318,5 @@ if __name__ == "__main__":
         # Final health check
         final_health = ai.check_health()
         print("\nFinal Health Status:", final_health)
+
+        
