@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+    <title>ACT AI Chatbot</title>
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
+    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo">
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">ACT Web Application</div>
+            <ul id="nav-links">
+                <li><a href="ACT-Homepage.html">Home</a></li>
+                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
+                <li><a href="ACT-Login.html">Login</a></li>
+                <li><a href="ACT-Register.html">Register</a></li>
+                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+                <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+                <li><a href="ACT-Yahoo-News.html">News</a></li>
+                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+                <li><a href="ACT-Reports.html">Reports</a></li>
+                <li><a href="ACT-Reviews.html">Review</a></li>
+                <li><a href="ACT-Support.html">Support</a></li>
+                <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section id="ai-chatbot">
+        <h1>ACT AI Chatbot</h1>
+        <p>Ask any financial questions, and our AI will provide you with insightful responses.</p>
+
+        <!-- Chat Interface -->
+        <div class="chat-window">
+            <div id="chat-log" class="chat-log">
+                <div class="chat-message bot">Welcome! Ask me any financial question.</div>
+            </div>
+
+            <!-- Input Form -->
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="user-input" placeholder="Type your question here..." required />
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
+    </footer>
+
+    <script src="ACT-Web.js"></script>
+</body>
+
+</html>
