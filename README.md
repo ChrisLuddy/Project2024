@@ -979,7 +979,7 @@ curl -X GET 'http://161.35.38.50:8000/api/alpha-vantage/?symbol=AAPL' \
 }
 ```
 
-#### Predict API:
+#### AI-Powered Predict API:
 
 The Predict API endpoint provides stock prediction data based on AI analysis.
 
@@ -1019,7 +1019,8 @@ curl -X POST http://localhost:8000/api/act-ai/predict/ \
 * **400 Bad Request:** Ensure ``symbol`` is included in the request body.
 * **503 Service Unavailable:** Yahoo API service is down or unreachable.
 
-#### History API:
+
+#### AI-Powered History API:
 
 The History API endpoint provides historical stock data for the specified stock symbol.
 
@@ -1056,6 +1057,274 @@ curl -X GET "http://localhost:8000/api/act-ai/history/?symbol=AAPL" \
 
 * **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
 * **400 Bad Request:** Ensure ``symbol`` query parameter is included.
+
+
+#### AI-Powered Trade Rating Endpoint:
+
+This AI-powered endpoint provides the trade rating information for a given stock symbol. The trade rating is based on various analytics and insights related to the specified symbol.
+
+**URL:** `/api/act-ai/trade-rating/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `symbol` (required): The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
+
+```bash
+curl -X GET "http://localhost:8000/api/act-ai/trade-rating/?symbol=AAPL" \
+-H "Authorization: Bearer JWT_TOKEN"
+```
+
+**Response:**
+
+Returns an object with the trade rating details for the given stock symbol.
+
+**Example Response:**
+
+```json
+{
+  "symbol": "AAPL",
+  "rating": {
+    "overall": 8.5,
+    "technical": 7.8,
+    "fundamental": 9.2,
+    "sentiment": 8.0
+  },
+  "updated_at": "2024-12-11T10:00:00Z"
+}
+```
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **400 Bad Request:** Ensure ``symbol`` query parameter is included.
+
+
+#### Fetch Stock Data from Finnhub
+
+This endpoint allows fetching stock market data for a given stock symbol using the Finnhub API.
+
+**URL:** `/api/act-ai/stock-data/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `symbol`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
+
+```bash
+curl -X GET "http://localhost:8000/api/act-ai/stock-data/?symbol=AAPL" \
+-H "Authorization: Bearer JWT_TOKEN"
+```
+
+**Example Response:**
+
+```json
+{
+    "c": 247.77,
+    "d": 1.02,
+    "dp": 0.4134,
+    "h": 248.21,
+    "l": 245.34,
+    "o": 246.89,
+    "pc": 246.75,
+    "t": 1733864400
+}
+```
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **400 Bad Request:** Ensure ``symbol`` query parameter is included.
+* **503 Service Unavailable:** Finnhub API service is down or unreachable.
+
+
+#### Fetch News from Finnhub
+
+This endpoint retrieves the latest news articles for a specific category from Finnhub.
+
+**URL:** `/api/act-ai/stock-news/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `category`: (Optional) News category (e.g., `general`, `crypto`). Default is `general`.
+
+```bash
+curl -X GET "http://localhost:8000/api/act-ai/stock-news/?category=general" \
+-H "Authorization: Bearer JWT_TOKEN"
+```
+
+**Example Response:**
+
+```json
+[
+    {
+        "category": "general",
+        "datetime": 1733864400,
+        "headline": "Stock market trends today",
+        "id": 12345,
+        "image": "https://example.com/image.jpg",
+        "related": "AAPL",
+        "source": "Finnhub",
+        "summary": "An overview of today's stock market performance.",
+        "url": "https://example.com/news/12345"
+    },
+    ...
+]
+```
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **400 Bad Request:** Ensure ``symbol`` query parameter is included.
+* **503 Service Unavailable:** Finnhub API service is down or unreachable.
+
+
+#### Trending Coins Endpoint from CoinGecko
+
+This endpoint retrieves a list of trending cryptocurrencies, including their detailed market data, price changes, rankings, and additional information using CoinGecko.
+
+**URL:** `/api/act-ai/trending-coins/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `coin_id`: (Optional) The ID of the cryptocurrency (e.g., `bitcoin`, `ethereum`). Default is `bitcoin`.
+
+```bash
+curl -X GET "http://localhost:8000/api/act-ai/trending-coins/" \
+-H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Response:**
+
+A JSON array containing trending coins. Each object includes the following fields:
+
+* `id`: The unique identifier for the coin.
+* `name`: The name of the cryptocurrency.
+* `symbol`: The ticker symbol of the cryptocurrency.
+* `market_cap_rank`: The current ranking based on market capitalization.
+* `price`: Current price in USD.
+* `price_btc`: Current price in BTC.
+* `price_change_percentage_24h`: The percentage price change in the last 24 hours for various currencies.
+* `market_cap`: The current market capitalization of the cryptocurrency.
+* `total_volume`: The total trading volume in USD over the last 24 hours.
+* `sparkline`: A URL to a sparkline chart representing the price changes over time.
+* `thumb`, `small`, `large`: URLs for different sizes of the cryptocurrency's logo.
+
+**Example Response:**
+
+```json
+{
+    "coins": [
+        {
+            "item": {
+                "id": "vita-inu",
+                "name": "Vita Inu",
+                "symbol": "VINU",
+                "market_cap_rank": 918,
+                "price": 5.110131718661772e-08,
+                "price_btc": "0.000000000000528258635215761",
+                "price_change_percentage_24h": {
+                    "usd": -9.777662743078121,
+                    "btc": -9.125630280198598,
+                    "eth": -7.593784806228662
+                },
+                "market_cap": "$46,018,123",
+                "total_volume": "$13,096,062",
+                "sparkline": "https://www.coingecko.com/coins/20594/sparkline.svg",
+                "thumb": "https://coin-images.coingecko.com/coins/images/20594/standard/vita-inu.png",
+                "small": "https://coin-images.coingecko.com/coins/images/20594/small/vita-inu.png",
+                "large": "https://coin-images.coingecko.com/coins/images/20594/large/vita-inu.png"
+            }
+        },
+        ...
+    ]
+}
+```
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **503 Service Unavailable:** CoinGecko API service is down or unreachable.
+
+
+#### Get Cryptocurrency Information from CoinGecko
+
+This endpoint provides detailed information about a specific cryptocurrency. It allows users to retrieve data such as the cryptocurrency's current price, market capitalization, trading volume, and other relevant details by specifying its unique identifier or symbol using CoinGecko.
+
+**URL:** `/api/act-ai/coin-data/`
+
+**Request Method:** `GET`
+
+**Request Parameters:**
+- `coin_id` (required): The unique identifier of the cryptocurrency, e.g., `bitcoin`.
+
+```bash
+curl -X GET "http://localhost:8000/api/act-ai/coin-data/?coin_id=bitcoin" \
+-H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Response:**
+
+A JSON array containing trending coins. Each object includes the following fields:
+
+* `id`: Unique identifier of the cryptocurrency (e.g., `bitcoin`).
+* `symbol`: Cryptocurrency symbol (e.g., `btc`).
+* `name`: Full name of the cryptocurrency.
+* `web_slug`: Unique identifier used for URLs.
+* `hashing_algorithm`: Hashing algorithm used by the cryptocurrency (e.g., `SHA-256`).
+* `categories`: Categories the cryptocurrency belongs to (e.g., `Cryptocurrency`, `Proof of Work`).
+* `description`: A description of the cryptocurrency (available in multiple languages).
+* `localization`: Localized names of the cryptocurrency.
+* `links`: Official resource links, including the website, whitepaper, forums, etc.
+* `market_data`: Market data including current price, market capitalization, trading volume, and more.
+
+**Example Response:**
+
+```json
+{
+  "id": "bitcoin",
+  "symbol": "btc",
+  "name": "Bitcoin",
+  "web_slug": "bitcoin",
+  "hashing_algorithm": "SHA-256",
+  "categories": ["Cryptocurrency", "Proof of Work"],
+  "description": {
+    "en": "Bitcoin is the first successful internet money...",
+    "ru": "Биткоин — это первая успешная интернет-валюта..."
+  },
+  "localization": {
+    "en": "Bitcoin",
+    "ru": "Биткоин"
+  },
+  "links": {
+    "homepage": ["https://bitcoin.org"],
+    "whitepaper": "https://bitcoin.org/bitcoin.pdf"
+  },
+  "market_data": {
+    "current_price": {
+      "usd": 96412,
+      "eur": 91560
+    },
+    "market_cap": {
+      "usd": 1910526095727,
+      "eur": 1814390333117
+    },
+    "total_volume": {
+      "usd": 143027804177
+    }
+  }
+}
+```
+
+**Error Handling:**
+
+* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
+* **400 Bad Request**: The `coin_id` parameter is missing or invalid.
+* **503 Service Unavailable:** CoinGecko API service is down or unreachable.
+
+
 
 ## Frontend
 
