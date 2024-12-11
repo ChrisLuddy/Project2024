@@ -464,7 +464,12 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
     ```bash
     python manage.py createsuperuser
     ```
-8. ***Running the Development Server***
+8. ***Сreate custom permissions***
+    Creating custom permissions (`can_manage_own_assets`, `can_manage_client_assets`) to enforce role-based access:
+    ```bash
+    python manage.py initialize_permissions
+    ```
+9. ***Running the Development Server***
     ```bash
     python manage.py runserver
     ```
