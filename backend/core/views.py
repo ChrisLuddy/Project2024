@@ -9,6 +9,8 @@ from rest_framework.permissions import AllowAny
 from .serializers import RegisterSerializer
 from .firebase_models import Client, Fund, Portfolio, Asset, Order, TradeRating, AIForecast, SupportRequest
 from django.conf import settings
+from .serializers import RegisterSerializer
+from .permissions import IsFundAdmin, IsFundManager, IsFundAdminOrFundManager
 
 User = get_user_model()
 
@@ -31,6 +33,7 @@ class RegisterView(generics.CreateAPIView):
 
 
 class AssetView(APIView):
+    permission_classes = [IsFundManager]
     def get(self, request, asset_id=None):
         if asset_id:
             asset = Asset.get(asset_id)
@@ -69,6 +72,7 @@ class AssetView(APIView):
 
 
 class ClientView(APIView):
+    permission_classes = [IsFundManager]
     def get(self, request, client_id=None):
         if client_id:
             client = Client.get(client_id)
@@ -93,6 +97,7 @@ class ClientView(APIView):
 
 
 class FundView(APIView):
+    permission_classes = [IsFundManager]
     def get(self, request, fund_id=None):
         if fund_id:
             fund = Fund.get(fund_id)
@@ -117,6 +122,7 @@ class FundView(APIView):
 
 
 class PortfolioView(APIView):
+    permission_classes = [IsFundAdminOrFundManager]
     def get(self, request, portfolio_id=None):
         if portfolio_id:
             portfolio = Portfolio.get(portfolio_id)
@@ -141,6 +147,7 @@ class PortfolioView(APIView):
 
 
 class OrderView(APIView):
+    permission_classes = [IsFundAdminOrFundManager]
     def get(self, request, order_id=None):
         if order_id:
             order = Order.get(order_id)
@@ -165,6 +172,7 @@ class OrderView(APIView):
 
 
 class TradeRatingView(APIView):
+    permission_classes = [IsFundAdminOrFundManager]
     def get(self, request, trade_rating_id=None):
         if trade_rating_id:
             trade_rating = TradeRating.get(trade_rating_id)
@@ -189,6 +197,8 @@ class TradeRatingView(APIView):
 
 
 class AIForecastView(APIView):
+    permission_classes = [IsFundAdminOrFundManager]
+
     def get(self, request, forecast_id=None):
         if forecast_id:
             forecast = AIForecast.get(forecast_id)
@@ -197,6 +207,9 @@ class AIForecastView(APIView):
         return Response(forecasts, status=status.HTTP_200_OK)
 
     def post(self, request):
+        # Отладочное сообщение
+        print(f"Request user: {request.user}, is_authenticated: {request.user.is_authenticated}, is_active: {request.user.is_active}, groups: {request.user.groups.all()}")
+
         forecast = AIForecast(forecast=request.data.get('forecast'), user_id=request.data.get('user_id'))
         forecast_id = forecast.save()
         return Response({"forecast_id": forecast_id, "message": "AI Forecast created successfully!"}, status=status.HTTP_201_CREATED)
@@ -213,6 +226,7 @@ class AIForecastView(APIView):
 
 
 class SupportRequestView(APIView):
+    permission_classes = [IsFundAdminOrFundManager]
     def get(self, request, support_request_id=None):
         if support_request_id:
             support_request = SupportRequest.get(support_request_id)
