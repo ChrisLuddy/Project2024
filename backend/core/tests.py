@@ -1,4 +1,4 @@
-
+# core/tests.py
 import os
 import django
 import pytest
