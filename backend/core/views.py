@@ -1,5 +1,6 @@
 # core/views.py
 import requests
+import stripe
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
@@ -13,6 +14,31 @@ from .serializers import RegisterSerializer
 from .permissions import IsFundAdmin, IsFundManager, IsFundAdminOrFundManager
 
 User = get_user_model()
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+class CreateCheckoutSessionView(APIView):
+    def post(self, request):
+        try:
+            price_id = request.data.get('price_id')  # monthly or yearly Price ID
+
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                # customer_email=request.user.email,
+                customer_email=request.data.get('email') or 'test@example.com',
+                line_items=[{
+                    'price': price_id,
+                    'quantity': 1,
+                }],
+                mode='subscription',
+                success_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/success.html?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/cancel.html',
+
+            )
+            return Response({'sessionId': session.id}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RegisterView(generics.CreateAPIView):

@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
 from .views import (
     RegisterView, AssetView, YahooFinance, AlphaVantage,
     ClientView, FundView, PortfolioView, OrderView,
-    TradeRatingView, AIForecastView, SupportRequestView, YahooNewsView
+    TradeRatingView, AIForecastView, SupportRequestView, YahooNewsView, CreateCheckoutSessionView
 )
 
 
@@ -39,4 +39,7 @@ urlpatterns = [
 
     # AI routes
     path('act-ai/', include('act_ai.urls')),
+
+    # Stripe routes
+    path('create-checkout-session/', CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
 ]
