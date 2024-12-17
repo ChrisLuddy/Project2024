@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Subscription with JWT Authentication</title>
+    <!-- Include Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        button, input {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #6772e5;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5469d4;
+        }
+        input {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stripe Subscription Test with JWT</h1>
+
+    <!-- Login Section -->
+    <h2>Step 1: Login</h2>
+    <input type="text" id="username" placeholder="Username" value="Admin001">
+    <input type="password" id="password" placeholder="Password" value="password_123">
+    <button id="login-button">Login</button>
+
+    <h2>Step 2: Choose a Subscription Plan</h2>
+    <button id="monthly-plan" disabled>Subscribe Monthly</button>
+    <button id="yearly-plan" disabled>Subscribe Yearly</button>
+
+    <script>
+        // Initialize Stripe.js with your publishable key
+        const stripe = Stripe("pk_test_51QX6vSP9tIxdtAMKP8UKBr2mkqAWRrYN3C0WID3QuIJlBo4mY2l9YiPIvl5UDp8JndnvyujPoLAQX7AJPUKSTHMm00mtw7MvfX");
+
+        let accessToken = ""; // Variable to store the JWT token
+
+        // Step 1: Login and fetch JWT token
+        document.getElementById("login-button").addEventListener("click", async () => {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await fetch("http://localhost:8000/api/token/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                if (!response.ok) throw new Error("Login failed. Check your credentials.");
+
+                const data = await response.json();
+                accessToken = data.access;
+
+                alert("Login successful! JWT token acquired.");
+
+                // Enable the subscription buttons
+                document.getElementById("monthly-plan").disabled = false;
+                document.getElementById("yearly-plan").disabled = false;
+            } catch (error) {
+                console.error("Error during login:", error.message);
+                alert("Failed to log in. Please try again.");
+            }
+        });
+
+        // Step 2: Handle subscription button clicks
+        document.getElementById("monthly-plan").addEventListener("click", function () {
+            createCheckoutSession("price_1QX8TOP9tIxdtAMKjWZcQIu6"); // Sprite Monthly Price ID
+        });
+
+        document.getElementById("yearly-plan").addEventListener("click", function () {
+            createCheckoutSession("price_1QX8UIP9tIxdtAMKPuZkIEnm"); // Sprite Yearly Price ID
+        });
+
+        // Step 3: Function to create a checkout session
+        async function createCheckoutSession(priceId) {
+            try {
+                const response = await fetch("http://localhost:8000/api/create-checkout-session/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${accessToken}` // Add JWT token to the request
+                    },
+                    body: JSON.stringify({ price_id: priceId }),
+                });
+
+                const data = await response.json();
+
+                if (data.sessionId) {
+                    // Redirect to Stripe Checkout
+                    await stripe.redirectToCheckout({ sessionId: data.sessionId });
+                } else {
+                    console.error("Failed to create session:", data.error);
+                    alert("Failed to initiate payment. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Something went wrong! Please check the console.");
+            }
+        }
+    </script>
+</body>
+</html>
