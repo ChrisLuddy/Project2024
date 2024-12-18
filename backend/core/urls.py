@@ -7,8 +7,8 @@ from rest_framework_simplejwt.views import (
 from .views import (
     RegisterView, AssetView, YahooFinance, AlphaVantage,
     ClientView, FundView, PortfolioView, OrderView,
-    TradeRatingView, AIForecastView, SupportRequestView, YahooNewsView, CreateCheckoutSessionView
-)
+    TradeRatingView, AIForecastView, SupportRequestView, YahooNewsView,
+    CreateCheckoutSessionView, SubscriptionStatusView)
 
 
 urlpatterns = [
@@ -42,4 +42,5 @@ urlpatterns = [
 
     # Stripe routes
     path('create-checkout-session/', CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
+    path('subscription-status/', SubscriptionStatusView.as_view(), name='subscription-status'),
 ]

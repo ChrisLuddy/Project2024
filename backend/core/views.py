@@ -17,6 +17,46 @@ User = get_user_model()
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
+class SubscriptionStatusView(APIView):
+    permission_classes = [IsFundAdminOrFundManager]
+
+    def get(self, request):
+        try:
+            customer_email = request.user.email
+            customers = stripe.Customer.list(email=customer_email, limit=1)
+
+            if not customers.data:
+                return Response({"status": "No Stripe customer found"}, status=404)
+
+            customer_id = customers.data[0].id
+
+            subscriptions = stripe.Subscription.list(customer=customer_id, status="all", limit=1)
+
+            if not subscriptions.data:
+                return Response({"status": "No active subscription"}, status=200)
+
+            subscription = subscriptions.data[0]
+
+            plan = subscription['items']['data'][0]['plan']
+            interval = plan['interval']
+            nickname = plan['nickname']
+
+            product_id = plan['product']
+            product = stripe.Product.retrieve(product_id)
+            plan_name = nickname if nickname else product['name']
+
+            return Response({
+                "status": subscription.status,
+                "current_period_end": subscription.current_period_end,
+                "plan_name": plan_name,
+                "interval": interval
+            }, status=200)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=400)
+
+
 class CreateCheckoutSessionView(APIView):
     permission_classes = [IsFundAdminOrFundManager]
 
@@ -33,8 +73,8 @@ class CreateCheckoutSessionView(APIView):
                     'quantity': 1,
                 }],
                 mode='subscription',
-                success_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/success.html?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/cancel.html',
+                success_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/stripe-success.html?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/stripe-cancel.html',
 
             )
             return Response({'sessionId': session.id}, status=status.HTTP_200_OK)
