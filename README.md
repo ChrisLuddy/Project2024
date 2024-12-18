@@ -413,7 +413,6 @@ You can access both the API and the Django Admin interface using this URL.
     POST http://161.35.38.50:8000/api/register/
     ```
 
-
 #### Backend-Installation-Guide for local machine 
 To set up the backend of the ACT (Agentic Corporate Trader) project on your local machine, follow these steps:
 1. ***Clone the Repository***
@@ -464,16 +463,13 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
     ```bash
     python manage.py createsuperuser
     ```
-8. ***Сreate custom permissions***
-    Creating custom permissions (`can_manage_own_assets`, `can_manage_client_assets`) to enforce role-based access:
-    ```bash
-    python manage.py initialize_permissions
-    ```
-9. ***Running the Development Server***
+8. ***Running the Development Server***
     ```bash
     python manage.py runserver
     ```
     The backend will be available at http://127.0.0.1:8000/
+
+---
 
 ### Work in admin panel
 
@@ -485,6 +481,26 @@ To set up the backend of the ACT (Agentic Corporate Trader) project on your loca
     3. Navigate to **CORE > Users** and add new users. You can assign them the roles **Fund Administrator** or **Fund Manager** as needed.
     4. **Ensure** that the **is_staff** and **is_active** flags are checked for the users you create. This allows them to log in and interact with the system.
     5. After creating the users, you can authenticate them via the API.
+
+---
+
+### Permissions in Project
+
+In this project, **role-based permissions** are enforced to provide secure and restricted access to various endpoints. The following roles have been defined for the system:
+
+---
+
+## Role Definitions
+
+1. **FundAdmin**:
+   - Fund Administrators can manage assets and subscriptions associated with their own funds.
+   - They have access to create, read, update, and delete operations within their own scope.
+
+2. **FundManager**:
+   - Fund Managers can manage client assets, subscriptions, and funds for multiple clients.
+   - They have broader permissions compared to Fund Administrators.
+
+---
 
 ### API
 
@@ -499,8 +515,9 @@ POST /api/register/
 With the following fields in the request body:
 ```json
 {
-    "username": "admin_user",
-    "password": "securepassword123",
+    "username": "admin001",
+    "email": "admin001@example.com",
+    "password": "password_123",
     "role": "fund_admin"
 }
 ```
@@ -514,8 +531,9 @@ Content-Type: application/json
 Vary: Accept
 
 {
-    "username": "admin_user",
-    "password": "securepassword123",
+    "username": "Admin001",
+    "email": "admin001@example.com",
+    "password": "password_123",
     "role": "fund_admin"
 }
 ```
@@ -526,10 +544,13 @@ Example Responses:
 
 ```json
 {
-    "id": 1,
-    "username": "admin_user",
-    "role": "fund_admin",
-    "message": "User registered successfully!"
+    "user": {
+        "username": "Manager004",
+        "email": "manager004@example.com",
+        "role": "fund_manager"
+    },
+    "refresh": "eyJhbGciOiJIUzI1....z0Lb9o4syqXDB4kzA",
+    "access": "eyJhbGciOiJI.............8hFCgOmlBXTr_4"
 }
 ```
 
@@ -552,7 +573,7 @@ POST /api/token/
 With **Fund Administrator** or **Fund Manager** credentials in the request body:
 ```json
 {
-    "username": "username",
+    "email": "user@emai.com",
     "password": "password"
 }
 ```
@@ -1329,6 +1350,90 @@ A JSON array containing trending coins. Each object includes the following field
 * **400 Bad Request**: The `coin_id` parameter is missing or invalid.
 * **503 Service Unavailable:** CoinGecko API service is down or unreachable.
 
+#### Stripe Integration Endpoints
+
+1. **Payment for Subscription (Annual or Monthly)**
+
+    **URL:** `/api/create-checkout-session/`  
+    **Method:** `POST`  
+    **Permissions:** Only users with roles **FundAdmin** or **FundManager**.
+
+    **Description:**
+    This endpoint creates a Stripe Checkout session for processing subscription payments. It supports both annual and monthly plans.
+
+**Request (JSON):**
+```json
+{
+  "price_id": "price_1QX8TOP9tIxdtAMKjWZcQIu6",
+  "email": "customer@example.com"
+}
+```
+* `price_id`: `Stripe Price ID` for the subscription plan (annual or monthly).
+* `email`: User's email to associate the subscription with a `Stripe Customer`.
+
+**Response (Success):**
+```json
+{
+  "sessionId": "cs_test_a1b2c3d4e5f6g7h8i9j0"
+}
+```
+
+**Response (Error):**
+```json
+{
+  "error": "Invalid price ID or email."
+}
+```
+
+**Notes:**
+* After receiving the `sessionId`, redirect the user to `Stripe Checkout` for completing the payment:
+    ```javascript
+    stripe.redirectToCheckout({ sessionId: "cs_test_a1b2c3d4e5f6g7h8i9j0" });
+    ```
+* Upon successful payment, the user will be redirected to the `success_url`. If canceled, the user will be redirected to the `cancel_url`.
+
+
+2. **Retrieve Subscription Status**
+
+   **URL:** `/api/subscription-status/`
+   **Method:** `GET`
+   **Permissions:** Only users with roles `FundAdmin` or `FundManager`.
+
+   **Description:**
+   This endpoint retrieves the user's subscription status, including plan name, billing interval (annual or monthly), and next renewal date.
+
+**Response (With Active Subscription):**
+```json
+{
+  "status": "active",
+  "current_period_end": 1702892956,
+  "plan_name": "Pro Plan",
+  "interval": "year"
+}
+```
+* `status`: The current subscription status (e.g., active, canceled, past_due).
+* `current_period_end`: Unix timestamp representing the end date of the current billing period.
+* `plan_name`: The name of the subscribed plan. If a nickname is not provided in Stripe, the product name is used.
+* `interval`: Billing interval for the subscription (year or month).
+
+**Response (No Active Subscription):**
+```json
+{
+  "status": "No active subscription"
+}
+```
+
+**Response (Error):**
+```json
+{
+  "error": "Stripe API error or invalid customer email."
+}
+```
+
+**Notes:**
+* This endpoint uses the authenticated user's email to retrieve their subscription from `Stripe`.
+* Ensure that the user's email is associated with a `Stripe Customer`.
+* The `current_period_end` timestamp can be converted to a human-readable date on the client side.
 
 
 ## Frontend
