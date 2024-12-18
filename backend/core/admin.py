@@ -5,6 +5,8 @@ from django.contrib.auth.admin import Group
 from .models import User
 
 
+admin.site.unregister(Group)
+
 class CustomUserAdmin(UserAdmin):
     # Fields that will be displayed when creating a new user
     add_fieldsets = (
@@ -17,7 +19,7 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password', 'role')}),
         ('Permissions', {
-            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions'),
         }),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
