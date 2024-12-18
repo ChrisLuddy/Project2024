@@ -19,7 +19,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class CreateCheckoutSessionView(APIView):
     permission_classes = [IsFundAdminOrFundManager]
-    
+
     def post(self, request):
         try:
             price_id = request.data.get('price_id')  # monthly or yearly Price ID
@@ -27,7 +27,7 @@ class CreateCheckoutSessionView(APIView):
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 # customer_email=request.user.email,
-                customer_email=request.data.get('email') or 'test@example.com',
+                customer_email=request.data.get('email'),
                 line_items=[{
                     'price': price_id,
                     'quantity': 1,

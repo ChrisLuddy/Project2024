@@ -9,6 +9,10 @@ class User(AbstractUser):
         ('fund_manager', 'Fund Manager'),
     )
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    email = models.EmailField(unique=True)  # Email as unique field
+
+    USERNAME_FIELD = 'email'  # Use email as the unique identifier
+    REQUIRED_FIELDS = ['username']  # Keep username for compatibility
 
     groups = models.ManyToManyField(
         'auth.Group',

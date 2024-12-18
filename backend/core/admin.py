@@ -10,12 +10,12 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'role'),
+            'fields': ('username', 'email', 'password1', 'password2', 'role'),
         }),
     )
     # Fields that will be displayed when editing a user
     fieldsets = (
-        (None, {'fields': ('username', 'password', 'role')}),
+        (None, {'fields': ('username', 'email', 'password', 'role')}),
         ('Permissions', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
         }),
