@@ -1,7 +1,7 @@
 // Base API URL
-// const BASE_URL = "http://127.0.0.1:8000/api";
+// const BASE_URL = "http://161.35.38.50:8000/api";
 
-const BASE_URL = "http://127.0.0.1:8000/";
+const BASE_URL = "http://161.35.38.50:8000/";
 let accessToken = ""; // Store JWT token after login
 
 // Helper function to set headers
@@ -19,11 +19,11 @@ function getHeaders(authRequired = true) {
 // Authentication Functions
 
 // Handle Login
-function handleLogin(username, password) {
+function handleLogin(username, email, password) {
     return fetch(`${BASE_URL}/token/`, {
         method: "POST",
         headers: getHeaders(false),
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, email, password }),
     })
         .then(response => {
             if (!response.ok) throw new Error("Invalid login credentials");
@@ -36,11 +36,11 @@ function handleLogin(username, password) {
 }
 
 // Handle Registration
-function handleRegistration(username, password, role) {
+function handleRegistration(username, email, password, role) {
     return fetch(`${BASE_URL}/register/`, {
         method: "POST",
         headers: getHeaders(false),
-        body: JSON.stringify({ username, password, role }), // Include role
+        body: JSON.stringify({ username, email, password, role }), // Include role
     })
         .then(response => {
             if (!response.ok) throw new Error("Registration failed");
@@ -118,16 +118,28 @@ function initLoginPage() {
     loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        handleLogin(username, password)
+        handleLogin(username, email, password)
             .then(() => {
                 alert("Login successful!");
-                window.location.href = "ACT-Fund-Manager-Welcome.html";
+                fetchUserDetails().then(user => {
+                    if (user.role === 'fund_admin') {
+                        window.location.href = "ACT-Portfolio.html"; 
+                    } else if (user.role === 'system_admin' || user.role === 'fund_manager') {
+                        window.location.href = "ACT-Fund-Manager-Welcome.html"; 
+                    }
+                }).catch(error => {
+                    console.error("Error fetching user details:", error);
+                    alert("An error occurred while determining user role. Redirecting to default page.");
+                    window.location.href = "ACT-Portfolio.html"; 
+                });
             })
             .catch(error => alert(error.message));
     });
 }
+
 
 // Initialize Registration Page
 function initRegistrationPage() {
@@ -135,11 +147,12 @@ function initRegistrationPage() {
     registrationForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const username = document.getElementById("username").value; // Username
-        const password = document.getElementById("password").value; // Password
-        const role = document.getElementById("role").value; // Role from dropdown or input
+        const username = document.getElementById("username").value; 
+        const email = document.getElementById("email").value; 
+        const password = document.getElementById("password").value;
+        const role = document.getElementById("role").value; 
 
-        handleRegistration(username, password, role) // Include role in the registration payload
+        handleRegistration(username, email, password, role) 
             .then(() => {
                 alert("Registration successful!");
                 window.location.href = "ACT-Login.html"; // Redirect to login page
@@ -233,7 +246,7 @@ function initYahooNewsPage() {
 }
 
 // Main Initialization
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { 
     const path = window.location.pathname;
 
     if (path.includes("ACT-Login.html")) {
@@ -253,15 +266,43 @@ document.addEventListener("DOMContentLoaded", () => {
         loginForm.addEventListener("submit", function (e) {
             e.preventDefault();
             const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            handleLogin(username, password)
+            handleLogin(username, email, password)
                 .then(() => {
                     alert("Login successful!");
                     updateNavigationLinks(); // Update links after login
-                    window.location.href = "ACT-Fund-Manager-Welcome.html";
+                    fetchUserDetails().then(user => {
+                        if (user.role === 'fund_admin') {
+                            window.location.href = "ACT-Portfolio.html"; // Redirect to Portfolio page
+                        } else if (user.role === 'system_admin' || user.role === 'fund_manager') {
+                            window.location.href = "ACT-Fund-Manager-Welcome.html"; // Redirect to Fund Manager Welcome page
+                        }
+                    }).catch(error => {
+                        console.error("Error fetching user details:", error);
+                        window.location.href = "ACT-Portfolio.html"; // Default redirect in case of error
+                    });
                 })
                 .catch(error => alert(error.message));
         });
     }
+
+    const stars = document.querySelectorAll("#star-rating .star");
+    const selectedRating = document.getElementById("selected-rating");
+
+    stars.forEach(star => {
+        star.addEventListener("click", () => {
+            const ratingValue = star.dataset.value;
+
+            // Update the selected rating text
+            selectedRating.textContent = `Selected Rating: ${ratingValue}`;
+
+            // Highlight the selected stars
+            stars.forEach(s => {
+                s.style.color = s.dataset.value <= ratingValue ? "gold" : "black";
+            });
+        });
+    });
 });
+
