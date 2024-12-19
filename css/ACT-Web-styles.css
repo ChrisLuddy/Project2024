@@ -389,6 +389,7 @@ button:after, .btn:after {
 
 /* Header Styling */
 header {
+    height: 89px;
     display: flex;
     align-items: center; /* Vertically center the logo and title */
     justify-content: center; /* Center the text horizontally */
