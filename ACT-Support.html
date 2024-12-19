@@ -2,78 +2,72 @@
 <html lang="en">
 <head>
     <!-- Meta tag specifying the character encoding for the document -->
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <!-- Meta tag for responsive design, sets the viewport to ensure proper scaling on various devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title of the webpage displayed in the browser tab -->
-    <title>ACT Web Application - Support</title> 
-    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
+    <title>ACT Web Application - Support</title>
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png">
     <!-- Link to the external CSS stylesheet for styling the support page -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css"> 
+    <link rel="stylesheet" href="css/ACT-Web-styles.css">
     <script src="ACT-Web.js"></script>
-
 </head>
 
 <body>
-    <!-- Header section containing navigation links -->
+    <!-- Header section containing logo and title -->
     <header>
-        <!-- Logo for the application displayed-->
-        <div class="logo">ACT Web Application</div>
+        <div class="header-container">
+            <!-- Logo for the application -->
+            <img src="images/ACT-Logo.png" alt="ACT Logo" id="header-logo">
+            <!-- Application title -->
+            <div class="logo">ACT Web Application</div>
+        </div>
     </header>
 
+    <!-- Navigation bar holding the page links -->
     <nav>
-        <!-- Unordered list of navigation links -->
-       <ul id="nav-links">
+        <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
-            <li style="display: none;"></li><li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
             <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
             <li><a href="ACT-Login.html">Login</a></li>
             <li><a href="ACT-Register.html">Register</a></li>
-            <li style="display: none;"></li><li><a href="ACT-Portfolio.html">Portfolio</a></li>
-            <li style="display: none;"></li><li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-            <li style="display: none;"></li><li><a href="ACT-Purchase.html">Buy/Sell</a></li>
-            <li style="display: none;"></li><li><a href="ACT-Yahoo-News.html">News</a></li>
-            <li style="display: none;"></li><li><a href="ACT-Price-System.html">Price Alert System</a></li>
-            <li style="display: none;"></li><li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-            <li style="display: none;"></li><li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Yahoo-News.html">News</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Reviews.html">Review</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
+            <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
         </ul>
     </nav>
+
+    <!-- Main Section -->
     <main>
-    <!-- Main section for contacting support -->
-    <section id="support">
-        <!-- Secondary heading for the contact support form -->
-        <h1>Contact Support</h1>
-        <img src="images/ACT-Support.png" alt="ACT Support Image" style="width: 100%; max-width: 600px; height: auto;">
-        <!-- Form element for users to send a support message, action points to the contact support endpoint -->
-        <form action="/contact-support" method="POST"> 
-            <p>To contact customer service, please call us at: <a href="tel:+353863123456">+353 (863) 123-456</a></p>
-            <!-- Label for the email input field -->
-            <label for="email">Email:</label>
-            <!-- Input field for user email, required for form submission -->
-            <input type="email" id="email" name="email" required> 
+        <section id="support">
+            <h1>Contact Support</h1>
+            <img src="images/ACT-Support.png" alt="ACT Support Image" style="width: 100%; max-width: 600px; height: auto;">
+            <form action="/contact-support" method="POST">
+                <p>To contact customer service, please call us at: <a href="tel:+353863123456">+353 (863) 123-456</a></p>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
 
-            <!-- Label for the message input field -->
-            <label for="message">Message:</label>
-            <!-- Textarea for user to write their message, required for form submission -->
-            <textarea id="message" name="message" required></textarea> 
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
 
-            <!-- Submit button for sending the support message -->
-            <button type="submit">Send</button> 
-        </form>
-    </section>
+                <button type="submit">Send</button>
+            </form>
+        </section>
     </main>
 
-    <!-- Footer section containing copyright information -->
+    <!-- Footer Section -->
     <footer>
-        <!-- Copyright notice -->
-        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> 
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
-    <!-- Link to the external JavaScript file for additional functionality -->
-    <script src="ACT-Web.js"></script> 
+    <script src="ACT-Web.js"></script>
 </body>
 </html>
