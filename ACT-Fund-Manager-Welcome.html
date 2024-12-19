@@ -8,8 +8,8 @@
     <!-- Title of the webpage displayed in the browser tab -->
     <title>ACT Web Application - Login</title>
     <!-- Link to the external CSS stylesheet for styling the login page -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css">
-    <script src="ACT-Web.js"></script>
+    <link rel="stylesheet" href="ACT-Web-styles.css">
+    <script src="ACT-Web.js" defer></script>
 </head>
 <body>
     <!-- Header section containing logo and title -->
@@ -21,18 +21,14 @@
             <div class="logo">ACT Web Application</div>
         </div>
     </header>
-    <!-- 
-    This page serves as the home page for fund managers upon logging in.
-    It displays a personalized welcome message, a dashboard overview,
-    and quick links to important functionalities such as managing client records,
-    setting price alerts, and generating reports.
-    -->
-    
+
+    <!-- Navigation bar -->
     <nav>
         <!-- Unordered list of navigation links -->
         <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
             <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
             <li><a href="ACT-Login.html">Login</a></li>
             <li><a href="ACT-Register.html">Register</a></li>
             <li><a href="ACT-Portfolio.html">Portfolio</a></li>
@@ -44,6 +40,7 @@
             <li><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Reviews.html">Review</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
+            <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
         </ul>
     </nav>
 
@@ -51,7 +48,7 @@
     <main id="welcome-container" style="display: none;"> <!-- Initially hidden; shown when the user is authenticated -->
         <section id="welcome">
             <h2>Welcome, <span id="fund-manager-name"></span>!</h2> <!-- Placeholder for the fund manager's name -->
-            <img src="images/ACT-Fund-Manager-Welcome.png" alt="ACT Homepage Image" style="width: 100%; max-width: 600px; height: auto;">
+            <img src="images/ACT-Fund-Manager-Welcome.png" alt="ACT Fund Manager Image" style="width: 100%; max-width: 600px; height: auto;">
             <p>
                 Welcome to your Fund Manager Homepage where you can manage your clients. Here, you'll discover a clear overview of your homepage
                 and quick access to critical features such as maintaining client records, setting price alerts, and creating reports to help 
@@ -80,17 +77,16 @@
         <section id="quick-links">
             <h3>Quick Links</h3>
             <ul>
-                <li><a href="ACT-Fund-Manager.html">Manage Client Records</a></li> <!-- Link to manage client records -->
-                <li><a href="ACT-Price-System.html">Set Price Alerts</a></li> <!-- Link to set price alerts -->
-                <li><a href="ACT-Reports.html">Generate Reports</a></li> <!-- Link to generate reports -->
+                <li><a href="ACT-Fund-Manager.html">Manage Client Records</a></li>
+                <li><a href="ACT-Price-System.html">Set Price Alerts</a></li>
+                <li><a href="ACT-Reports.html">Generate Reports</a></li>
             </ul>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p> <!-- Footer copyright notice -->
+        <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
-
-    <script src="ACT-Web.js"></script> <!-- Link to the external JavaScript file for functionality -->
 </body>
 </html>
