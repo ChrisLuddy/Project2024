@@ -7,31 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title of the webpage displayed in the browser tab -->
     <title>ACT Web Application - Home</title>
-    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png">
     <!-- Link to the external CSS stylesheet for styling the webpage -->
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
     <script src="ACT-Math.js"></script>
     <script src="ACT-Web.js"></script>
-
 </head>
 
 <body>
-    <!-- Header section containing navigation links -->
+    <!-- Header section containing logo and title -->
     <header>
-        <!-- Logo for the application displayed -->
-        <div class="logo">ACT Web Application</div>
+        <div class="header-container">
+            <!-- Logo for the application -->
+            <img src="images/ACT-Logo.png" alt="ACT Logo" id="header-logo">
+            <!-- Application title -->
+            <div class="logo">ACT Web Application</div>
+        </div>
     </header>
 
+    <!-- Navigation bar holding the page links -->
     <nav>
-        
-        <!-- Unordered list of navigation links -->
         <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
             <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
             <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
             <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Register.html">Register</a></li>
             <li><a href="ACT-Portfolio.html">Portfolio</a></li>
             <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
             <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
@@ -41,25 +42,24 @@
             <li><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Reviews.html">Review</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
+            <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
         </ul>
     </nav>
 
-    <!-- Main section containing the welcome message -->
+    <!-- Main Section -->
     <main>
-    <!-- Unordered list of navigation links -->
-    
-
-    <!-- News Section -->
-    <section>
-        <h1>Yahoo Financial News</h1>
-        <p>Stay updated with the latest financial news and market trends from Yahoo Finance.</p>
-        <button id="refresh-news-button">Refresh News</button>
-        <section id="news-container">
-            <!-- News items will be dynamically loaded here -->
+        <!-- News Section -->
+        <section>
+            <h1>Yahoo Financial News</h1>
+            <p>Stay updated with the latest financial news and market trends from Yahoo Finance.</p>
+            <button id="refresh-news-button">Refresh News</button>
+            <section id="news-container">
+                <!-- News items will be dynamically loaded here -->
+            </section>
         </section>
-    </section>
+    </main>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
@@ -67,5 +67,4 @@
     <!-- JavaScript -->
     <script src="ACT-Web.js"></script>
 </body>
-
 </html>
