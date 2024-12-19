@@ -27,7 +27,7 @@ body {
 /* Navigation Styling */
 nav {
     position: fixed;
-    top: 89px; 
+    top: 69px; 
     z-index: 999; /* Stays on top of other elements but below the header */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight shadow for separation */
     transition: all 0.3s ease-in-out;
@@ -389,7 +389,7 @@ button:after, .btn:after {
 
 /* Header Styling */
 header {
-    height: 89px;
+    height: 69px;
     display: flex;
     align-items: center; /* Vertically center the logo and title */
     justify-content: center; /* Center the text horizontally */
@@ -398,7 +398,7 @@ header {
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #0073e6;
-    padding: 20px;
+    padding: 10px;
     color: white;
     font-size: 1.8em;
     font-weight: bold;
