@@ -8,22 +8,24 @@
     <!-- Title of the webpage displayed in the browser tab -->
     <title>ACT Web Application - Login</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
     <!-- Link to the external CSS stylesheet for styling the login page -->
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
     <script src="ACT-Web.js"></script>
 </head>
 
 <body>
-    <!-- Header section containing navigation links -->
+    <!-- Header section containing logo and title -->
     <header>
-        <!-- Logo for the application displayed -->
-        <div class="logo">ACT Web Application</div>
+        <div class="header-container">
+            <!-- Logo for the application -->
+            <img src="images/ACT-Logo.png" alt="ACT Logo" id="header-logo">
+            <!-- Application title -->
+            <div class="logo">ACT Web Application</div>
+        </div>
     </header>
 
+    <!-- Navigation bar holding the page links -->
     <nav>
-        <!-- Unordered list of navigation links -->
         <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
             <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
@@ -39,80 +41,73 @@
             <li><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Reviews.html">Review</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
+            <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
         </ul>
     </nav>
 
     <!-- Main section containing the login form -->
     <div class="centered-wrapper">
-        
         <section>
-        <h2>Set Price Alerts</h2>
-        <img src="images/ACT-Price-System.png" alt="ACT Price Alert Image" style="width: 100%; max-width: 600px; height: auto;">
-        
-        <!-- Form for setting new alerts on selected assets -->
-        <form id="alert-form">
-            <!-- Dynamic dropdown populated with assets from backend -->
-            <label for="asset">Select Asset:</label>
-            <select id="asset" required>
-                <option value="">Select an asset</option>
-                <!-- Dynamic options populated by JavaScript from backend data -->
-            </select>
-
-            <!-- Price threshold for alert -->
-            <label for="price-threshold">Set Price Threshold:</label>
-            <input type="number" id="price-threshold" placeholder="Price" required>
-
-            <!-- Radio buttons for setting threshold above or below target -->
-            <div>
-                <label>
-                    <input type="radio" name="threshold-type" value="above" required> Above
-                </label>
-                <label>
-                    <input type="radio" name="threshold-type" value="below" required> Below
-                </label>
-            </div>
+            <h2>Set Price Alerts</h2>
+            <img src="images/ACT-Price-System.png" alt="ACT Price Alert Image" style="width: 100%; max-width: 600px; height: auto;">
             
+            <!-- Form for setting new alerts on selected assets -->
+            <form id="alert-form">
+                <label for="asset">Select Asset:</label>
+                <select id="asset" required>
+                    <option value="">Select an asset</option>
+                    <!-- Dynamic options populated by JavaScript from backend data -->
+                </select>
 
-            <!-- Notification preferences dropdown -->
-            <label for="notification-type">Alert Preferences:</label>
-            <select id="notification-type">
-                <option value="email">Email Notification</option>
-                <option value="in-browser">In-Browser Notification</option>
-            </select>
+                <label for="price-threshold">Set Price Threshold:</label>
+                <input type="number" id="price-threshold" placeholder="Price" required>
 
-            <!-- Button to set alert -->
-            <button type="submit">Set Alert</button>
-        </form>
+                <div>
+                    <label>
+                        <input type="radio" name="threshold-type" value="above" required> Above
+                    </label>
+                    <label>
+                        <input type="radio" name="threshold-type" value="below" required> Below
+                    </label>
+                </div>
 
-        <!-- Search bar to search for new stocks or crypto assets -->
-        <div id="asset-search">
-            <h3>Search for New Stock or Crypto</h3>
-            <input type="text" id="search-bar" placeholder="Search for an asset...">
-            <ul id="search-results"></ul> <!-- Dynamic list for search results -->
-        </div>
+                <label for="notification-type">Alert Preferences:</label>
+                <select id="notification-type">
+                    <option value="email">Email Notification</option>
+                    <option value="in-browser">In-Browser Notification</option>
+                </select>
 
-        <!-- Section for managing alerts on existing assets for clients -->
-        <div id="client-assets">
-            <h3>Client Asset Alerts</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Asset</th>
-                        <th>Client Name</th>
-                        <th>Enable Alert</th>
-                    </tr>
-                </thead>
-                <tbody id="client-assets-list">
-                    <!-- Rows populated dynamically with client assets and alert checkboxes -->
-                </tbody>
-            </table>
-        </div>
+                <button type="submit">Set Alert</button>
+            </form>
 
-        <!-- Div to display messages for alert setup or errors -->
-        <div id="alert-messages"></div>
+            <div id="asset-search">
+                <h3>Search for New Stock or Crypto</h3>
+                <input type="text" id="search-bar" placeholder="Search for an asset...">
+                <ul id="search-results"></ul>
+            </div>
+
+            <div id="client-assets">
+                <h3>Client Asset Alerts</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asset</th>
+                            <th>Client Name</th>
+                            <th>Enable Alert</th>
+                        </tr>
+                    </thead>
+                    <tbody id="client-assets-list">
+                        <!-- Rows populated dynamically with client assets and alert checkboxes -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="alert-messages"></div>
+        </section>
     </div>
+
+    <!-- Footer -->
     <footer>
-        <!-- Copyright notice -->
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
