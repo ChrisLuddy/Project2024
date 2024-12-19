@@ -405,6 +405,15 @@ header {
     text-align: center;
 }
 
+
+#header-logo {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    position: absolute; /* This allows the logo to stay on the left */
+    left: 10px; /* Adjust the left margin to move the logo */
+    top: 10px; /* Move the logo up by 5px (adjust as needed) */
+}
+
 .header-container {
     display: flex;
     align-items: center;
