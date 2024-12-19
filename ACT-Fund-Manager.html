@@ -8,25 +8,23 @@
     <!-- Title of the webpage displayed in the browser tab -->
     <title>ACT Web Application - Home</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
     <!-- Link to the external CSS stylesheet for styling the webpage -->
-    <link rel="stylesheet" href="css/ACT-Web-styles.css">
+    <link rel="stylesheet" href="ACT-Web-styles.css">
     <script src="ACT-Web.js"></script>
-
-
 </head>
-
 <body>
-    <!-- Header section containing navigation links -->
+    <!-- Header section containing logo and title -->
     <header>
-        <!-- Logo for the application displayed -->
-        <div class="logo">ACT Web Application</div>
+        <div class="header-container">
+            <!-- Logo for the application -->
+            <img src="images/ACT-Logo.png" alt="ACT Logo" id="header-logo">
+            <!-- Application title -->
+            <div class="logo">ACT Web Application</div>
+        </div>
     </header>
 
+    <!-- Navigation bar holding the page links -->
     <nav>
-        
-        <!-- Unordered list of navigation links -->
         <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
             <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
@@ -42,6 +40,7 @@
             <li><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Reviews.html">Review</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
+            <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
         </ul>
     </nav>
 
@@ -130,5 +129,4 @@
     <!-- Links the JavaScript file for handling page interactions and client data -->
     <script src="ACT-Web.js"></script>
 </body>
-
 </html>
