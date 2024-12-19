@@ -5,32 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACT Web Application - Trade Ratings</title>
-    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
-    <!-- Link to the external CSS stylesheet for styling the login page -->
+    <link rel="icon" href="images/ACT-Logo.png" type="image/png">
+    <!-- Link to the external CSS stylesheet for styling the page -->
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
 </head>
 
 <body>
+    <!-- Header section containing logo and title -->
     <header>
-        <nav>
+        <div class="header-container">
+            <!-- Logo for the application -->
+            <img src="images/ACT-Logo.png" alt="ACT Logo" id="header-logo">
+            <!-- Application title -->
             <div class="logo">ACT Web Application</div>
-            <ul>
-                <li><a href="ACT-Homepage.html">Home</a></li>
-                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
-                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-                <li><a href="ACT-Reports.html">Reports</a></li>
-                <li><a href="ACT-Support.html">Support</a></li>
-                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-                <li><a href="ACT-Login.html">Login</a></li>
-                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Welcome</a></li>
-            </ul>
-        </nav>
+        </div>
     </header>
 
+    <!-- Navigation bar holding the page links -->
+    <nav>
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Register.html">Register</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Yahoo-News.html">News</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Reviews.html">Review</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+            <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Section -->
     <section id="trade-ratings">
         <h2>Trade Ratings</h2>
         <img src="images/ACT-Trade-Ratings.png" alt="ACT Trade Ratings Image" style="width: 100%; max-width: 600px; height: auto;">
@@ -49,6 +61,7 @@
         <div id="trade-data-container"></div>
     </section>
 
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
