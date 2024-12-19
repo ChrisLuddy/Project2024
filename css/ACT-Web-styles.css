@@ -27,7 +27,7 @@ body {
 /* Navigation Styling */
 nav {
     position: fixed;
-    top: 73px; /* Adjust based on the header height */
+    top: 75px; 
     z-index: 999; /* Stays on top of other elements but below the header */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight shadow for separation */
     transition: all 0.3s ease-in-out;
