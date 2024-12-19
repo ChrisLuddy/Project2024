@@ -26,8 +26,8 @@ body {
 
 /* Navigation Styling */
 nav {
-    position: fixed;
-    top: 69px; 
+    position: sticky;
+    top: 93px; /* Adjust based on the header height */
     z-index: 999; /* Stays on top of other elements but below the header */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight shadow for separation */
     transition: all 0.3s ease-in-out;
@@ -387,53 +387,46 @@ button:after, .btn:after {
 
 
 
+
 /* Header Styling */
 header {
-    height: 69px;
-    display: flex;
-    align-items: center; /* Vertically center the logo and title */
-    justify-content: center; /* Center the text horizontally */
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #0073e6;
-    padding: 10px;
+    padding: 20px;
+    text-align: center;
     color: white;
     font-size: 1.8em;
     font-weight: bold;
-    text-align: center;
 }
 
-
-#header-logo {
-    width: 50px; /* Adjust size as needed */
-    height: 50px;
-    position: absolute; /* This allows the logo to stay on the left */
-    left: 10px; /* Adjust the left margin to move the logo */
-    top: 10px; /* Move the logo up by 5px (adjust as needed) */
-}
-
+/* Header Container Styling */
 .header-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #0073e6;
-    color: white;
-    padding: 5px 10px;
-    font-size: 1em;
-    border-radius: 4px;
-    z-index: 1001; /* Ensure it appears above other elements */
+    position: relative;
+    text-align: center; /* Center the text */
+    padding: 10px 0; /* Add vertical spacing for the header */
 }
 
-/* Title Styling */
-header h2 {
-    margin: 0; /* Remove default margin */
-    font-size: 24px; /* Adjust size as needed */
-    font-weight: 600; /* Optional: Add some weight to the title */
-    width: 100%; /* Ensure title takes up the full available width */
-    text-align: center; /* Center the title */
+/* Header Logo Styling */
+#header-logo {
+    position: absolute;
+    left: 10px; /* Position the logo on the left */
+    top: 50%; /* Center the logo vertically relative to the header */
+    transform: translateY(-50%); /* Adjust for perfect vertical centering */
+    height: 40px; /* Match the logo size to the text height */
 }
+
+/* Application Title Styling */
+.logo {
+    font-weight: bold;
+    color: #fff; /* Match the color scheme */
+    display: inline-block; /* Ensure text behaves like a block for centering */
+}
+
+
+
 
 
 
