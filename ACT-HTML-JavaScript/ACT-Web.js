@@ -35,6 +35,7 @@ function handleLogin(username, email, password) {
         });
 }
 
+
 // Handle Registration
 function handleRegistration(username, email, password, role) {
     return fetch(`${BASE_URL}/register/`, {
@@ -53,6 +54,7 @@ function onGoogleSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
     const username = profile.getName();
     const email = profile.getEmail();
+    const password = profile.getPassword();
     
     // Prompt user to select a role
     const role = prompt("Please choose your role: 'fund_admin', 'fund_manager', or 'system_admin'");
@@ -62,7 +64,6 @@ function onGoogleSignIn(googleUser) {
         return; // Exit if the role is invalid
     }
 
-    // Use this information in your registration logic with the selected role
     handleRegistration(username, email, password, role)
         .then(() => {
             alert("Registration successful!");
@@ -70,6 +71,27 @@ function onGoogleSignIn(googleUser) {
         })
         .catch(error => alert("Registration failed: " + error.message));
 }
+
+// Google Sign-In Button Initialization
+function googleInit() {
+    google.accounts.id.initialize({
+        client_id: 'GOOGLE_CLIENT_ID', // Replace with actual client ID
+        callback: onGoogleSignIn
+    });
+
+    google.accounts.id.renderButton(
+        document.getElementById("google-login-btn"),
+        { 
+            theme: "outline", 
+            size: "large", 
+            shape: "pill" 
+        }
+    );
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    googleInit();  
+});
 
 
 // Fetch Functions
@@ -514,3 +536,4 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("sell-cryptos").addEventListener("click", sellCrypto);
 
 });
+
