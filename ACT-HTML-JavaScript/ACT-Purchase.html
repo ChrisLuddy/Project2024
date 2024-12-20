@@ -56,49 +56,55 @@
             <h2>Tech Stocks</h2>
             <form id="stocks-form">
                 <div class="stock-item">
-                    <label for="stock1">Stock 1:</label>
-                    <select id="stock1" class="stock-select" required>
-                        <option value="">Select a stock</option>
+                    <label for="stocks">Select up to 10 Stocks:</label>
+                    <select id="stocks" class="stock-select" multiple required>
                         <option value="AAPL">Apple</option>
                         <option value="GOOG">Google</option>
                         <option value="MSFT">Microsoft</option>
+                        <option value="AMZN">Amazon</option>
+                        <option value="TSLA">Tesla</option>
+                        <option value="META">Meta</option>
+                        <option value="NVDA">NVIDIA</option>
+                        <option value="AMD">AMD</option>
+                        <option value="INTC">Intel</option>
+                        <option value="NFLX">Netflix</option>
+                        <option value="SPOT">Spotify</option>
+                        <option value="ORCL">Oracle</option>
+                        <option value="CSCO">Cisco</option>
                     </select>
                 </div>
                 <div class="stock-item">
-                    <label for="quantity1">Quantity:</label>
-                    <input type="number" id="quantity1" min="1" placeholder="Enter quantity" required>
-                </div>
-                <div class="stock-actions">
-                    <button type="button" id="buy-stock">Buy Stock</button>
-                    <button type="button" id="sell-stock">Sell Stock</button>
+                    <label for="quantity">Quantity (for each stock):</label>
+                    <input type="number" id="quantity" min="1" placeholder="Enter quantity" required>
                 </div>
             </form>
         </section>
 
-        <!-- Cryptocurrencies section -->
+        <!-- Add Buy and Sell Buttons for Stocks -->
+        <button id="buy-stocks">Buy Stocks</button>
+        <button id="sell-stocks">Sell Stocks</button>
+
         <section id="crypto">
             <h2>Cryptocurrencies</h2>
             <form id="crypto-form">
                 <div class="crypto-item">
-                    <label for="crypto1">Crypto 1:</label>
-                    <select id="crypto1" class="crypto-select" required>
-                        <option value="">Select a cryptocurrency</option>
+                    <label for="cryptos">Select up to 3 Cryptos:</label>
+                    <select id="cryptos" class="crypto-select" multiple required>
                         <option value="BTC">Bitcoin</option>
                         <option value="ETH">Ethereum</option>
                         <option value="XRP">Ripple</option>
                     </select>
                 </div>
                 <div class="crypto-item">
-                    <label for="crypto-quantity">Quantity:</label>
+                    <label for="crypto-quantity">Quantity (for each crypto):</label>
                     <input type="number" id="crypto-quantity" min="0.01" step="0.01" placeholder="Enter quantity" required>
-                </div>
-                <div class="crypto-actions">
-                    <button type="button" id="buy-crypto">Buy Crypto</button>
-                    <button type="button" id="sell-crypto">Sell Crypto</button>
                 </div>
             </form>
         </section>
         
+        <button id="buy-cryptos">Buy Cryptos</button>
+        <button id="sell-cryptos">Sell Cryptos</button>
+
         <div id="purchase-summary"></div>
     </main>
 
