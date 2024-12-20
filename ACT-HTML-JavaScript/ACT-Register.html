@@ -13,6 +13,8 @@
     <!-- Link to the external CSS stylesheet for styling the registration page -->
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
     <script src="ACT-Web.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://connect.facebook.net/en_US/sdk.js" async defer></script>
 
 </head>
 
@@ -74,13 +76,13 @@
         <label for="role">Role:</label>
         <select id="role" name="role" required>
             <option value="fund_admin">Fund Administrator</option>
-            <option value="fund_manager">Fund Manager</option>
-            <option value="system_admin">System Administrator</option>
         </select>
 
         <!-- Submit button for the registration form -->
         <button type="submit">Register</button> 
     </form>
+    <p>Or sign up with <a href="ACT-Register-Social-Media.html">social media</a>.</p>
+</section>
 </section>
 
 <!-- Footer section containing copyright information -->
