@@ -1,7 +1,7 @@
 // Base API URL
 // const BASE_URL = "http://161.35.38.50:8000/api";
 
-const BASE_URL = "http://161.35.38.50:8000/";
+const BASE_URL = "http://161.35.38.50:8000/api";
 let accessToken = ""; // Store JWT token after login
 
 // Helper function to set headers
@@ -185,8 +185,12 @@ function initYahooNewsPage() {
 // Initialize Purchase Page
 function initPurchasePage() {
     const purchaseForm = document.getElementById("purchase-form");
+    
+    // Add the new functionality (which is the e.preventDefault())
     purchaseForm.addEventListener("submit", function (e) {
         e.preventDefault();
+        
+        // Add the current logic of getting stocks and cryptos
         const stocks = document.getElementById("stocks").value.split(",");
         const cryptos = document.getElementById("cryptos").value.split(",");
 
@@ -198,6 +202,7 @@ function initPurchasePage() {
             .catch(error => alert("Error making purchase: " + error.message));
     });
 }
+
 
 // Fetch Yahoo News
 function fetchYahooNews(tickers = "", type = "ALL") {
@@ -245,6 +250,53 @@ function initYahooNewsPage() {
     });
 }
 
+// Function to update Fund Manager's name and dashboard data on Fund Manager Welcome Page
+function updateFundManagerWelcome() {
+    // Fetch user details (including fund manager's name)
+    fetchUserDetails()
+        .then(user => {
+            // Update the welcome message with the fund manager's name
+            document.getElementById('fund-manager-name').textContent = user.username; // Assuming username is the fund manager's name
+
+            fetchDashboardData(user.username)
+                .then(data => {
+                    // Update the dashboard metrics dynamically
+                    document.getElementById('total-clients').textContent = data.totalClients;
+                    document.getElementById('number-of-alerts').textContent = data.numberOfAlerts;
+                    document.getElementById('recent-activities').textContent = data.recentActivities;
+                    
+                    // Make the welcome page visible after data is loaded
+                    document.getElementById('welcome-container').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error fetching dashboard data:', error);
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching user details:', error);
+        });
+}
+
+// Function to fetch dashboard data (Total Clients, Number of Alerts, Recent Activities)
+function fetchDashboardData(fundManagerUsername) {
+    return fetch(`${BASE_URL}/dashboard/${fundManagerUsername}/`, {
+        method: "GET",
+        headers: getHeaders(),
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch dashboard data");
+            return response.json();
+        })
+        .then(data => {
+            return {
+                totalClients: data.totalClients, 
+                numberOfAlerts: data.numberOfAlerts, 
+                recentActivities: data.recentActivities, 
+            };
+        });
+}
+
+
 // Main Initialization
 document.addEventListener("DOMContentLoaded", () => { 
     const path = window.location.pathname;
@@ -257,7 +309,10 @@ document.addEventListener("DOMContentLoaded", () => {
         initYahooNewsPage();
     } else if (path.includes("ACT-Purchase.html")) {
         initPurchasePage();
+    } else  if (window.location.pathname.includes("ACT-Fund-Manager-Welcome.html")) {
+        updateFundManagerWelcome();
     }
+
 
     updateNavigationLinks();
 
@@ -304,5 +359,134 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
-});
 
+    function buyStocks() {
+        const stocksSelected = document.getElementById('stocks').selectedOptions;
+        const quantity = document.getElementById('quantity').value;
+    
+        if (stocksSelected.length > 10) {
+            alert("You can select up to 10 stocks.");
+            return;
+        }
+    
+        if (quantity < 1 || quantity > 10) {
+            alert("Quantity must be between 1 and 10.");
+            return;
+        }
+    
+        // Logic for purchasing stocks
+        let purchaseSummary = "Purchased Stocks: ";
+        for (let i = 0; i < stocksSelected.length; i++) {
+            purchaseSummary += stocksSelected[i].value + " (Qty: " + quantity + "), ";
+        }
+        document.getElementById("purchase-summary").innerText = purchaseSummary;
+    
+        // Make the API call to process the purchase
+        const stocks = Array.from(stocksSelected).map(stock => stock.value);
+        makePurchase(stocks, [])
+            .then(data => {
+                alert("Purchase successful!");
+                console.log("Purchase Summary:", data);
+            })
+            .catch(error => alert("Error making purchase: " + error.message));
+    }
+    
+    function sellStocks() {
+        const stocksSelected = document.getElementById('stocks').selectedOptions;
+        const quantity = document.getElementById('quantity').value;
+    
+        if (stocksSelected.length > 10) {
+            alert("You can select up to 10 stocks.");
+            return;
+        }
+    
+        if (quantity < 1 || quantity > 10) {
+            alert("Quantity must be between 1 and 10.");
+            return;
+        }
+    
+        // Logic for selling stocks
+        let sellSummary = "Sold Stocks: ";
+        for (let i = 0; i < stocksSelected.length; i++) {
+            sellSummary += stocksSelected[i].value + " (Qty: " + quantity + "), ";
+        }
+        document.getElementById("purchase-summary").innerText = sellSummary;
+    
+        // Make the API call to process the sale
+        const stocks = Array.from(stocksSelected).map(stock => stock.value);
+        makePurchase([], stocks)
+            .then(data => {
+                alert("Sale successful!");
+                console.log("Sale Summary:", data);
+            })
+            .catch(error => alert("Error making sale: " + error.message));
+    }
+    
+    function buyCrypto() {
+        const cryptosSelected = document.getElementById('cryptos').selectedOptions;
+        const quantity = document.getElementById('crypto-quantity').value;
+    
+        if (cryptosSelected.length > 3) {
+            alert("You can select up to 3 cryptos.");
+            return;
+        }
+    
+        if (quantity < 0.01 || quantity > 3) {
+            alert("Quantity must be between 0.01 and 3.");
+            return;
+        }
+    
+        // Logic for purchasing cryptos
+        let purchaseSummary = "Purchased Cryptos: ";
+        for (let i = 0; i < cryptosSelected.length; i++) {
+            purchaseSummary += cryptosSelected[i].value + " (Qty: " + quantity + "), ";
+        }
+        document.getElementById("purchase-summary").innerText = purchaseSummary;
+    
+        // Make the API call to process the purchase
+        const cryptos = Array.from(cryptosSelected).map(crypto => crypto.value);
+        makePurchase([], cryptos)
+            .then(data => {
+                alert("Purchase successful!");
+                console.log("Purchase Summary:", data);
+            })
+            .catch(error => alert("Error making purchase: " + error.message));
+    }
+    
+    function sellCrypto() {
+        const cryptosSelected = document.getElementById('cryptos').selectedOptions;
+        const quantity = document.getElementById('crypto-quantity').value;
+    
+        if (cryptosSelected.length > 3) {
+            alert("You can select up to 3 cryptos.");
+            return;
+        }
+    
+        if (quantity < 0.01 || quantity > 3) {
+            alert("Quantity must be between 0.01 and 3.");
+            return;
+        }
+    
+        // Logic for selling cryptos
+        let sellSummary = "Sold Cryptos: ";
+        for (let i = 0; i < cryptosSelected.length; i++) {
+            sellSummary += cryptosSelected[i].value + " (Qty: " + quantity + "), ";
+        }
+        document.getElementById("purchase-summary").innerText = sellSummary;
+    
+        // Make the API call to process the sale
+        const cryptos = Array.from(cryptosSelected).map(crypto => crypto.value);
+        makePurchase([], cryptos)
+            .then(data => {
+                alert("Sale successful!");
+                console.log("Sale Summary:", data);
+            })
+            .catch(error => alert("Error making sale: " + error.message));
+    }
+
+    document.getElementById("buy-stocks").addEventListener("click", buyStocks);
+    document.getElementById("sell-stocks").addEventListener("click", sellStocks);
+    document.getElementById("buy-cryptos").addEventListener("click", buyCrypto);
+    document.getElementById("sell-cryptos").addEventListener("click", sellCrypto);
+
+});
