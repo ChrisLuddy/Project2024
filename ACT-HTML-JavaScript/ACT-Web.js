@@ -48,6 +48,30 @@ function handleRegistration(username, email, password, role) {
         });
 }
 
+// Google SignIn Handling
+function onGoogleSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
+    const username = profile.getName();
+    const email = profile.getEmail();
+    
+    // Prompt user to select a role
+    const role = prompt("Please choose your role: 'fund_admin', 'fund_manager', or 'system_admin'");
+
+    if (!role || !['fund_admin', 'fund_manager', 'system_admin'].includes(role)) {
+        alert("Invalid role selected. Please try again.");
+        return; // Exit if the role is invalid
+    }
+
+    // Use this information in your registration logic with the selected role
+    handleRegistration(username, email, password, role)
+        .then(() => {
+            alert("Registration successful!");
+            window.location.href = "ACT-Login.html"; // Redirect after registration
+        })
+        .catch(error => alert("Registration failed: " + error.message));
+}
+
+
 // Fetch Functions
 
 // Fetch Yahoo News
