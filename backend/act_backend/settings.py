@@ -23,7 +23,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Path to Firebase credentials (located in the 'config' folder)
 FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', os.getenv('FIREBASE_CREDENTIALS_FILE'))
 
@@ -176,3 +175,5 @@ ALPHA_VANTAGE_API_KEY = os.getenv('ALPHA_VANTAGE_API_KEY')
 
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')

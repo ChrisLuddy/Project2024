@@ -58,7 +58,7 @@
             const password = document.getElementById("password").value;
 
             try {
-                const response = await fetch("http://localhost:8000/api/token/", {
+                const response = await fetch("http://161.35.38.50:8000/api/token/", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password }), // Use email for login
@@ -90,7 +90,7 @@
 
         async function createCheckoutSession(priceId) {
             try {
-                const response = await fetch("http://localhost:8000/api/create-checkout-session/", {
+                const response = await fetch("http://161.35.38.50:8000/api/create-checkout-session/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -116,7 +116,7 @@
         // Step 3: Check Subscription Status
         document.getElementById("check-status").addEventListener("click", async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/subscription-status/", {
+                const response = await fetch("http://161.35.38.50:8000/api/subscription-status/", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

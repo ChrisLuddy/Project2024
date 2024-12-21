@@ -1,6 +1,6 @@
 # act_ai/urls.py
 from django.urls import path
-from .views import PredictView, HistoryView, TradeRatingView, FinnhubStockDataView, FinnhubNewsView, CoinDataView, TrendingCoinsView
+from .views import PredictView, HistoryView, TradeRatingView, FinnhubStockDataView, FinnhubNewsView, CoinDataView, TrendingCoinsView, GeminiChatView
 
 urlpatterns = [
     path('predict/', PredictView.as_view(), name='predict'),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('stock-news/', FinnhubNewsView.as_view(), name='stock_news'),
     path('coin-data/', CoinDataView.as_view(), name='coin_data'),
     path('trending-coins/', TrendingCoinsView.as_view(), name='trending_coins'),
+    path('chat/', GeminiChatView.as_view(), name='gemini_chat'),
 ]
 
