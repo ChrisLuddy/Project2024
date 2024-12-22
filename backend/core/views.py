@@ -16,6 +16,7 @@ from .permissions import IsFundAdmin, IsFundManager, IsFundAdminOrFundManager
 User = get_user_model()
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+frontend_url = settings.FRONTEND_URL
 
 
 class SubscriptionStatusView(APIView):
@@ -73,8 +74,8 @@ class CreateCheckoutSessionView(APIView):
                     'quantity': 1,
                 }],
                 mode='subscription',
-                success_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/stripe-success.html?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url = 'http://127.0.0.1:5500/ACT-HTML-JavaScript/stripe-cancel.html',
+                success_url = f"{frontend_url}stripe-success.html?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url = f"{frontend_url}stripe-cancel.html",
 
             )
             return Response({'sessionId': session.id}, status=status.HTTP_200_OK)

@@ -6,9 +6,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-      - ./config/act-corporate-trader-firebase-adminsdk-uwhis-21e99a6344.json:/app/config/firebase_credentials.json
     env_file:
       - .env
     environment:
       - DJANGO_SETTINGS_MODULE=act_backend.settings
-      - FIREBASE_CREDENTIALS_FILE=firebase_credentials.json

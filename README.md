@@ -414,60 +414,119 @@ You can access both the API and the Django Admin interface using this URL.
     ```
 
 #### Backend-Installation-Guide for local machine 
-To set up the backend of the ACT (Agentic Corporate Trader) project on your local machine, follow these steps:
-1. ***Clone the Repository***
-    ```bash
-    git clone https://github.com/your-repo/Project2024.git
-    cd Project2024/backend
-    ```
-2. ***Set Up Virtual Environment***
-    ```bash
-    # For Windows
-    python -m venv venv
 
-    # For Mac/Linux
-    python3 -m venv venv
-    ```
-3. ***Activate the virtual environment:***
-    ```bash
-    # For Windows
-    venv\Scripts\activate
+The ACT (Agentic Corporate Trader) backend uses Docker to streamline local development, ensuring consistent dependencies and an isolated runtime environment. This setup eliminates the need for manual installation of Python or additional libraries on the host machine.
 
-    # For Mac/Linux
-    source venv/bin/activate
-    ```
-4. ***Install Dependencies***
-    ```bash
-    pip install -r requirements.txt
-    ```
-5. ***Firebase Setup***
-    
-    The project uses Firebase as a database for specific assets and trade-related data. To integrate Firebase:
+1. **Docker Setup**
 
-    Go to the Firebase Console and download the Firebase Admin SDK credentials JSON file.
-    Place the downloaded JSON file in the config/ directory in the project root.
-    Ensure the path to the Firebase credentials file is correctly set in the settings.py file.
-    
-    Example path in settings.py:
-    ```python
-    FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', 'your-firebase-key.json')
-    ```
-6. ***Database Setup***
-    For local development, the project uses SQLite. If you are starting fresh or have unapplied migrations, run the following commands to apply migrations:
-    ```bash
-    python manage.py makemigrations
-    python manage.py migrate
-    ```
-7. ***Create a Superuser***
-    To access the Django admin interface, you need to create a superuser:
-    ```bash
-    python manage.py createsuperuser
-    ```
-8. ***Running the Development Server***
-    ```bash
-    python manage.py runserver
-    ```
-    The backend will be available at http://127.0.0.1:8000/
+Make sure Docker and Docker Compose are installed on your system. Follow these command to build and run the backend:
+```bash
+docker-compose up --build
+```
+
+**Access the Application:**
+* `Base Url`: http://localhost:8000
+* `Admin panel`: http://localhost:8000/admin/
+
+2. Docker Compose Configuration
+
+The provided docker-compose.yml file ensures that the Django backend is containerized and exposes port 8000 for local access. The configuration includes:
+```yaml
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=act_backend.settings
+```
+
+**Explanation:**
+
+* `web`: The main service running the Django backend.
+* `ports`: Maps the container's port 8000 to the host's port 8000, enabling access at http://localhost:8000.
+* `volumes`: Mounts the current project directory into the container for live updates.
+* `env_file`: Specifies .env for environment variables, centralizing sensitive data like secret keys and API credentials.
+* `environment`: Passes runtime variables to the Django application.
+
+3. **Dockerfile Configuration**
+
+The `Dockerfile` is optimized for a Python 3.11 environment and includes all necessary dependencies for the backend:
+
+```docerfile
+# Base image
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    libffi-dev \
+    libssl-dev \
+    && apt-get clean
+
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Set working directory and install Python dependencies
+WORKDIR /app
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
+
+# Copy the entire project code
+COPY . /app/
+
+# Expose port 8000 for the Django application
+EXPOSE 8000
+
+# Start the Django development server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+```
+
+4. **Managing the Project with Docker**
+
+4.1. Apply Database Migrations
+
+Run migrations to initialize the SQLite database:
+```bash
+docker-compose exec web python manage.py migrate
+```
+
+4.2. Load Sample Data
+
+Populate both SQLite and Firebase with fixtures:
+```bash
+docker-compose exec web python manage.py load_fixtures
+```
+
+5. **Environment Variables**
+
+The `.env` file contains all configuration values required for the backend to run. An example `.env` file is provided below:
+```.env
+DJANGO_SECRET_KEY="your-django-secret-key"
+FIREBASE_CREDENTIALS_FILE="/path/to/your-firebase-key.json"
+RAPIDAPI_KEY="your-rapidapi-key"
+RAPIDAPI_HOST="your-rapidapi-host"
+ALPHA_VANTAGE_API_KEY="your-alpha-vantage-api-key"
+FINNHUB_API_KEY=""your-finnhub-api-key"
+STRIPE_SECRET_KEY="your-stripe-secret-key"
+STRIPE_PUBLISHABLE_KEY="your-stripe-publishable-key"
+FRONTEND_URL="https://chrisluddy.github.io/Project2024/"
+GEMINI_API_KEY="your-gemini-api-key"
+```
+
+6. **Notes:**
+
+* ``AI Integration:`` The AI libraries and models are managed within the container, ensuring compatibility across environments and reducing setup complexity.
+* ``Firebase Integration:`` Ensure that the Firebase Admin SDK JSON file is correctly placed in the config directory and referenced in the volumes section.
+* ``Live Code Changes:`` The volumes directive allows live code changes to reflect without rebuilding the container.
+* ``Environment Variables:`` The .env file centralizes environment-specific configuration, making the application portable across different environments.
+
 
 ---
 
@@ -1835,81 +1894,6 @@ Implementation:
 
 - Integrated AI functionalities for stock prediction and historical data analysis.
 - APIs like Yahoo Finance and Alpha Vantage are used for real-time and historical market data.
-
-
-### Docker Integration
-
-The use of ``Docker`` became essential due to the integration of AI functionalities, which significantly increased the complexity of managing dependencies. By containerizing the application, we ensure that all dependencies — especially those related to AI models and libraries—are consistently managed and isolated across different environments.
-
-Managing these dependencies in a local development environment proved to be challenging due to potential conflicts with other libraries and platform-specific issues. Docker resolves these challenges by providing a consistent and isolated environment for the application.
-
-#### Docker Setup
-
-1. Build Docker Images:
-```bash
-docker-compose build
-```
-
-2. Run Containers:
-```bash
-docker-compose up
-```
-
-3. Access Application:
- * Backend: ``http://localhost:8000/``
- * SQLite: Used for system-level data.
- * Firebase Firestore: Configured for business logic.
-
-#### Docker Compose File
-
-This section describes the `docker-compose.yml` file used to set up and run the project backend.
-
-```yaml
-version: '3.9'
-
-services:
-  web:
-    build:
-      context: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-      - ./config/act-corporate-trader-firebase-adminsdk-uwhis-21e99a6344.json:/app/config/firebase_credentials.json
-    env_file:
-      - .env
-    environment:
-      - DJANGO_SETTINGS_MODULE=act_backend.settings
-      - FIREBASE_CREDENTIALS_FILE=firebase_credentials.json
-```
-
-**Explanation of Configuration:**
-
-1. ``version: '3.9'``: Specifies the Docker Compose file format version.
-
-2. ``services:`` Defines the services to be run in the Docker environment.
-
-3. ``web`` service:
-
-    * ``build:``
-        * ``context: .`` instructs Docker to use the current directory as the build context.
-    * ``ports:``
-        * Maps the container's port 8000 to the host's port 8000, enabling access to the Django application at ``http://localhost:8000``.
-    * ``volumes:``
-        * ``.:/app:`` Mounts the project directory from the host to /app in the container, enabling live code changes without rebuilding the container.
-        * ``./config/act-corporate-trader-firebase-adminsdk-uwhis-21e99a6344.json:/app/config/firebase_credentials.json:`` Mounts the Firebase credentials file into the container at the specified path.
-    * ``env_file:``
-        * Specifies the ``.env`` file to load additional environment variables.
-    * ``environment:``
-        * ``DJANGO_SETTINGS_MODULE:`` Specifies the Django settings module for the application.
-        * ``FIREBASE_CREDENTIALS_FILE:`` Defines the name of the Firebase credentials file within the container.
-
-#### Notes
-
-* ``AI Integration:`` The AI libraries and models are managed within the container, ensuring compatibility across environments and reducing setup complexity.
-* ``Firebase Integration:`` Ensure that the Firebase Admin SDK JSON file is correctly placed in the config directory and referenced in the volumes section.
-* ``Live Code Changes:`` The volumes directive allows live code changes to reflect without rebuilding the container.
-* ``Environment Variables:`` The .env file centralizes environment-specific configuration, making the application portable across different environments.
 
 
 ### Product Backlog
