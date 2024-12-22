@@ -50,12 +50,12 @@ function handleRegistration(username, email, password, role) {
 }
 
 // Google SignIn Handling
-function onGoogleSignIn(googleUser) {
+async function onGoogleSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
+    const idToken = googleUser.getAuthResponse().id_token; // Get Google ID token
     const username = profile.getName();
     const email = profile.getEmail();
-    const password = profile.getPassword();
-    
+
     // Prompt user to select a role
     const role = prompt("Please choose your role: 'fund_admin', 'fund_manager', or 'system_admin'");
 
@@ -64,19 +64,45 @@ function onGoogleSignIn(googleUser) {
         return; // Exit if the role is invalid
     }
 
-    handleRegistration(username, email, password, role)
-        .then(() => {
-            alert("Registration successful!");
-            window.location.href = "ACT-Login.html"; // Redirect after registration
-        })
-        .catch(error => alert("Registration failed: " + error.message));
+    try {
+        // Send ID token and role to the backend
+        const response = await fetch(`${BASE_URL}/google-auth/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id_token: idToken, role }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || "Google authentication failed.");
+        }
+
+        const data = await response.json();
+        accessToken = data.access; // Store JWT access token
+
+        // Update navigation links and redirect
+        updateNavigationLinks();
+        alert("Sign-in successful!");
+        if (data.user.role === 'fund_admin') {
+            window.location.href = "ACT-Portfolio.html"; 
+        } else if (['fund_manager', 'system_admin'].includes(data.user.role)) {
+            window.location.href = "ACT-Fund-Manager-Welcome.html";
+        } else {
+            window.location.href = "ACT-Portfolio.html"; // Default fallback
+        }
+    } catch (error) {
+        console.error("Error during Google Sign-In:", error);
+        alert(error.message);
+    }
 }
 
 // Google Sign-In Button Initialization
 function googleInit() {
     google.accounts.id.initialize({
-        client_id: 'GOOGLE_CLIENT_ID', // Replace with actual client ID
-        callback: onGoogleSignIn
+        client_id: 'GOOGLE_CLIENT_ID', 
+        callback: onGoogleSignIn,
     });
 
     google.accounts.id.renderButton(
@@ -89,9 +115,10 @@ function googleInit() {
     );
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    googleInit();  
+document.addEventListener("DOMContentLoaded", function () {
+    googleInit();
 });
+
 
 
 // Fetch Functions
