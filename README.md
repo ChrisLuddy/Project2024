@@ -426,7 +426,7 @@ docker-compose up --build
 
 **Access the Application:**
 * `Base Url`: http://localhost:8000
-* `Admin panel`: http://localhost:8000/admin/
+* `Admin panel`: http://localhost:8000/admin
 
 2. Docker Compose Configuration
 
