@@ -1,0 +1,18 @@
+[
+    {
+        "model": "core.aiforecast",
+        "pk": 1,
+        "fields": {
+            "forecast": "Buy AAPL",
+            "user_id": 1
+        }
+    },
+    {
+        "model": "core.aiforecast",
+        "pk": 2,
+        "fields": {
+            "forecast": "Sell BTC",
+            "user_id": 2
+        }
+    }
+]

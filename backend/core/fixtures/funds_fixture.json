@@ -1,0 +1,20 @@
+[
+    {
+        "model": "core.fund",
+        "pk": 1,
+        "fields": {
+            "name": "Tech Fund",
+            "user_id": 1,
+            "client_id": 1
+        }
+    },
+    {
+        "model": "core.fund",
+        "pk": 2,
+        "fields": {
+            "name": "Crypto Fund",
+            "user_id": 2,
+            "client_id": 2
+        }
+    }
+]

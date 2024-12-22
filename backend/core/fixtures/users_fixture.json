@@ -1,0 +1,24 @@
+[
+    {
+        "model": "core.user",
+        "pk": 1,
+        "fields": {
+            "username": "fund_manager_1",
+            "email": "fund_manager1@example.com",
+            "password": "pbkdf2_sha256$600000$BaWwhWGphB4X7bGTs8jlT9$ga63YpUpMUfbUZzVe65BlZ4utjUrfKnP0zNRuS6G2Mc=",
+            "role": "fund_manager",
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.user",
+        "pk": 2,
+        "fields": {
+            "username": "fund_admin_1",
+            "email": "fund_admin1@example.com",
+            "password": "pbkdf2_sha256$600000$BaWwhWGphB4X7bGTs8jlT9$ga63YpUpMUfbUZzVe65BlZ4utjUrfKnP0zNRuS6G2Mc=",
+            "role": "fund_admin",
+            "is_active": true
+        }
+    }
+]

@@ -59,7 +59,7 @@ class GeminiChatView(APIView):
 
             # Parse the response and return it to the client
             gemini_response = response.json()
-            print(f"gemini_response: {gemini_response}")
+
             reply_text = (
                 gemini_response.get("candidates", [{}])[0]
                 .get("content", {})

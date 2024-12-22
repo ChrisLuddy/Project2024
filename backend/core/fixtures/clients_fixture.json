@@ -1,0 +1,18 @@
+[
+    {
+        "model": "core.client",
+        "pk": 1,
+        "fields": {
+            "name": "Client A",
+            "fund_manager_id": 1
+        }
+    },
+    {
+        "model": "core.client",
+        "pk": 2,
+        "fields": {
+            "name": "Client B",
+            "fund_manager_id": 1
+        }
+    }
+]

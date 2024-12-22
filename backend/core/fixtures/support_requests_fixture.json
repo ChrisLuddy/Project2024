@@ -1,0 +1,18 @@
+[
+    {
+        "model": "core.supportrequest",
+        "pk": 1,
+        "fields": {
+            "request": "How to buy tech stocks?",
+            "user_id": 1
+        }
+    },
+    {
+        "model": "core.supportrequest",
+        "pk": 2,
+        "fields": {
+            "request": "Need help with crypto portfolio",
+            "user_id": 2
+        }
+    }
+]

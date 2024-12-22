@@ -1,0 +1,18 @@
+[
+    {
+        "model": "core.portfolio",
+        "pk": 1,
+        "fields": {
+            "name": "Tech Stocks Portfolio",
+            "fund_id": 1
+        }
+    },
+    {
+        "model": "core.portfolio",
+        "pk": 2,
+        "fields": {
+            "name": "Crypto Portfolio",
+            "fund_id": 2
+        }
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "model": "core.traderating",
+        "pk": 1,
+        "fields": {
+            "rating": 4.5,
+            "order_id": 1
+        }
+    },
+    {
+        "model": "core.traderating",
+        "pk": 2,
+        "fields": {
+            "rating": 3.8,
+            "order_id": 2
+        }
+    }
+]

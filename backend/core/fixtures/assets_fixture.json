@@ -1,0 +1,26 @@
+[
+    {
+        "model": "core.asset",
+        "pk": 1,
+        "fields": {
+            "symbol": "AAPL",
+            "price": 170.5,
+            "volume": 100,
+            "amount": 17050,
+            "last_updated": "2024-12-01T12:00:00Z",
+            "portfolio_id": 1
+        }
+    },
+    {
+        "model": "core.asset",
+        "pk": 2,
+        "fields": {
+            "symbol": "BTC",
+            "price": 50000,
+            "volume": 2,
+            "amount": 100000,
+            "last_updated": "2024-12-01T12:00:00Z",
+            "portfolio_id": 2
+        }
+    }
+]

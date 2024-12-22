@@ -1,0 +1,20 @@
+[
+    {
+        "model": "core.order",
+        "pk": 1,
+        "fields": {
+            "amount": 2000,
+            "order_type": "buy",
+            "portfolio_id": 1
+        }
+    },
+    {
+        "model": "core.order",
+        "pk": 2,
+        "fields": {
+            "amount": 1000,
+            "order_type": "sell",
+            "portfolio_id": 2
+        }
+    }
+]
