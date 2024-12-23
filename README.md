@@ -1874,12 +1874,13 @@ button:hover, .btn:hover {
 
 This code enhances user-friendliness by creating a visually cohesive, responsive design that is easy to navigate and interact with, whether on desktop or mobile.
 
-🤖 ACT-AI-Engine
+🤖 ###A CT-AI-Engine
 Advanced Market Analysis & Trading Intelligence
 
-📊 Overview
+📊 ##O verview
 The ACT-AI-Engine is a sophisticated artificial intelligence system designed for advanced market analysis and trading insights. It serves as the analytical backbone of the larger trading system, providing real-time market analysis, trading recommendations, and predictive insights for both traditional stocks and cryptocurrencies.
-⭐ Core Features
+
+⭐ ## Core Features
 The engine employs a multi-agent AI architecture powered by the CrewAI framework, combining different specialized agents to perform complex market analysis tasks. Each agent has specific roles and capabilities, working together to provide comprehensive market insights.
 Key features include:
 
@@ -1891,7 +1892,7 @@ Price predictions and forecasting
 Natural language chat interface for market queries
 Support for both cryptocurrency and traditional stock markets
 
-🏗️ System Architecture
+🏗️ ## System Architecture
 AI Agents
 The system utilizes five specialized AI agents:
 
@@ -2014,7 +2015,7 @@ export ALPHA_VANTAGE_API_KEY="your_key"
 export FINNHUB_API_KEY="your_key"
 export GEMINI_API_KEY="your_key"
 ```
-💻 Usage
+💻 ## Usage
 Basic Implementation
 ```python
 from act_ai_engine import AiAPI
@@ -2031,7 +2032,7 @@ rating = ai_engine.get_trade_rating("AAPL")
 # Process chat message
 response = ai_engine.get_chat("What's the outlook for Bitcoin?")
 ```
-Testing
+## Testing
 The engine includes comprehensive testing capabilities:
 ```python
 # Run all tests
@@ -2042,7 +2043,7 @@ ai_engine.test_crypto_forecast()
 ai_engine.test_stock_forecast()
 ai_engine.test_chat()
 ```
-⚠️ Important Notes
+⚠️ ## Important Notes
 Error Handling
 The engine implements comprehensive error handling:
 
