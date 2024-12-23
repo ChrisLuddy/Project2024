@@ -609,6 +609,8 @@ In this project, **role-based permissions** are enforced to provide secure and r
 
 ### API
 
+
+
 #### ***User Registration Endpoint***
 This endpoint allows for the registration of new users with specific roles, such as Fund Administrator or Fund Manager.
 
