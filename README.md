@@ -528,6 +528,45 @@ GEMINI_API_KEY="your-gemini-api-key"
 * ``Environment Variables:`` The .env file centralizes environment-specific configuration, making the application portable across different environments.
 
 
+#### Tests
+
+The tests for this project are located in tests/tests.py. They are divided into three categories:
+
+1. CRUD Tests for Firebase Models
+
+These tests validate the basic CRUD operations (Create, Read, Update, Delete) for Firebase models:
+
+* Client
+* Fund
+* Portfolio
+* Asset
+* Order
+* TradeRating
+* AIForecast
+* SupportRequest
+
+**Purpose:**
+Ensure all Firebase models are correctly created, updated, retrieved, and deleted.
+
+2. Permission Tests
+
+These tests check role-based access control for API endpoints:
+
+* `fund_manager`: Allowed access to funds-related endpoints.
+* `fund_admin`: Restricted from accessing certain endpoints.
+* `Anonymous users`: Denied access (401 Unauthorized).
+
+Endpoints Tested: `/api/funds/`
+
+3. External API Tests
+
+Tests for integrations with external APIs like:
+
+* `Yahoo Finance`: Mocked responses for stock data retrieval.
+* `Alpha Vantage`: Mocked responses for time series data.
+
+`Note:` Mocking is used to avoid actual API calls.
+
 ---
 
 ### Work in admin panel

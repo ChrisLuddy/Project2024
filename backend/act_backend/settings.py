@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 import firebase_admin
-from firebase_admin import credentials
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 # Загрузка переменных из .env файла
 load_dotenv()
@@ -26,24 +27,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Path to Firebase credentials (located in the 'config' folder)
 FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', os.getenv('FIREBASE_CREDENTIALS_FILE'))
 
-# Initialize Firebase Admin SDK
-cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
-firebase_admin.initialize_app(cred)
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    '*', 
     'testserver',
-    # '161.35.38.50',
-    # '127.0.0.1',
-    # 'localhost',
-    # 'welsol21.github.io/Project2024',
-    # 'ChrisLuddy.github.io/Project2024',
+    '161.35.38.50',
+    '127.0.0.1',
+    'localhost',
+    'welsol21.github.io/Project2024',
+    'ChrisLuddy.github.io/Project2024',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # don't use in production
@@ -160,6 +156,7 @@ REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'UNAUTHENTICATED_USER': None,
 }
 
 SIMPLE_JWT = {

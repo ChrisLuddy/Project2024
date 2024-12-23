@@ -3,9 +3,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.admin import Group
 from .models import User
+from django.utils.translation import gettext_lazy as _
 
 
 admin.site.unregister(Group)
+admin.site.site_header = _("Agentic Corporate Trader web site administration")
+admin.site.site_title = _("Agentic Corporate Trader Admin")
+admin.site.index_title = _("Welcome to Agentic Corporate Trader Admin")
 
 class CustomUserAdmin(UserAdmin):
     # Fields that will be displayed when creating a new user

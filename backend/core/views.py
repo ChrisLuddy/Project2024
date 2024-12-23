@@ -64,11 +64,14 @@ class CreateCheckoutSessionView(APIView):
     def post(self, request):
         try:
             price_id = request.data.get('price_id')  # monthly or yearly Price ID
+            email = request.data.get('email')
+ 
+            if not price_id or not email:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
-                # customer_email=request.user.email,
-                customer_email=request.data.get('email'),
+                customer_email=email,
                 line_items=[{
                     'price': price_id,
                     'quantity': 1,
