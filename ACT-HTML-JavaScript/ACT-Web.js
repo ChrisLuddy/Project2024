@@ -388,51 +388,115 @@ function initYahooNewsPage() {
     });
 }
 
-// Function to update Fund Manager's name and dashboard data on Fund Manager Welcome Page
-function updateFundManagerWelcome() {
-    // Fetch user details (including fund manager's name)
-    fetchUserDetails()
-        .then(user => {
-            // Update the welcome message with the fund manager's name
-            document.getElementById('fund-manager-name').textContent = user.username; // Assuming username is the fund manager's name
+// Fetch and display client data
+async function loadClientData() {
+    try {
+        showLoading(true);
+        const fundManagerId = getFundManagerId();
+        
+        // Query clients collection for the specific fund manager
+        const clientsSnapshot = await db.collection('clients')
+            .where('fund_manager_id', '==', fundManagerId)
+            .get();
 
-            fetchDashboardData(user.username)
-                .then(data => {
-                    // Update the dashboard metrics dynamically
-                    document.getElementById('total-clients').textContent = data.totalClients;
-                    document.getElementById('number-of-alerts').textContent = data.numberOfAlerts;
-                    document.getElementById('recent-activities').textContent = data.recentActivities;
-                    
-                    // Make the welcome page visible after data is loaded
-                    document.getElementById('welcome-container').style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error fetching dashboard data:', error);
+        clientData = [];
+        
+        for (const clientDoc of clientsSnapshot.docs) {
+            const clientId = clientDoc.id;
+            const clientInfo = clientDoc.data();
+
+            // Get funds for this client's portfolios
+            const portfoliosSnapshot = await db.collection('portfolios')
+                .where('fund_id', '==', 1) // Based on your schema showing fund_id: 1
+                .get();
+
+            // Get assets for each portfolio
+            let totalAssetValue = 0;
+            for (const portfolioDoc of portfoliosSnapshot.docs) {
+                const portfolioId = portfolioDoc.id;
+                const assetsSnapshot = await db.collection('assets')
+                    .where('portfolio_id', '==', portfolioDoc.data().fund_id)
+                    .get();
+
+                // Calculate total assets value
+                assetsSnapshot.docs.forEach(assetDoc => {
+                    const asset = assetDoc.data();
+                    const assetValue = parseFloat(asset.amount) || 
+                                     (asset.price * asset.volume);
+                    totalAssetValue += assetValue;
                 });
-        })
-        .catch(error => {
-            console.error('Error fetching user details:', error);
-        });
+            }
+
+            clientData.push({
+                id: clientId,
+                name: clientInfo.name,
+                portfolios: portfoliosSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    name: doc.data().name
+                })),
+                totalAssets: totalAssetValue,
+                lastUpdated: new Date().toISOString()
+            });
+        }
+
+        displayClientData(clientData);
+        showLoading(false);
+    } catch (error) {
+        console.error('Error loading client data:', error);
+        showError("Failed to load client data: " + error.message);
+        showLoading(false);
+    }
 }
 
-// Function to fetch dashboard data (Total Clients, Number of Alerts, Recent Activities)
-function fetchDashboardData(fundManagerUsername) {
-    return fetch(`${BASE_URL}/dashboard/${fundManagerUsername}/`, {
-        method: "GET",
-        headers: getHeaders(),
-    })
-        .then(response => {
-            if (!response.ok) throw new Error("Failed to fetch dashboard data");
-            return response.json();
-        })
-        .then(data => {
-            return {
-                totalClients: data.totalClients, 
-                numberOfAlerts: data.numberOfAlerts, 
-                recentActivities: data.recentActivities, 
-            };
-        });
+// Display client data in the table
+function displayClientData(data) {
+    const tableBody = document.getElementById('client-table-body');
+    tableBody.innerHTML = '';
+
+    data.forEach(client => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${client.name}</td>
+            <td>${client.portfolios.length} portfolios</td>
+            <td>$${client.totalAssets.toLocaleString()}</td>
+            <td>${new Date(client.lastUpdated).toLocaleDateString()}</td>
+            <td>
+                <button onclick="viewClientDetails('${client.id}')" class="view-btn">View Details</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
 }
+
+// Update the HTML table structure
+function updateTableStructure() {
+    const table = document.getElementById('client-table');
+    if (table) {
+        table.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Portfolios</th>
+                    <th>Total Assets</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="client-table-body">
+            </tbody>
+        `;
+    }
+}
+
+// Initialize dashboard
+document.addEventListener('DOMContentLoaded', () => {
+    if (!accessToken) {
+        window.location.href = 'ACT-Login.html';
+        return;
+    }
+    updateTableStructure();
+    loadClientData();
+});
 
 
 // Main Initialization
