@@ -1,6 +1,6 @@
 # act_ai/urls.py
 from django.urls import path
-from .views import PredictView, HistoryView, TradeRatingView, FinnhubStockDataView, FinnhubNewsView, CoinDataView, TrendingCoinsView, GeminiChatView
+from .views import PredictView, TradeRatingView, FinnhubStockDataView, FinnhubNewsView, CoinDataView, TrendingCoinsView, GeminiChatView
 
 urlpatterns = [
     path('predict/', PredictView.as_view(), name='predict'),
