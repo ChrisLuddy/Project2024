@@ -52,23 +52,15 @@
             <!-- Description for fund managers -->
             <p>Fund managers can log in here to access their clients' records and manage client portfolios with ease.</p>
             <!-- Form element for user login -->
-            <form action="/login" method="POST">
-                <label for="username">Username:</label>
-                <!-- Input field for user email, required for form submission -->
-                <input type="username" id="username" name="username" required>
-                <!-- Label for the email input field -->
-                <label for="email">Email:</label>
-                <!-- Input field for user email, required for form submission -->
-                <input type="email" id="email" name="email" required>
+                    <form id="login-form">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
 
-                <!-- Label for the password input field -->
-                <label for="password">Password:</label>
-                <!-- Input field for user password, required for form submission -->
-                <input type="password" id="password" name="password" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
 
-                <!-- Submit button for the login form -->
-                <button type="submit">Login</button>
-            </form>
+                    <button type="submit">Login</button>
+                </form>
         </section>
     </div>
     <!-- Footer section containing copyright information -->

@@ -3,6 +3,11 @@
 
 const BASE_URL = "http://161.35.38.50:8000/api";
 let accessToken = ""; // Store JWT token after login
+// Retrieve token on page load
+const storedToken = localStorage.getItem('accessToken');
+if (storedToken) {
+    accessToken = storedToken;
+}
 
 // Helper function to set headers
 function getHeaders(authRequired = true) {
@@ -19,20 +24,21 @@ function getHeaders(authRequired = true) {
 // Authentication Functions
 
 // Handle Login
-function handleLogin(username, email, password) {
+function handleLogin(email, password) {
     return fetch(`${BASE_URL}/token/`, {
         method: "POST",
         headers: getHeaders(false),
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ email, password }),
     })
-        .then(response => {
-            if (!response.ok) throw new Error("Invalid login credentials");
-            return response.json();
-        })
-        .then(data => {
-            accessToken = data.access;
-            return data;
-        });
+    .then(response => {
+        if (!response.ok) throw new Error("Invalid login credentials");
+        return response.json();
+    })
+    .then(data => {
+        accessToken = data.access;
+        localStorage.setItem('accessToken', data.access);
+        return data;
+    });
 }
 
 
@@ -99,25 +105,25 @@ async function onGoogleSignIn(googleUser) {
 }
 
 // Google Sign-In Button Initialization
-function googleInit() {
-    google.accounts.id.initialize({
-        client_id: 'GOOGLE_CLIENT_ID', 
-        callback: onGoogleSignIn,
-    });
+// googleInit() {
+   // google.accounts.id.initialize({
+     //   client_id: 'GOOGLE_CLIENT_ID',
+      //  callback: onGoogleSignIn,
+  //  });
 
-    google.accounts.id.renderButton(
-        document.getElementById("google-login-btn"),
-        { 
-            theme: "outline", 
-            size: "large", 
-            shape: "pill" 
-        }
-    );
-}
+   // google.accounts.id.renderButton(
+        //document.getElementById("google-login-btn"),
+       // {
+          //  theme: "outline",
+          //  size: "large",
+          //  shape: "pill"
+       // }
+   // );
+//}
 
-document.addEventListener("DOMContentLoaded", function () {
-    googleInit();
-});
+//.addEventListener("DOMContentLoaded", function () {
+   // googleInit();
+//});
 
 
 
@@ -140,8 +146,11 @@ function fetchUserDetails() {
     return fetch(`${BASE_URL}/user/`, {
         method: "GET",
         headers: getHeaders(),
-    }).then(response => {
-        if (!response.ok) throw new Error("Failed to fetch user details");
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to fetch user details: ${response.status}`);
+        }
         return response.json();
     });
 }
@@ -187,26 +196,24 @@ function updateNavigationLinks() {
 
 // Initialize Login Page
 function initLoginPage() {
-    const loginForm = document.querySelector("form");
+    const loginForm = document.querySelector("#login-form");
     loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        const username = document.getElementById("username").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        handleLogin(username, email, password)
+        handleLogin(email, password)
             .then(() => {
                 alert("Login successful!");
                 fetchUserDetails().then(user => {
                     if (user.role === 'fund_admin') {
-                        window.location.href = "ACT-Portfolio.html"; 
+                        window.location.href = "ACT-Portfolio.html";
                     } else if (user.role === 'system_admin' || user.role === 'fund_manager') {
-                        window.location.href = "ACT-Fund-Manager-Welcome.html"; 
+                        window.location.href = "ACT-Fund-Manager-Welcome.html";
                     }
                 }).catch(error => {
                     console.error("Error fetching user details:", error);
-                    alert("An error occurred while determining user role. Redirecting to default page.");
-                    window.location.href = "ACT-Portfolio.html"; 
+                    window.location.href = "ACT-Portfolio.html";
                 });
             })
             .catch(error => alert(error.message));
@@ -234,6 +241,64 @@ function initRegistrationPage() {
     });
 }
 
+// AI Predictions Page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.pathname.includes("ACT-AI-Predictions.html")) {
+        const aiPredictionsContainer = document.querySelector('.ai-predictions-container');
+        const stockSelect = document.createElement('select');
+        const predictButton = document.createElement('button');
+        const resultDiv = document.createElement('div');
+
+        stockSelect.id = 'stock-select';
+        stockSelect.className = 'stock-select';
+        ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META'].forEach(stock => {
+            const option = document.createElement('option');
+            option.value = stock;
+            option.textContent = stock;
+            stockSelect.appendChild(option);
+        });
+
+        predictButton.textContent = 'Get Prediction';
+        predictButton.className = 'predict-button';
+        predictButton.onclick = () => {
+            const selectedStock = stockSelect.value;
+
+            if (!accessToken) {
+                resultDiv.innerHTML = '<div class="error-message">Please log in to view predictions.</div>';
+                return;
+            }
+
+            fetch(`${BASE_URL}/ai-forecasts/?stock=${selectedStock}`, {
+                headers: getHeaders()
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
+                        .then(data => {
+               if (Array.isArray(data) && data.length > 0) {
+                   const latestPrediction = data[0];
+                   resultDiv.innerHTML = `
+                       <div class="forecast-item">
+                           <div class="forecast-content">
+                               <h3>Prediction for ${selectedStock}</h3>
+                               <p class="forecast-text">${latestPrediction.forecast}</p>
+                           </div>
+                       </div>
+                   `;
+               }
+            })
+                        .catch(error => {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `<div class="error-message">${error.message}</div>`;
+            });
+        };
+
+        aiPredictionsContainer.appendChild(stockSelect);
+        aiPredictionsContainer.appendChild(predictButton);
+        aiPredictionsContainer.appendChild(resultDiv);
+    }
+});
 // Initialize Yahoo News Page
 function initYahooNewsPage() {
     fetchYahooNews("AAPL", "ALL")

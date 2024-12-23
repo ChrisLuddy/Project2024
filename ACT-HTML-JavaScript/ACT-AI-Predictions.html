@@ -2,20 +2,32 @@
 <html lang="en">
 
 <head>
+    <!-- Sets the character encoding to UTF-8 to support a wide range of characters -->
     <meta charset="UTF-8">
+    <!-- Configures the viewport to be responsive on different devices, scaling the content to fit screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACT Web Application - AI Predictions</title>
+    <!-- Sets the title of the page, which appears on the browser tab -->
+    <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <!-- Firebase Firestore SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
-    <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
+    <title>ACT Web Application - AI Predictions</title>
+   <!-- Link to the favicon -->
+   <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
+   <!-- Displays the website logo in the page -->
+   <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
+    <!-- Links an external CSS stylesheet to apply consistent styles across the page -->
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
 </head>
 
 <body>
+    <!-- Header section that contains the main navigation for the site -->
     <header>
+        <!-- Navigation bar to hold the application logo and page links -->
         <nav>
+            <!-- Displays the logo or application name in the header -->
             <div class="logo">ACT Web Application</div>
+            <!-- Unordered list that holds navigation links as list items -->
             <ul id="nav-links">
                 <li><a href="ACT-Homepage.html">Home</a></li>
                 <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
@@ -36,47 +48,19 @@
         </nav>
     </header>
 
+    <!-- Main section for displaying AI prediction data -->
     <section id="ai-predictions">
+        <!-- Section title for AI predictions -->
         <h2>AI Predictions</h2>
+        <!-- Image related to AI predictions, scaled to fit screen size with maximum width for responsiveness -->
         <img src="images/ACT-AI-Predictions.png" alt="ACT AI Predictions Image" style="width: 100%; max-width: 600px; height: auto;">
+        <!-- Container to hold dynamically loaded AI prediction data from the backend -->
         <div class="ai-predictions-container">
-            <div class="dropdown-container">
-                <label for="stock-dropdown">Choose a Stock:</label>
-                <select id="stock-dropdown">
-                    <option value="AAPL">Apple</option>
-                    <option value="GOOG">Google</option>
-                    <option value="MSFT">Microsoft</option>
-                    <option value="AMZN">Amazon</option>
-                    <option value="TSLA">Tesla</option>
-                    <option value="META">Meta</option>
-                    <option value="NVDA">NVIDIA</option>
-                    <option value="AMD">AMD</option>
-                    <option value="INTC">Intel</option>
-                    <option value="NFLX">Netflix</option>
-                    <option value="SPOT">Spotify</option>
-                    <option value="ORCL">Oracle</option>
-                    <option value="CSCO">Cisco</option>
-                </select>
-                <button id="stock-prediction-btn">Give Stock Prediction</button>
-            </div>
-
-            <div class="dropdown-container">
-                <label for="crypto-dropdown">Choose a Cryptocurrency:</label>
-                <select id="crypto-dropdown">
-                    <option value="BTC">Bitcoin</option>
-                    <option value="ETH">Ethereum</option>
-                    <option value="XRP">Ripple</option>
-                </select>
-                <button id="crypto-prediction-btn">Give Crypto Prediction</button>
-            </div>
-
-            <div class="prediction-output">
-                <h3>AI Prediction Output:</h3>
-                <p id="prediction-text">Select a stock or cryptocurrency and click the respective button to see the prediction here.</p>
-            </div>
+            <!-- Placeholder for dynamically loaded AI predictions -->
         </div>
     </section>
 
+    <!-- Footer section containing copyright information -->
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
