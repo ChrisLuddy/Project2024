@@ -14,24 +14,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password', 'role')
 
     def create(self, validated_data):
+        """
+        Create a new user with the specified role.
+        """
         user = User.objects.create_user(
             username=validated_data['username'],
             email = validated_data['email'],
             password=validated_data['password'],
             role=validated_data['role'],
             is_active=True
-        )
-        role = validated_data['role']
-        if role == 'fund_admin':
-            group = Group.objects.get(name='FundAdmin')
-        elif role == 'fund_manager':
-            group = Group.objects.get(name='FundManager')
-        else:
-            group = None
-        
-        if group:
-            user.groups.add(group)
-
+        )        
         return user
 
 
