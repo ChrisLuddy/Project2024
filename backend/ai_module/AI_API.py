@@ -1,14 +1,10 @@
-# ai_module/AI_API.py
-import os
-from ai_module.task_manager import TaskManager
+from src.ai_server import task_manager
+from task_manager import TaskManager
 import logging
 from typing import Optional, Dict, ClassVar
 from datetime import datetime
-from ai_module.data_parsers import NewsParser
-
-import requests
-from typing import List
-
+from data_parsers import NewsParser
+from market_data import MarketData
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -44,13 +40,12 @@ class AiAPI:
                     "Researcher": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
                     "Accountant": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
                     "Recommender": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
-                    "Blogger": {"model": "gemini/gemini-1.5-flash", "base_url": " "}
+                    "Blogger": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
+                    "Chatbot": {"model": "gemini/gemini-1.5-flash", "base_url": " "}
                 }
             )
 
-            if success and self._task_manager.authenticate_backend("SuperAdmin", "password_123"):
-                logger.info("TaskManager initialized and authenticated successfully")
-                return True
+
 
             logger.error("Failed to initialize TaskManager")
             return False
@@ -67,9 +62,9 @@ class AiAPI:
 
             logger.info(f"Processing forecast request - ID: {forecast_id}, Symbol: {symbol}")
 
-            self.task_manager.set_company(symbol)
-            research_tasks = self.task_manager._create_research_task()
-            forecast = str(self.task_manager.ai_crew.kickoff(research_tasks))
+
+
+            forecast = task_manager.process_prediction(symbol)
 
             return {
                 "id": int(forecast_id) if forecast_id.isdigit() else 1,
@@ -89,17 +84,9 @@ class AiAPI:
 
             logger.info(f"Processing trade rating request - Symbol: {symbol}")
 
-            self.task_manager.set_company(symbol)
-            self.task_manager.research_result = str(
-                self.task_manager.ai_crew.kickoff(self.task_manager._create_research_task())
-            )
 
-            self.task_manager.calculation_result = str(
-                self.task_manager.ai_crew.kickoff(self.task_manager._create_calculation_task())
-            )
 
-            risk_tasks = self.task_manager._create_risk_assessment_task()
-            rating = str(self.task_manager.ai_crew.kickoff(risk_tasks)).strip()
+            rating = task_manager.process_trade_rating(symbol)
 
             if rating not in ["POSITIVE", "NEGATIVE"]:
                 logger.warning(f"Unexpected rating value: {rating}, defaulting to NEGATIVE")
@@ -116,87 +103,187 @@ class AiAPI:
             logger.error(f"Error processing trade rating request: {e}", exc_info=True)
             raise
 
-    def check_health(self) -> Dict:
-        """Check health status of the AI module"""
+    def get_chat(self, message: str, user_id: int = 1) -> Dict:
+        """Process a chat message and return the response
+
+        Args:
+            message (str): The user's chat message
+            user_id (int): User identifier, defaults to 1
+
+        Returns:
+            Dict: Contains response and metadata
+        """
         try:
-            has_task_manager = self._task_manager is not None
+            if not message:
+                raise ValueError("Message parameter is required")
+
+            logger.info(f"Processing chat message - User ID: {user_id}")
+
+            response = task_manager.process_chat_message(message)
+
             return {
-                "status": "healthy" if has_task_manager else "uninitialized",
-                "task_manager_initialized": bool(has_task_manager and self._task_manager.ai_crew),
-                "backend_authenticated": bool(
-                    has_task_manager and
-                    self._task_manager.backend_client and
-                    self._task_manager.backend_client.token
-                )
+                "message": message,
+                "response": response,
+                "timestamp": datetime.now().isoformat(),
+                "user_id": user_id
             }
+
         except Exception as e:
-            logger.error(f"Error checking health: {str(e)}")
-            return {
-                "status": "unhealthy",
-                "error": str(e)
-            }
+            logger.error(f"Error processing chat message: {e}", exc_info=True)
+            raise
 
-    def test_forecast(self):
-        """Test forecast generation for symbols"""
-        print("\n=== Starting Forecast Test ===")
+    def test_crypto_forecast(self):
+        """Test forecast generation for cryptocurrencies"""
+        print("\n=== Starting Crypto Forecast Test ===")
 
-        test_symbols = ["AAPL"]
+        test_symbols = ["BTC", "ETH", "SOL"]  # Test multiple crypto symbols
 
         for symbol in test_symbols:
             try:
                 print(f"\nGenerating Forecast for {symbol}:")
-                print("-" * 30)
+                print("-" * 50)
                 forecast = self.get_forecast("123", symbol, user_id=1)
+                print(f"Symbol: {symbol}")
                 print("Forecast ID:", forecast['id'])
                 print("User ID:", forecast['user_id'])
-                print("\nForecast Preview:")
-                print(forecast['forecast'][:500] + "..." if len(forecast['forecast']) > 500 else forecast['forecast'])
+                print("\nForecast Details:")
+                print(forecast['forecast'])
+                print("-" * 50)
 
             except Exception as e:
                 print(f"Error generating forecast for {symbol}: {e}")
                 continue
 
-        print("\n=== Forecast Test Complete ===")
+        print("\n=== Crypto Forecast Test Complete ===\n")
 
-    def test_trade_ratings(self):
-        """Test trade ratings for multiple symbols"""
-        print("\n=== Starting Trade Rating Test ===")
+    def test_crypto_trade_rating(self):
+        """Test trade rating generation for cryptocurrencies"""
+        print("\n=== Starting Crypto Trade Rating Test ===")
 
-        test_symbols = ["AAPL"]
+        test_symbols = ["BTC", "ETH", "XRP"]  # Test the cryptos
 
         for symbol in test_symbols:
             try:
-                print(f"\nProcessing trade rating for {symbol}...")
-
-                # Get and parse news data
-                print(f"\nParsed News Data for {symbol}:")
-                print("-" * 30)
-                news_data = self.task_manager.backend_client.get_yahoo_news(symbol)
-                news_parser = NewsParser()
-                parsed_news = news_parser.parse_yahoo_news(news_data)
-                news_context = news_parser.format_news_for_analysis(parsed_news)
-                print(news_context)
-
-                # Get the trade rating
-                rating = self.get_trade_rating(symbol)
-
-                print(f"""
-    Rating Results:
-    ------------------------
-    Symbol: {rating['symbol']}
-    Rating: {rating['rating']}
-    Timestamp: {rating['timestamp']}
-    User ID: {rating['user_id']}
-    ------------------------""")
+                print(f"\nGenerating Trade Rating for {symbol}:")
+                print("-" * 50)
+                rating = self.get_trade_rating(symbol, user_id=1)
+                print(f"Symbol: {symbol}")
+                print("Rating:", rating['rating'])
+                print("Timestamp:", rating['timestamp'])
+                print("User ID:", rating['user_id'])
+                print("-" * 50)
 
             except Exception as e:
-                print(f"Error getting trade rating for {symbol}: {e}")
+                print(f"Error generating trade rating for {symbol}: {e}")
                 continue
 
-        print("\n=== Trade Rating Test Complete ===")
+        print("\n=== Crypto Trade Rating Test Complete ===\n")
 
-    # Intergration API Finnhub and CoinGecko
+    def test_stock_forecast(self):
+        """Test forecast generation for stocks"""
+        print("\n=== Starting Stock Forecast Test ===")
 
+        test_symbols = ["AAPL", "TSLA", "MSFT"]  # Test multiple stock symbols
+
+        for symbol in test_symbols:
+            try:
+                print(f"\nGenerating Forecast for {symbol}:")
+                print("-" * 50)
+                forecast = self.get_forecast("123", symbol, user_id=1)
+                print(f"Symbol: {symbol}")
+                print("Forecast ID:", forecast['id'])
+                print("User ID:", forecast['user_id'])
+                print("\nForecast Details:")
+                print(forecast['forecast'])
+                print("-" * 50)
+
+            except Exception as e:
+                print(f"Error generating forecast for {symbol}: {e}")
+                continue
+
+        print("\n=== Stock Forecast Test Complete ===\n")
+
+    def test_stock_trade_rating(self):
+        """Test trade rating generation for stocks"""
+        print("\n=== Starting Stock Trade Rating Test ===")
+
+        test_symbols = ["AAPL", "TSLA", "MSFT"]  # Test multiple stock symbols
+
+        for symbol in test_symbols:
+            try:
+                print(f"\nGenerating Trade Rating for {symbol}:")
+                print("-" * 50)
+                rating = self.get_trade_rating(symbol, user_id=1)
+                print(f"Symbol: {symbol}")
+                print("Rating:", rating['rating'])
+                print("Timestamp:", rating['timestamp'])
+                print("User ID:", rating['user_id'])
+                print("-" * 50)
+
+            except Exception as e:
+                print(f"Error generating trade rating for {symbol}: {e}")
+                continue
+
+        print("\n=== Stock Trade Rating Test Complete ===\n")
+
+    def test_chat(self):
+        """Test chat functionality with sample messages"""
+        print("\n=== Starting Chat Test ===")
+
+        test_messages = [
+            "What's the current price of Bitcoin?",
+            "How is Ethereum performing today?",
+            "Tell me about Apple stock's latest performance",
+            "What's the forecast for Tesla stock?",
+            "Compare Bitcoin and Ethereum performance",
+            "What are the trending cryptocurrencies right now?",
+            "Give me a technical analysis of AAPL",
+            "Should I invest in SOL?",
+            "What's the market sentiment for MSFT?"
+        ]
+
+        for message in test_messages:
+            try:
+                print(f"\nProcessing message: '{message}'")
+                print("-" * 50)
+                chat_response = self.get_chat(message=message, user_id=1)
+
+                print("\nResponse Details:")
+                print(f"Timestamp: {chat_response['timestamp']}")
+                print(f"User ID: {chat_response['user_id']}")
+                print("\nBot Response:")
+                print(chat_response['response'])
+                print("-" * 50)
+
+            except Exception as e:
+                print(f"Error processing message '{message}': {e}")
+                continue
+
+        print("\n=== Chat Test Complete ===")
+
+    def run_all_tests(self):
+        """Run all tests in sequence"""
+        try:
+            print("\n========== Starting All Tests ==========")
+
+            # Test crypto functionality
+            self.test_crypto_forecast()
+            self.test_crypto_trade_rating()
+
+            # Test stock functionality
+            self.test_stock_forecast()
+            self.test_stock_trade_rating()
+
+            # Test chat functionality
+            self.test_chat()
+
+            print("\n========== All Tests Complete ==========")
+
+        except Exception as e:
+            print(f"Error during testing: {e}")
+
+
+    """OLD APIS --- SHOULD BE DELETED WHEN BACKEND MIGRATES """
     def get_finnhub_stock_data(self, symbol: str) -> Dict:
         """
         Fetch stock market data for a given symbol using Finnhub API.
@@ -229,7 +316,6 @@ class AiAPI:
             logger.error(f"Unexpected error in get_finnhub_stock_data: {e}", exc_info=True)
             return {"error": str(e)}
 
-
     def get_finnhub_news(self, category: str = "general") -> List[Dict]:
         """
         Fetch news from Finnhub API.
@@ -260,7 +346,6 @@ class AiAPI:
             # Log any unexpected errors
             logger.error(f"Unexpected error in get_finnhub_news: {e}", exc_info=True)
             return {"error": str(e)}
-
 
     def get_coingecko_coin_data(self, coin_id: str = "bitcoin") -> Dict:
         """
@@ -296,27 +381,8 @@ class AiAPI:
             raise
 
 
+
 # Test functionality
 if __name__ == "__main__":
-    # Use singleton instance
     ai = AiAPI()
-
-    # Initial health check
-    health = ai.check_health()
-    print("\nInitial Health Status:", health)
-
-    try:
-        # Run forecast test first
-        ai.test_forecast()
-
-        # Then run trade rating test
-        ai.test_trade_ratings()
-
-    except Exception as e:
-        print(f"Error during testing: {e}")
-    finally:
-        # Final health check
-        final_health = ai.check_health()
-        print("\nFinal Health Status:", final_health)
-
-        
+    ai.run_all_tests()

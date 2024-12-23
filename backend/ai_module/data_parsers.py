@@ -1,7 +1,6 @@
-# ai_module/data_parsers.py
 from typing import Dict, List, Tuple, Optional, Union
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 
 
@@ -129,13 +128,13 @@ class MarketDataParser(DataParser):
             primary = body.get('primaryData', {})
             key_stats = body.get('keyStats', {})
 
-            # Parse ranges
+
             day_range = key_stats.get('dayrange', {}).get('value', '0-0')
             fifty_two_week = key_stats.get('fiftyTwoWeekHighLow', {}).get('value', '0-0')
             daily_low, daily_high = cls.parse_range(day_range)
             yearly_low, yearly_high = cls.parse_range(fifty_two_week)
 
-            # Create data objects
+
             price = MarketPrice(
                 last_sale_price=cls.parse_price(primary.get('lastSalePrice', '0')),
                 bid_price=cls.parse_price(primary.get('bidPrice', '0')),
@@ -220,7 +219,7 @@ class NewsParser(DataParser):
             articles = news_data.get('body', [])
 
             for article in articles[:max_summaries]:
-                if article.get('text'):  # Using 'text' field instead of 'summary'
+                if article.get('text'):
                     news_item = NewsData(
                         summary=article.get('text', '').strip(),
                         published_at=article.get('time', ''),
@@ -266,7 +265,6 @@ class ForecastParser(DataParser):
         try:
             timestamp = datetime.now().isoformat()
 
-            # Use existing MarketDataParser for technical analysis formatting
             market_parser = MarketDataParser()
             tech_analysis = market_parser.parse_yahoo_finance_data(technical_data) if technical_data else None
             formatted_tech = cls.format_technical_analysis(
@@ -444,3 +442,263 @@ class GeneralDataParser(DataParser):
 
             return "\n".join(formatted_news)
 
+
+class FinancialMetricsParser(DataParser):
+    """Parser for financial metrics and ratios"""
+
+    @staticmethod
+    def parse_news_items(news_data: List[Dict], num_items: int = 4) -> str:
+        """Parse news items into a formatted string with headlines and summaries"""
+        try:
+            news_list = list(news_data)
+            items_to_process = news_list[:num_items]
+
+            output = ""
+            for i, item in enumerate(items_to_process):
+                if i > 0:
+                    output += "\n\n"
+
+                # Safely get headline and summary with defaults
+                headline = item.get('headline', 'No headline available')
+                summary = item.get('summary', 'No summary available')
+
+                # Add formatted content
+                output += f"HEADLINE: {headline}\n"
+                output += f"SUMMARY: {summary}"
+            print(output)
+            return output if output else "No news items available"
+
+        except (TypeError, AttributeError) as e:
+            return "Invalid news data format"
+        except Exception as e:
+            return f"Error processing news data: {str(e)}"
+
+    @classmethod
+    def parse_alpha_vantage_income(cls, data: Dict) -> str:
+        """Parse Alpha Vantage income statement data"""
+        try:
+            metrics = {
+                'Total Revenue': cls._get_alpha_vantage_metric(data, 'totalRevenue'),
+                'Gross Profit': cls._get_alpha_vantage_metric(data, 'grossProfit'),
+                'Operating Income': cls._get_alpha_vantage_metric(data, 'operatingIncome'),
+                'EBITDA': cls._get_alpha_vantage_metric(data, 'ebitda'),
+                'Net Income': cls._get_alpha_vantage_metric(data, 'netIncome'),
+                'Research and Development': cls._get_alpha_vantage_metric(data, 'researchAndDevelopment'),
+                'Interest Expense': cls._get_alpha_vantage_metric(data, 'interestExpense'),
+                'Cost of Revenue': cls._get_alpha_vantage_metric(data, 'costOfRevenue'),
+                'Income Tax Expense': cls._get_alpha_vantage_metric(data, 'incomeTaxExpense')
+            }
+
+            return '\n'.join(f"{key}: {value}" for key, value in metrics.items() if value is not None)
+        except Exception as e:
+            logger.error(f"Error parsing Alpha Vantage income data: {str(e)}")
+            return "Unable to parse income statement data"
+
+    @classmethod
+    def parse_finnhub_metrics(cls, data: Dict) -> str:
+        """Parse Finnhub financial metrics data"""
+        try:
+            metrics = {
+                '52 Week High/Low': cls._get_52_week_range(data),
+                'Price Relative to S&P500': cls._get_price_relative_sp500(data),
+                'Revenue Growth': cls._get_revenue_growth(data),
+                'Earnings Growth': cls._get_earnings_growth(data),
+                'PE Ratio': cls._get_pe_ratio(data),
+                'PB Ratio': cls._get_pb_ratio(data),
+                'PS Ratio': cls._get_ps_ratio(data),
+                'Current/Quick Ratio': cls._get_current_quick_ratio(data),
+                'Debt/Equity': cls._get_debt_equity_ratio(data),
+                'Cash Flow per Share': cls._get_cash_flow_per_share(data),
+                'Operating Margin': cls._get_operating_margin(data),
+                'Net Profit Margin': cls._get_net_profit_margin(data),
+                'Return on Equity': cls._get_return_on_equity(data),
+                'Beta': cls._get_beta(data),
+                'Net Interest Coverage': cls._get_net_interest_coverage(data),
+                'Asset Turnover': cls._get_asset_turnover(data),
+                'Inventory Turnover': cls._get_inventory_turnover(data),
+                'Receivables Turnover': cls._get_receivables_turnover(data)
+            }
+
+            return '\n'.join(f"{key}: {value}" for key, value in metrics.items() if value is not None)
+        except Exception as e:
+            logger.error(f"Error parsing Finnhub metrics data: {str(e)}")
+            return "Unable to parse financial metrics data"
+
+    @staticmethod
+    def _get_alpha_vantage_metric(data: Dict, metric_name: str) -> Optional[str]:
+
+        try:
+            value = data['annualReports'][0].get(metric_name)
+            return str(value) if value is not None else None
+        except (KeyError, IndexError):
+            return None
+
+
+    @staticmethod
+    def _get_annual_metric(data: Dict, metric_name: str) -> Optional[str]:
+        try:
+            value = data['annualReports'][0].get(metric_name)
+            return str(value) if value is not None else None
+        except (KeyError, IndexError):
+            return None
+
+    @staticmethod
+    def _get_metric_value(data: Dict, metric_name: str) -> Optional[float]:
+        return data.get('metric', {}).get(metric_name)
+
+    @classmethod
+    def _get_52_week_range(cls, data: Dict) -> Optional[str]:
+        high = cls._get_metric_value(data, '52WeekHigh')
+        low = cls._get_metric_value(data, '52WeekLow')
+        if high is not None and low is not None:
+            return f"High: {high}, Low: {low}"
+        return None
+
+    @classmethod
+    def _get_price_relative_sp500(cls, data: Dict) -> Optional[str]:
+        timeframes = ['4Week', '13Week', '26Week', '52Week', 'Ytd']
+        values = []
+        for timeframe in timeframes:
+            value = cls._get_metric_value(data, f'priceRelativeToS&P500{timeframe}')
+            if value is not None:
+                values.append(f"{timeframe}: {value}%")
+        return ', '.join(values) if values else None
+
+    @classmethod
+    def _get_revenue_growth(cls, data: Dict) -> Optional[str]:
+        metrics = {
+            '3Y': cls._get_metric_value(data, 'revenueGrowth3Y'),
+            '5Y': cls._get_metric_value(data, 'revenueGrowth5Y'),
+            'Quarterly': cls._get_metric_value(data, 'revenueGrowthQuarterlyYoy'),
+            'TTM': cls._get_metric_value(data, 'revenueGrowthTTMYoy')
+        }
+        values = [f"{k}: {v}%" for k, v in metrics.items() if v is not None]
+        return ', '.join(values) if values else None
+
+    @classmethod
+    def _get_earnings_growth(cls, data: Dict) -> Optional[str]:
+        metrics = {
+            '3Y': cls._get_metric_value(data, 'epsGrowth3Y'),
+            'Quarterly': cls._get_metric_value(data, 'epsGrowthQuarterlyYoy'),
+            'TTM': cls._get_metric_value(data, 'epsGrowthTTMYoy')
+        }
+        values = [f"{k}: {v}%" for k, v in metrics.items() if v is not None]
+        return ', '.join(values) if values else None
+
+    @classmethod
+    def _get_pe_ratio(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'peAnnual')
+        ttm = cls._get_metric_value(data, 'peTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_pb_ratio(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'pbAnnual')
+        quarterly = cls._get_metric_value(data, 'pbQuarterly')
+        if annual is not None or quarterly is not None:
+            return f"Annual: {annual}, Quarterly: {quarterly}"
+        return None
+
+    @classmethod
+    def _get_ps_ratio(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'psAnnual')
+        ttm = cls._get_metric_value(data, 'psTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_current_quick_ratio(cls, data: Dict) -> Optional[str]:
+        current_annual = cls._get_metric_value(data, 'currentRatioAnnual')
+        current_quarterly = cls._get_metric_value(data, 'currentRatioQuarterly')
+        quick_annual = cls._get_metric_value(data, 'quickRatioAnnual')
+        quick_quarterly = cls._get_metric_value(data, 'quickRatioQuarterly')
+
+        parts = []
+        if current_annual is not None or current_quarterly is not None:
+            parts.append(f"Current Ratio - Annual: {current_annual}, Quarterly: {current_quarterly}")
+        if quick_annual is not None or quick_quarterly is not None:
+            parts.append(f"Quick Ratio - Annual: {quick_annual}, Quarterly: {quick_quarterly}")
+        return '; '.join(parts) if parts else None
+
+    @classmethod
+    def _get_debt_equity_ratio(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'longTermDebt/equityAnnual')
+        quarterly = cls._get_metric_value(data, 'longTermDebt/equityQuarterly')
+        if annual is not None or quarterly is not None:
+            return f"Annual: {annual}, Quarterly: {quarterly}"
+        return None
+
+    @classmethod
+    def _get_cash_flow_per_share(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'cashFlowPerShareAnnual')
+        quarterly = cls._get_metric_value(data, 'cashFlowPerShareQuarterly')
+        ttm = cls._get_metric_value(data, 'cashFlowPerShareTTM')
+
+        parts = []
+        if any(v is not None for v in [annual, quarterly, ttm]):
+            return f"Annual: {annual}, Quarterly: {quarterly}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_operating_margin(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'operatingMarginAnnual')
+        ttm = cls._get_metric_value(data, 'operatingMarginTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_net_profit_margin(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'netProfitMarginAnnual')
+        ttm = cls._get_metric_value(data, 'netProfitMarginTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_return_on_equity(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'roeAnnual')
+        ttm = cls._get_metric_value(data, 'roeTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_beta(cls, data: Dict) -> Optional[str]:
+        beta = cls._get_metric_value(data, 'beta')
+        return str(beta) if beta is not None else None
+
+    @classmethod
+    def _get_net_interest_coverage(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'netInterestCoverageAnnual')
+        ttm = cls._get_metric_value(data, 'netInterestCoverageTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_asset_turnover(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'assetTurnoverAnnual')
+        ttm = cls._get_metric_value(data, 'assetTurnoverTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_inventory_turnover(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'inventoryTurnoverAnnual')
+        ttm = cls._get_metric_value(data, 'inventoryTurnoverTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None
+
+    @classmethod
+    def _get_receivables_turnover(cls, data: Dict) -> Optional[str]:
+        annual = cls._get_metric_value(data, 'receivablesTurnoverAnnual')
+        ttm = cls._get_metric_value(data, 'receivablesTurnoverTTM')
+        if annual is not None or ttm is not None:
+            return f"Annual: {annual}, TTM: {ttm}"
+        return None

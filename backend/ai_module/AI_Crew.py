@@ -1,14 +1,18 @@
-# ai_module/AI_Crew.py
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, LLM
-from ai_module.calculator_tool import CalculatorTool
-
+from calculator_tool import CalculatorTool
+from chatbot_tools import StockDataTool
+from market_data import MarketData
 
 
 
 class AI_Crew:
 
-    def __init__(self, api_key, models_config):
+
+
+    def __init__(self):
         """
         Initialize the AI_Crew with an API key and a model configuration.
         models_config: A dictionary specifying which model each agent will use.
@@ -17,13 +21,35 @@ class AI_Crew:
             "Accountant": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11434"},
             "Recommender": {"model": "gpt-3.5-turbo", "base_url": "https://api.openai.com/v1"},
             "Blogger": {"model": "ollama/mistral:7b", "base_url": "http://localhost:11734"}
+            "Chatbot": {"model": "gemini/gemini-1.5-flash", "base_url": " "}
         }
         """
-        os.environ["OPENAI_API_KEY"] = " "
-        os.environ["GEMINI_API_KEY"] = "AIzaSyArYUTGZksOw8qCxusm7d2HMQDmQuB8pBc"
-        os.environ['GROQ_API_KEY'] = " "
+        # Get the current file's directory
+        current_dir = Path(__file__).resolve().parent
+        # Get the parent directory
+        parent_dir = current_dir.parent
+        # Construct path to .env file
+        env_path = parent_dir / '.env'
 
-        self.models_config = models_config
+        # Load environment variables from .env file
+        load_dotenv(dotenv_path=env_path)
+
+        # Get API keys from environment variables
+        self.gemini_api_key = os.getenv('GEMINI_API_KEY')
+        if not self.gemini_api_key:
+            raise ValueError("GEMINI_API_KEY not found in environment variables")
+
+
+        os.environ['GROQ_API_KEY'] = " "
+        self.market_data = MarketData()
+        self.models_config = {
+            "Researcher": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
+            "Accountant": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
+            "Recommender": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
+            "Blogger": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
+            "Chatbot": {"model": "gemini/gemini-1.5-flash", "base_url": " "}
+        }
+
         self.agents = self._create_agents()
 
 
@@ -66,8 +92,20 @@ class AI_Crew:
             backstory="You have a knack for turning complex data into engaging, readable content.",
             llm=self._get_llm("Blogger")
         )
+        chatbot = Agent(
+            role="Chatbot",
+            tools=[StockDataTool(self.market_data)],
+            goal="Engage in natural conversation about stock market data and provide informed responses",
+            backstory="""You are a friendly and knowledgeable AI assistant specializing in stock market 
+                   conversations. You can explain complex financial concepts in simple terms and provide context 
+                   for market data. You maintain context throughout conversations and can reference previous 
+                   analyses when relevant.""",
+            llm=self._get_llm("Chatbot")
+        )
 
-        return [researcher, accountant, recommender, blogger]
+        return [researcher, accountant, recommender, blogger, chatbot]
+
+
 
     def _get_llm(self, agent_name):
         """
