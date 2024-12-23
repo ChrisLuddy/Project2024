@@ -1,4 +1,3 @@
-from src.ai_server import task_manager
 from task_manager import TaskManager
 import logging
 from typing import Optional, Dict, ClassVar
@@ -28,31 +27,9 @@ class AiAPI:
         """Lazy initialization of TaskManager"""
         if self._task_manager is None:
             self._task_manager = TaskManager()
-            self._initialize_task_manager()
         return self._task_manager
 
-    def _initialize_task_manager(self) -> bool:
-        """Initialize and authenticate TaskManager"""
-        try:
-            success = self._task_manager.initialize_ai_crew(
-                api_key=" ",
-                models_config={
-                    "Researcher": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
-                    "Accountant": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
-                    "Recommender": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
-                    "Blogger": {"model": "gemini/gemini-1.5-flash", "base_url": " "},
-                    "Chatbot": {"model": "gemini/gemini-1.5-flash", "base_url": " "}
-                }
-            )
 
-
-
-            logger.error("Failed to initialize TaskManager")
-            return False
-
-        except Exception as e:
-            logger.error(f"Error during TaskManager initialization: {str(e)}")
-            return False
 
     def get_forecast(self, forecast_id: str, symbol: str, user_id: int = 1) -> Dict:
         """Get forecast by ID and symbol"""
@@ -64,7 +41,7 @@ class AiAPI:
 
 
 
-            forecast = task_manager.process_prediction(symbol)
+            forecast = self.task_manager.process_prediction(symbol)
 
             return {
                 "id": int(forecast_id) if forecast_id.isdigit() else 1,
@@ -86,7 +63,7 @@ class AiAPI:
 
 
 
-            rating = task_manager.process_trade_rating(symbol)
+            rating = self.task_manager.process_trade_rating(symbol)
 
             if rating not in ["POSITIVE", "NEGATIVE"]:
                 logger.warning(f"Unexpected rating value: {rating}, defaulting to NEGATIVE")
@@ -119,7 +96,7 @@ class AiAPI:
 
             logger.info(f"Processing chat message - User ID: {user_id}")
 
-            response = task_manager.process_chat_message(message)
+            response = self.task_manager.process_chat_message(message)
 
             return {
                 "message": message,
