@@ -1,9 +1,7 @@
-from task_manager import TaskManager
+from .task_manager import TaskManager
 import logging
 from typing import Optional, Dict, ClassVar
 from datetime import datetime
-from data_parsers import NewsParser
-from market_data import MarketData
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 

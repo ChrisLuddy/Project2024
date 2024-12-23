@@ -1,6 +1,5 @@
 from crewai_tools import BaseTool
 from typing import ClassVar, Dict, Optional
-import re
 from pydantic import Field
 
 

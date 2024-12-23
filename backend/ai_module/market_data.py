@@ -7,8 +7,7 @@ import logging
 import json
 from datetime import datetime, timedelta
 from typing import Optional, Dict
-from data_parsers import ForecastParser
-from data_parsers import (
+from .data_parsers import (
     MarketDataParser,
     FinancialMetricsParser,
     TechnicalData,
