@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACT Web Application - Trade Ratings</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
-    <!-- Displays the website logo in the page -->
-    <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
-    <!-- Link to the external CSS stylesheet for styling the login page -->
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
 </head>
 
@@ -43,22 +40,43 @@
 
         <div id="stocks-section">
             <h3>Technology Stocks</h3>
-            <div id="stocks-container"></div>
+            <select id="stock-select">
+                <option value="AAPL">Apple</option>
+                <option value="GOOG">Google</option>
+                <option value="MSFT">Microsoft</option>
+                <option value="AMZN">Amazon</option>
+                <option value="TSLA">Tesla</option>
+                <option value="META">Meta</option>
+                <option value="NVDA">NVIDIA</option>
+                <option value="AMD">AMD</option>
+                <option value="INTC">Intel</option>
+                <option value="NFLX">Netflix</option>
+                <option value="SPOT">Spotify</option>
+                <option value="ORCL">Oracle</option>
+                <option value="CSCO">Cisco</option>
+            </select>
+            <button id="get-stock-rating">Get Trade Rating</button>
         </div>
 
         <div id="cryptos-section">
             <h3>Cryptocurrencies</h3>
-            <div id="cryptos-container"></div>
+            <select id="crypto-select">
+                <option value="BTC">Bitcoin</option>
+                <option value="ETH">Ethereum</option>
+                <option value="XRP">Ripple</option>
+            </select>
+            <button id="get-crypto-rating">Get Trade Rating</button>
         </div>
 
-        <div id="trade-data-container"></div>
+        <div id="trade-data-container">
+            <h3>Trade Rating</h3>
+            <p id="trade-rating-text">Select a stock or cryptocurrency to view its trade rating.</p>
+        </div>
     </section>
 
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
-
-    <script src="ACT-Web.js"></script>
 </body>
 
 </html>
