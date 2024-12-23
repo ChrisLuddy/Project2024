@@ -567,6 +567,13 @@ Tests for integrations with external APIs like:
 
 `Note:` Mocking is used to avoid actual API calls.
 
+4. How to Run Tests
+
+Execute all tests with:
+```bash
+python manage.py test tests
+```
+
 ---
 
 ### Work in admin panel
@@ -588,7 +595,7 @@ In this project, **role-based permissions** are enforced to provide secure and r
 
 ---
 
-## Role Definitions
+#### Role Definitions
 
 1. **FundAdmin**:
    - Fund Administrators can manage assets and subscriptions associated with their own funds.
