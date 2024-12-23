@@ -1874,35 +1874,189 @@ button:hover, .btn:hover {
 
 This code enhances user-friendliness by creating a visually cohesive, responsive design that is easy to navigate and interact with, whether on desktop or mobile.
 
-### Ai
-### crewAI - Framework for creating and managing AI agents
+🤖 ACT-AI-Engine
+Advanced Market Analysis & Trading Intelligence
 
-crewAI will be used to create and manage AI agents that work together to accomplish complex tasks.
+📊 Overview
+The ACT-AI-Engine is a sophisticated artificial intelligence system designed for advanced market analysis and trading insights. It serves as the analytical backbone of the larger trading system, providing real-time market analysis, trading recommendations, and predictive insights for both traditional stocks and cryptocurrencies.
+⭐ Core Features
+The engine employs a multi-agent AI architecture powered by the CrewAI framework, combining different specialized agents to perform complex market analysis tasks. Each agent has specific roles and capabilities, working together to provide comprehensive market insights.
+Key features include:
 
-Key Features:
-- Agent Creation: Define specialized AI agents for different roles within the trading system
-- Task Management: Coordinate tasks between agents for efficient workflow
-- Communication: Enable inter-agent communication for collaborative problem-solving
-- Integration: Seamlessly integrate with other AI tools and APIs
+Real-time market data analysis
+Technical and fundamental analysis
+Trading opportunity identification
+Risk assessment and trade ratings
+Price predictions and forecasting
+Natural language chat interface for market queries
+Support for both cryptocurrency and traditional stock markets
 
-### Groq API - For fast language model inference
+🏗️ System Architecture
+AI Agents
+The system utilizes five specialized AI agents:
 
-Groq API is utilized for fast inference in time-sensitive trading operations.
+Researcher Agent
 
-Implementation:
-- Real-time Analysis: Process market data and news in real-time
-- Quick Decision Making: Generate rapid insights for trading strategies
-- Low-latency Responses: Ensure timely execution of trades
+Conducts deep market research
+Analyzes technical indicators
+Identifies market patterns and trends
+Provides unique market insights
 
-### OpenAI API - For advanced language model capabilities
 
-- OpenAI API provides advanced language model capabilities for complex analysis and decision-making at fast inference.
-- Provides entrypoint for ollama driven local models for integration with langchain & crewAI.
+Accountant Agent
 
-### Integration
+Calculates financial ratios
+Analyzes fundamental metrics
+Processes numerical market data
+Utilizes specialized calculator tools
 
-- Integrated AI functionalities for stock prediction and historical data analysis.
-- APIs like Yahoo Finance and Alpha Vantage are used for real-time and historical market data.
+
+Recommender Agent
+
+Generates trading recommendations
+Provides buy/sell/hold signals
+Assesses market opportunities
+Evaluates risk factors
+
+
+Blogger Agent
+
+Formats analysis reports
+Creates readable market summaries
+Structures technical content
+Produces clear documentation
+
+
+Chatbot Agent
+
+Handles natural language queries
+Provides market information
+Maintains conversation context
+Offers real-time market updates
+
+
+
+Data Integration
+The engine integrates with multiple market data providers:
+
+Yahoo Finance API
+Alpha Vantage
+Finnhub
+CoinGecko (for cryptocurrency data)
+
+Core Components
+
+AiAPI: Main interface for the AI engine
+TaskManager: Orchestrates AI agent operations
+MarketData: Handles market data retrieval and processing
+DataParsers: Processes and standardizes market data
+CalculatorTool: Performs financial calculations
+ChatbotTools: Manages natural language interactions
+
+🔍 System Outputs
+1. Chat Interface
+The chat interface provides natural language responses with real-time market data and analysis:
+```javascript
+{
+    "message": "What's the market sentiment for Microsoft?",
+    "response": "Okay, let's take a look at the market sentiment for Microsoft (MSFT). Currently, the stock is trading at $434.25, down 0.54% for the day as of 3:19 PM ET. The day's trading range has been between $432.83 and $437.65, with a volume of 8,270,924 shares traded.\n\nAnalyst recommendations show a very positive outlook for MSFT. Over the past three months, there have been a significant number of Buy and Strong Buy ratings, with very few Sell or Strong Sell ratings. The exact numbers vary slightly depending on the specific time period, but consistently show a very strong buy consensus. For example, over the past month, there were 13 Strong Buy, 37 Buy, 5 Hold, and zero Sell or Strong Sell ratings.\n\nIt's important to remember that analyst ratings represent opinions, and it's always best to consider other factors before making investment decisions. To help me provide you with more tailored insights, could you tell me what your investment timeframe is (short-term, long-term, etc.) and what your general investment strategy is like?",
+    "user_id": 1
+}
+```
+2. Trade Ratings
+The trade rating system provides a simple binary POSITIVE/NEGATIVE assessment:
+```javascript
+{
+    "symbol": "MSFT",
+    "rating": "NEGATIVE",
+    "user_id": 1
+}
+```
+4. Market Forecasts
+The forecast system provides detailed multi-timeframe analysis and predictions:
+```javascript
+{
+    "id": "forecast_id",
+    "forecast": "Price Prediction Analysis:\n\n1. Short-term Outlook (1-5 days):\n   - Price Target Range: $430 - $440\n   - Key Support Levels: $430, $425\n   - Key Resistance Levels: $438, $440\n   - Expected Volatility: Medium\n   - Confidence Level: 4/10\n   - Primary Drivers: Recent price consolidation, low trading volume suggesting indecision, potential for short-term price fluctuations based on news and investor sentiment. Lack of technical indicators severely limits confidence.\n\n2. Medium-term Outlook (1-3 weeks):\n   - Price Target Range: $425 - $450\n   - Key Support Levels: $425, $420\n   - Key Resistance Levels: $445, $450\n   - Expected Volatility: Medium\n   - Confidence Level: 5/10\n   - Primary Drivers: Underlying strong fundamentals will provide support. However, regulatory uncertainty and potential negative impacts from insider selling could exert downward pressure.\n\n[... Additional forecast details ...]\n\nFinal Verdict:\nGiven the strong fundamental performance of Microsoft, the long-term outlook remains positive, but the short-to-medium term is characterized by uncertainty. The lack of comprehensive technical data and the prevailing regulatory risks warrant caution.",
+    "user_id": 1
+}
+```
+🛠️ Setup & Configuration
+Dependencies
+Core Requirements
+```bash
+crewai==0.83.0
+crewai_tools==0.14.0
+Requests==2.32.3
+```
+Required API Keys
+The following API keys must be configured in the environment:
+```bash
+RAPIDAPI_KEY
+RAPIDAPI_HOST
+ALPHA_VANTAGE_API_KEY
+FINNHUB_API_KEY
+GEMINI_API_KEY
+```
+Installation
+
+Install required packages:
+
+```bash
+pip install -r requirements.txt
+```
+Set up environment variables:
+
+```bash
+export RAPIDAPI_KEY="your_key"
+export RAPIDAPI_HOST="your_host"
+export ALPHA_VANTAGE_API_KEY="your_key"
+export FINNHUB_API_KEY="your_key"
+export GEMINI_API_KEY="your_key"
+```
+💻 Usage
+Basic Implementation
+```python
+from act_ai_engine import AiAPI
+
+# Initialize the AI engine
+ai_engine = AiAPI()
+
+# Get market forecast
+forecast = ai_engine.get_forecast("forecast_id", "AAPL")
+
+# Get trade rating
+rating = ai_engine.get_trade_rating("AAPL")
+
+# Process chat message
+response = ai_engine.get_chat("What's the outlook for Bitcoin?")
+```
+Testing
+The engine includes comprehensive testing capabilities:
+```python
+# Run all tests
+ai_engine.run_all_tests()
+
+# Test specific functionality
+ai_engine.test_crypto_forecast()
+ai_engine.test_stock_forecast()
+ai_engine.test_chat()
+```
+⚠️ Important Notes
+Error Handling
+The engine implements comprehensive error handling:
+
+API connection error management
+Data validation and cleaning
+Graceful degradation when services are unavailable
+Detailed error logging and reporting
+
+Limitations
+
+API rate limits may affect real-time data availability
+Cryptocurrency data limited to major tokens
+Historical data depth varies by data provider
+Some features require premium API access
 
 
 ### Product Backlog
@@ -1979,4 +2133,3 @@ Here's a product backlog by sprint breakdown for the "ACT (Agentic Corporate Tra
     Number of Tasks: 3
     Total Hours: 10 hours
 
-**Please teams, improve this content, it's only sceleton.**
