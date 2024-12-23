@@ -316,7 +316,7 @@ class AiAPI:
             logger.error(f"Unexpected error in get_finnhub_stock_data: {e}", exc_info=True)
             return {"error": str(e)}
 
-    def get_finnhub_news(self, category: str = "general") -> List[Dict]:
+    def get_finnhub_news(self, category: str = "general") -> list[Dict]:
         """
         Fetch news from Finnhub API.
         """
