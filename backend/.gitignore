@@ -108,3 +108,5 @@ celerybeat-schedule
 # Windows
 Thumbs.db
 ehthumbs.db
+
+staticfiles

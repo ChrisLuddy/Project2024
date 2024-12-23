@@ -106,39 +106,6 @@ class PredictView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-# Serialiser for HistoryView
-class HistorySerializer(serializers.Serializer):
-    symbol = serializers.CharField(required=True, max_length=10)
-
-class HistoryView(APIView):
-    """
-    GET /api/act-ai/history/
-    Returns the history for the specified character.
-    """
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        try:
-            # Retrieving query parameters
-            symbol = request.query_params.get('symbol')
-            if not symbol:
-                return Response({"error": "Symbol is required"}, status=status.HTTP_400_BAD_REQUEST)
-
-            # Retrieving history via BackendClient
-            client = BackendClient()
-            history = client.get_historical_data(symbol=symbol)
-
-            if history:
-                return Response(history, status=status.HTTP_200_OK)
-            return Response({"message": "No history found"}, status=status.HTTP_404_NOT_FOUND)
-
-        except Exception as e:
-            # Error Logging
-            logger.error(f"Error in HistoryView: {e}", exc_info=True)
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
 class TradeRatingView(APIView):
     """
     API endpoint to get the trade rating for a given symbol.

@@ -1151,45 +1151,6 @@ curl -X POST http://localhost:8000/api/act-ai/predict/ \
 * **503 Service Unavailable:** Yahoo API service is down or unreachable.
 
 
-#### AI-Powered History API:
-
-The History API endpoint provides historical stock data for the specified stock symbol.
-
-**URL:** `/api/act-ai/history/`
-
-**Request Method:** `GET`
-
-**Request Parameters:**
-- `symbol`: The stock ticker symbol (e.g., `AAPL` for Apple Inc.).
-
-```bash
-curl -X GET "http://localhost:8000/api/act-ai/history/?symbol=AAPL" \
--H "Authorization: Bearer JWT_TOKEN"
-```
-
-**Example Response:**
-
-```json
-{
-    "history": [
-        {"date": "2024-12-01", "price": 205.5},
-        {"date": "2024-12-02", "price": 207.0}
-    ]
-}
-```
-
-**Response Fields:**
-
-- **`history`**: Historical stock price data.
-  - **`date`**: Date of the historical price.
-  - **`price`**: Closing price of the stock on the given date.
-
-**Error Handling:**
-
-* **401 Unauthorized:** Ensure your token is valid and included in the Authorization header.
-* **400 Bad Request:** Ensure ``symbol`` query parameter is included.
-
-
 #### AI-Powered Trade Rating Endpoint:
 
 This AI-powered endpoint provides the trade rating information for a given stock symbol. The trade rating is based on various analytics and insights related to the specified symbol.

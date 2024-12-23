@@ -31,7 +31,7 @@ FIREBASE_CREDENTIALS_PATH = os.path.join(BASE_DIR, 'config', os.getenv('FIREBASE
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'testserver',
@@ -176,3 +176,5 @@ STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 FRONTEND_URL = os.getenv('FRONTEND_URL')
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'

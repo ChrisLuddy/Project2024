@@ -4,7 +4,6 @@ from .views import PredictView, HistoryView, TradeRatingView, FinnhubStockDataVi
 
 urlpatterns = [
     path('predict/', PredictView.as_view(), name='predict'),
-    path('history/', HistoryView.as_view(), name='history'),
     path('trade-rating/', TradeRatingView.as_view(), name='trade_rating'),
     path('stock-data/', FinnhubStockDataView.as_view(), name='stock_data'),
     path('stock-news/', FinnhubNewsView.as_view(), name='stock_news'),
