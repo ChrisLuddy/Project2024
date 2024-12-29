@@ -24,11 +24,19 @@
     </header>
 
     <nav>
-        <!-- Unordered list of navigation links -->
         <ul id="nav-links">
             <li><a href="ACT-Homepage.html">Home</a></li>
             <li><a href="ACT-Login.html">Login</a></li>
             <li><a href="ACT-Register.html">Register</a></li>
+            <li class="auth-required"><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li class="auth-required"><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
+            <li class="auth-required"><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li class="auth-required"><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li class="auth-required"><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li class="auth-required"><a href="ACT-Yahoo-News.html">News</a></li>
+            <li class="auth-required"><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li class="auth-required"><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li class="auth-required"><a href="ACT-Reports.html">Reports</a></li>
             <li><a href="ACT-Reviews.html">Review</a></li>
             <li><a href="ACT-Support.html">Support</a></li>
             <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
@@ -40,22 +48,7 @@
         <!-- Secondary heading for the contact support form -->
         <h1>Contact Support</h1>
         <img src="images/ACT-Support.png" alt="ACT Support Image" style="width: 100%; max-width: 600px; height: auto;">
-        <!-- Form element for users to send a support message, action points to the contact support endpoint -->
-        <form action="/contact-support" method="POST"> 
             <p>To contact customer service, please call us at: <a href="tel:+353863123456">+353 (863) 123-456</a></p>
-            <!-- Label for the email input field -->
-            <label for="email">Email:</label>
-            <!-- Input field for user email, required for form submission -->
-            <input type="email" id="email" name="email" required> 
-
-            <!-- Label for the message input field -->
-            <label for="message">Message:</label>
-            <!-- Textarea for user to write their message, required for form submission -->
-            <textarea id="message" name="message" required></textarea> 
-
-            <!-- Submit button for sending the support message -->
-            <button type="submit">Send</button> 
-        </form>
     </section>
     </main>
 
