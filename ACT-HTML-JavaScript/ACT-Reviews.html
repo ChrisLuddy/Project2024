@@ -6,15 +6,12 @@
     <!-- Meta tag for responsive design, ensures proper scaling on different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title of the webpage displayed in the browser tab -->
-    <title>ACT Web Application - Home</title>
+    <title>ACT Web Application - Reviews</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
     <!-- Displays the website logo in the page -->
     <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
     <!-- Link to the external CSS stylesheet for styling the webpage -->
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
-    <script src="ACT-Math.js"></script>
-    <script src="ACT-Web.js"></script>
-
 </head>
 
 <body>
@@ -45,47 +42,23 @@
     </nav>
 
     <main>
-    <section>
-    <div class="container">
-        <!-- Main heading for the page -->
-        <h1>Rate Our Application</h1>
-
-        <img src="images/ACT-Reviews.png" alt="ACT Reviews Image" style="width: 100%; max-width: 600px; height: auto;">
-        
-        <!-- Section for displaying the rating stars -->
-        <div class="rating">
-            <h2>Your Rating:</h2> <!-- Subheading for the rating section -->
-
-            <!-- Container for star rating system -->
-            <div class="stars" id="star-rating"> 
-                <span class="star" data-value="1">&#9733;</span> <!-- Star icon for 1 rating -->
-                <span class="star" data-value="2">&#9733;</span> <!-- Star icon for 2 rating -->
-                <span class="star" data-value="3">&#9733;</span> <!-- Star icon for 3 rating -->
-                <span class="star" data-value="4">&#9733;</span> <!-- Star icon for 4 rating -->
-                <span class="star" data-value="5">&#9733;</span> <!-- Star icon for 5 rating -->
+        <section>
+            <div class="container">
+                <!-- Main heading for the page -->
+                <h1>Rate Our Application</h1>
+                <img src="images/ACT-Reviews.png" alt="ACT Reviews Image" style="width: 100%; max-width: 600px; height: auto;">
+                <div class="review">
+                    <h2>Your Review:</h2>
+                    <textarea id="review-text" rows="5" placeholder="Write your review here..."></textarea>
+                </div>
+                <p style="margin-bottom: 30px;"></p>
+                <button id="submit-review">Submit Review</button>
+                <!-- Section to display all the submitted reviews -->
+                <h2>Reviews:</h2> 
+                <div id="reviews-container"></div>
             </div>
-
-            <!-- Display the selected rating dynamically (initially showing "None") -->
-            <div id="selected-rating">Selected Rating: None</div>
-        </div>
-        <div class="review">
-            <h2>Your Review:</h2>
-            <textarea id="review-text" rows="5" placeholder="Write your review here..."></textarea>
-        </div>
-        <div class="comment">
-            <h2>Comment:</h2> <!-- Subheading for the comment section -->
-            <!-- Text input field for users to write a comment about the review -->
-            <input type="text" id="comment" placeholder="Add a comment...">
-        </div>
-        <p style="margin-bottom: 30px;"></p>
-        <button id="submit-review">Submit Review</button>
-
-        <!-- Section to display all the submitted reviews -->
-        <h2>Reviews:</h2> 
-        <div id="reviews-container"></div>
-
-    <script src="ACT-Web.js"></script>
-    </section>
+        </section>
+    </main>
+    <script src="ACT-Web.js"></script>  
 </body>
-
 </html>
