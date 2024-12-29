@@ -1,103 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACT Web Application - Fund Manager Dashboard</title>
     <link rel="icon" href="images/ACT-Logo.png" type="image/png" />
+    <script src="ACT-Web.js" defer></script>
     <img src="images/ACT-Logo.png" alt="Website Logo" id="website-logo" width="150" height="150" style="display: block; margin: 0 auto;">
     <link rel="stylesheet" href="css/ACT-Web-styles.css">
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
-    
-    <!-- PDF and CSV Export Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 
 <body>
-    <body>
-        <header>
-            <div class="logo">ACT Web Application</div>
-        </header>
-    
-        <nav>
-            <ul id="nav-links">
-                <li><a href="ACT-Homepage.html">Home</a></li>
-                <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
-                <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
-                <li><a href="ACT-Login.html">Login</a></li>
-                <li><a href="ACT-Register.html">Register</a></li>
-                <li><a href="ACT-Portfolio.html">Portfolio</a></li>
-                <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
-                <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
-                <li><a href="ACT-Yahoo-News.html">News</a></li>
-                <li><a href="ACT-Price-System.html">Price Alert System</a></li>
-                <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
-                <li><a href="ACT-Reports.html">Reports</a></li>
-                <li><a href="ACT-Reviews.html">Review</a></li>
-                <li><a href="ACT-Support.html">Support</a></li>
-                <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>
-            </ul>
-        </nav>
-    
-        <section id="dashboard">
-            <h2>Fund Manager Dashboard</h2>
-            <img src="images/ACT-Fund-Manager.png" alt="ACT Fund Manager Dashboard Image" style="width: 100%; max-width: 600px; height: auto;">
+    <header>
+        <div class="logo">ACT Web Application</div>
+    </header>
 
-    <section id="dashboard">
+    <nav>
+        <ul id="nav-links">
+            <li><a href="ACT-Homepage.html">Home</a></li>
+            <li><a href="ACT-Fund-Manager.html">Fund Manager Dashboard</a></li>
+            <li><a href="ACT-Fund-Manager-Welcome.html">Fund Manager Homepage</a></li>
+            <li><a href="ACT-Login.html">Login</a></li>
+            <li><a href="ACT-Register.html">Register</a></li>
+            <li><a href="ACT-Portfolio.html">Portfolio</a></li>
+            <li><a href="ACT-Trade-Ratings.html">Trade Ratings</a></li>
+            <li><a href="ACT-Purchase.html">Buy/Sell</a></li>
+            <li><a href="ACT-Yahoo-News.html">News</a></li>
+            <li><a href="ACT-Price-System.html">Price Alert System</a></li>
+            <li><a href="ACT-AI-Predictions.html">AI Predictions</a></li>
+            <li><a href="ACT-Reports.html">Reports</a></li>
+            <li><a href="ACT-Reviews.html">Review</a></li>
+            <li><a href="ACT-Support.html">Support</a></li>
+            <li><a href="ACT-AI-Chatbot.html">AI Chatbot</a></li>    
+        </ul>
+   </nav>
+
+   <section id="fund-manager">
         <h2>Fund Manager Dashboard</h2>
-        <div class="search-filter">
-            <input type="text" id="search-bar" placeholder="Search clients..." oninput="filterClients()">
-            <select id="sort" onchange="sortClients()">
-                <option value="name">Name</option>
-                <option value="funds">Number of Funds</option>
-                <option value="portfolios">Number of Portfolios</option>
-            </select>
+        <img src="images/ACT-Fund-Manager.png" alt="ACT Fund Manager Dashboard Image" style="width: 100%; max-width: 600px; height: auto;">
+
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search Clients, Stocks, or Cryptos" oninput="searchData()">
         </div>
 
-        <!-- Update the table structure in your HTML -->
-        <div id="client-records" class="client-records-container">
-            <h3>Client Records</h3>
-            <table id="client-table">
-                <thead>
-                    <tr>
-                        <th>Client Name</th>
-                        <th>Portfolios</th>
-                        <th>Total Assets</th>
-                        <th>Last Updated</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="client-table-body">
-                    <!-- Client data will be dynamically inserted here -->
-                </tbody>
-            </table>
+        <h3>Clients</h3>
+        <ul id="client-list">
+            <!-- Client list will be dynamically populated -->
+        </ul>
 
-            <div class="download-buttons">
-                <button id="download-pdf" onclick="downloadPDF()">Download PDF</button>
-                <button id="download-csv" onclick="downloadCSV()">Download CSV</button>
-            </div>
-        </div>
+        <h3>Technology Stocks</h3>
+        <ul id="stock-list">
+            <!-- Tech stocks will be dynamically populated -->
+        </ul>
 
-        <!-- Loading Indicator -->
-        <div id="loading-indicator" class="loading-spinner" style="display: none;">
-            Loading client data...
-        </div>
-
-        <!-- Error Message Display -->
-        <div id="error-message" class="error-message" style="display: none;">
-        </div>
+        <h3>Cryptocurrencies</h3>
+        <ul id="crypto-list">
+            <!-- Cryptocurrencies will be dynamically populated -->
+        </ul>
     </section>
 
     <footer>
         <p>&copy; 2024 ACT Web Application. All Rights Reserved.</p>
     </footer>
 
-    <script src="ACT-Web.js"></script>
 </body>
+
 </html>
