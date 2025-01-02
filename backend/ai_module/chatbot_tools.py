@@ -1,11 +1,58 @@
 from crewai_tools import BaseTool
 from typing import ClassVar, Dict, Optional
+import re
 from pydantic import Field
 
 
 class StockDataTool(BaseTool):
     name: str = "StockDataTool"
-    description: str = "Fetches relevant market data for stocks and cryptocurrencies based on user queries"
+    description: str = """Fetches relevant market data for stocks and cryptocurrencies based on user queries
+    Functions at your disposal use the following query logic:  
+    # Check for trending crypto request
+    if any(phrase in query_lower for phrase in
+               ['trending ', 'trendy' , 'hot ', 'popular']):
+            return self.get_trending_crypto()
+
+        # Check for crypto-specific request
+        if any(word in query_lower for word in ['crypto', 'cryptocurrency', 'bitcoin', 'ethereum', 'coin']):
+            return self.get_crypto_data(query)
+    
+    Available stocks and cryptos include:
+    AVAILABLE_STOCKS: ClassVar[Dict[str, str]] = {
+        'AAPL': 'Apple',
+        'GOOG': 'Google',
+        'MSFT': 'Microsoft',
+        'AMZN': 'Amazon',
+        'TSLA': 'Tesla',
+        'META': 'Meta',
+        'NVDA': 'NVIDIA',
+        'AMD': 'AMD',
+        'INTC': 'Intel',
+        'NFLX': 'Netflix',
+        'SPOT': 'Spotify',
+        'ORCL': 'Oracle',
+        'CSCO': 'Cisco',
+        'BTC': 'Bitcoin',
+        'ETH': 'Ethereum',
+        'XRP': 'Ripple'
+    }
+
+    CRYPTOCURRENCIES: ClassVar[Dict[str, str]] = {
+        'BTC': 'Bitcoin',
+        'ETH': 'Ethereum',
+        'XRP': 'Ripple',
+        'USDT': 'Tether',
+        'BNB': 'Binance Coin',
+        'ADA': 'Cardano',
+        'SOL': 'Solana',
+        'DOT': 'Polkadot',
+        'DOGE': 'Dogecoin',
+        'AVAX': 'Avalanche'
+    }
+            """
+
+
+
 
 
     AVAILABLE_STOCKS: ClassVar[Dict[str, str]] = {
@@ -55,7 +102,7 @@ class StockDataTool(BaseTool):
 
         # Check for trending crypto request
         if any(phrase in query_lower for phrase in
-               ['trending crypto', 'trending cryptocurrencies', 'hot crypto', 'popular crypto']):
+               ['trending ', 'trendy' , 'hot ', 'popular']):
             return self.get_trending_crypto()
 
         # Check for crypto-specific request
@@ -89,9 +136,9 @@ class StockDataTool(BaseTool):
             response = ""
             for symbol in mentioned_cryptos:
                 # Get crypto data from market_data
-                crypto_quote = self.market_data.get_crypto_quote(symbol)
-                crypto_metrics = self.market_data.get_crypto_metrics(symbol)
-                crypto_news = self.market_data.get_crypto_news(symbol)
+                crypto_quote = self.market_data.get_coingecko_price(symbol)
+
+
 
                 response += f"\nData for {self.CRYPTOCURRENCIES[symbol]} ({symbol}):\n"
                 response += f"Current Price Data: {crypto_quote}\n"
@@ -111,20 +158,35 @@ class StockDataTool(BaseTool):
         Fetch data about trending cryptocurrencies
         """
         try:
-            trending_data = self.market_data.get_trending_crypto()
+            trending_data = self.market_data.get_coingecko_trending_coins()
 
             response = "🔥 Trending Cryptocurrencies:\n"
 
-            if isinstance(trending_data, dict) and 'trending' in trending_data:
-                for crypto in trending_data['trending']:
-                    symbol = crypto.get('symbol', 'N/A')
-                    name = crypto.get('name', 'N/A')
-                    price_change = crypto.get('price_change_24h', 'N/A')
-                    volume = crypto.get('volume_24h', 'N/A')
+            if isinstance(trending_data, dict) and 'coins' in trending_data:
+                for coin in trending_data['coins']:
+                    item = coin['item']
+                    name = item.get('name', 'N/A')
+                    symbol = item.get('symbol', 'N/A')
+
+                    # Price and market data is nested under 'data'
+                    data = item.get('data', {})
+                    price_btc = item.get('price_btc', 'N/A')
+                    market_cap = data.get('market_cap', 'N/A')
+
+                    # Get 24h price change - using USD as reference
+                    price_changes = data.get('price_change_percentage_24h', {})
+                    price_change_24h = price_changes.get('usd', 'N/A')
 
                     response += f"\n{name} ({symbol}):\n"
-                    response += f"24h Price Change: {price_change}%\n"
-                    response += f"24h Volume: ${volume:,.2f}\n"
+                    response += f"Price (BTC): {price_btc}\n"
+                    response += f"Market Cap: {market_cap}\n"
+                    response += f"24h Price Change: {price_change_24h:.2f}%\n"
+
+                    # Add project description if available
+                    content = item.get('content', {})
+                    if content and content.get('description'):
+                        response += f"Description: {content['description']}\n"
+
             else:
                 response += "Unable to fetch trending data at the moment.\n"
 
