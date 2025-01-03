@@ -1,8 +1,8 @@
 from .AI_Crew import AI_Crew
 from .market_data import MarketData
-from .data_parsers import ForecastParser, NewsParser
 import logging
 from datetime import datetime
+from .chatbot_tools import StockDataTool
 from .chatbot_tools import StockDataTool
 
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ class TaskManager:
         # Build context from conversation history and any available market data
         context = "\n".join(self.conversation_history[-5:])  # Last 5 messages for context
         if context_data:
-            context += f"\n\nPrevious conversation context: \n{context_data}"
+            context += f"\n\nRelevant Market Data:\n{context_data}"
 
         return [self.ai_crew.create_task(
             agent=self.ai_crew.agents[4],
@@ -81,10 +81,10 @@ class TaskManager:
         """
         try:
 
-
+            context_data = None
 
             # Create and execute chat task
-            chat_task = self._create_chat_task(user_message, self.conversation_history)
+            chat_task = self._create_chat_task(user_message, context_data)
             response = self.ai_crew.kickoff(chat_task)
 
             # Update conversation history
@@ -398,9 +398,7 @@ class TaskManager:
 
         return self.ai_crew.create_task(
             agent=self.ai_crew.agents[2],
-            description=f"""Previous research tasks have been thorough with a
-            large degree of data leading to concise, high quality data you are provided provided and you should be confident in its accuracy.
-             Analyze all available data and generate a comprehensive price prediction. Use the following data for analysis:
+            description=f"""Analyze all available data and generate a comprehensive price prediction. Use the following data for analysis:
 
     {data}
 
