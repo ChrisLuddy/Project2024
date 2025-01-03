@@ -3,8 +3,8 @@ import requests
 from datetime import datetime
 import logging
 from typing import Optional, Dict
-from ai_module.data_parsers import ForecastParser
-from ai_module.data_parsers import (
+from .data_parsers import ForecastParser
+from .data_parsers import (
     MarketDataParser,
     TechnicalData,
     MarketPrice,
