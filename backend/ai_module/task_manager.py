@@ -3,7 +3,6 @@ from .market_data import MarketData
 import logging
 from datetime import datetime
 from .chatbot_tools import StockDataTool
-from .chatbot_tools import StockDataTool
 
 logger = logging.getLogger(__name__)
 
