@@ -1,9 +1,9 @@
-from AI_Crew import AI_Crew
-from market_data import MarketData
-from data_parsers import ForecastParser, NewsParser
+from .AI_Crew import AI_Crew
+from .market_data import MarketData
+from .data_parsers import ForecastParser, NewsParser
 import logging
 from datetime import datetime
-from chatbot_tools import StockDataTool
+from .chatbot_tools import StockDataTool
 
 logger = logging.getLogger(__name__)
 

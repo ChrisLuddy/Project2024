@@ -2,9 +2,9 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, LLM
-from calculator_tool import CalculatorTool
-from chatbot_tools import StockDataTool
-from market_data import MarketData
+from .calculator_tool import CalculatorTool
+from .chatbot_tools import StockDataTool
+from .market_data import MarketData
 
 
 
